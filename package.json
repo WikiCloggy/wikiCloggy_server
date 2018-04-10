@@ -1,0 +1,9 @@
+{
+  "name": "DangDang",
+  "version": "1.0.0",
+  "dependencies": {
+    "ejs": "~2.4.1",
+    "express": "~4.13.1",
+    "mongoose": "^5.0.14"
+  }
+}
