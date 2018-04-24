@@ -1,9 +1,10 @@
 {
   "name": "DangDang",
   "version": "1.0.0",
+  "private": true,
   "dependencies": {
-    "ejs": "~2.4.1",
+    "body-parser": "^1.18.2",
     "express": "~4.13.1",
-    "mongoose": "^5.0.14"
+    "mongoose": "^5.0.14",
   }
 }
