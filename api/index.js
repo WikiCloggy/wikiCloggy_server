@@ -7,6 +7,6 @@ const user = require('./user');
 router.use('/board', board);
 router.use('/log', log);
 // router.use('/result', result);
-router.use('/login', user);
+router.use('/user', user);
 
 module.exports = router;

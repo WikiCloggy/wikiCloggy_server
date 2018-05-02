@@ -24,15 +24,29 @@ const UserSchema = new Schema({
 UserSchema.plugin(autoIncrement.plugin, 'user');
 
 UserSchema.statics = {
+
   create(data, callback) {
-    const making = new this(data);
-    making.save(callback);
-  }
-}
+    const user = new this(data);
+    user.save(callback);
+  },
+
+  // getProfile(query, callback) {
+  //   this.findOne(query, callback);
+  //   // this.findOne(query, callback).populate('author', 'common.name common.avatar_path').populate('comments.author', 'common.name common.avatar_path');
+  // },
+
+  editProfile(data, callback) {
+
+  },
+
+  uploadImage(data, callback) {
+
+  },
+};
 
 const user = mongoose.model('user', UserSchema);
 
-// ?? why use
+
 module.exports = {
   User: user,
 };

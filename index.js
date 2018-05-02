@@ -3,9 +3,7 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const config = require('./config/server.config');
 const app = express();
-
-
-
+const autoIncrement = require('mongoose-auto-increment');
 // [CONFIGURE SERVER PORT]
 const port = process.env.PORT || 8080;
 
@@ -21,6 +19,7 @@ db.on('error', console.error);
 db.once('open', () => {
   console.log('Connected to mongodb server');
 });
+autoIncrement.initialize(db);
 
 // [CONFIGURE APP TO USE bodyParser]
 app.use(bodyParser.urlencoded({ extended: true }));

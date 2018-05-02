@@ -28,7 +28,7 @@ ResultSchema.statics = {
 
 const result = mongoose.model('result', ResultSchema);
 
-// ?? why use
+
 module.exports = {
   Result: result,
 };
