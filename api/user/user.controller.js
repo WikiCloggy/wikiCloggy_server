@@ -62,14 +62,13 @@ exports.uploadAvatar = (req, res) => {
       User.find({user_code : req.params.id})
         .then(()=> {
           User.update({user_code:req.params.id},
-            {$set:{avatar_path:`${req.files.avatarFile[0].destination.match(/[^/]+/g).pop()}/${req.files.avatarFile[0].filename}` }}},
+            {$set:{avatar_path:`${req.files.avatarFile[0].destination.match(/[^/]+/g).pop()}/${req.files.avatarFile[0].filename}` }},
           (err, result) => {
             if(!err){
               return res.json(result);
             }
           }
-        })
-      })
+        )})
     })
     .then(() => {
       if(req.user.avatar_path) {
