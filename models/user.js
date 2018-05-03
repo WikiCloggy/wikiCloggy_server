@@ -20,27 +20,16 @@ const UserSchema = new Schema({
   }],
 });
 
-
 UserSchema.plugin(autoIncrement.plugin, 'user');
 
 UserSchema.statics = {
-
   create(data, callback) {
     const user = new this(data);
     user.save(callback);
   },
-
-  editProfile(data, callback) {
-
-  },
-
-  uploadImage(data, callback) {
-
-  },
 };
 
 const user = mongoose.model('user', UserSchema);
-
 
 module.exports = {
   User: user,
