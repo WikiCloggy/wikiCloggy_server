@@ -5,7 +5,7 @@ const config = require('./config/server.config');
 const app = express();
 const autoIncrement = require('mongoose-auto-increment');
 // [CONFIGURE SERVER PORT]
-const port = process.env.PORT || 8080;
+const port = process.env.PORT || 3000;
 
 // [RUN SERVER]
 const server = app.listen(port, function(){

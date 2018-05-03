@@ -7,8 +7,9 @@ const User = require('../../models/user');
 router.post('/',userCtrl.create);
 
 // make & edit profile by user code
+router.get('/show',userCtrl.showAll);
 router.get('/details/:id', userCtrl.getProfile);
 router.post('/profile/:id', userCtrl.editProfile);
-router.post('/profile/files/:id',userCtrl.uploadImage); // profile photo
+router.post('/profile/files/:id',userCtrl.uploadAvatar); // profile photo
 
 module.exports = router;

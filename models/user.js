@@ -10,8 +10,8 @@ const { Schema } = mongoose;
 
 const UserSchema = new Schema({
   user_code: { type: String, required: true },
-  img_path: {type: String },
-  name: { type: String, required: true},
+  avatar_path: {type: String },
+  name: { type: String },
   dogs: [{
     thick: { type: String},
     gender: { type: String},
@@ -29,11 +29,6 @@ UserSchema.statics = {
     const user = new this(data);
     user.save(callback);
   },
-
-  // getProfile(query, callback) {
-  //   this.findOne(query, callback);
-  //   // this.findOne(query, callback).populate('author', 'common.name common.avatar_path').populate('comments.author', 'common.name common.avatar_path');
-  // },
 
   editProfile(data, callback) {
 
