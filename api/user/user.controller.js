@@ -18,8 +18,7 @@ exports.create = (req, res) => {
       }); // 존재하지 않는 회원 id는 새로 생성.
     }
     else {
-      // return 회원 정보??
-      return res.status(200).json({ success : false , message : 'user already exist'});
+      return res.json(user);
     }
   });
 };
