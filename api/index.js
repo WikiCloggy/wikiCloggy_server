@@ -8,5 +8,4 @@ router.use('/board', board);
 router.use('/log', log);
 // router.use('/result', result);
 router.use('/user', user);
-
 module.exports = router;

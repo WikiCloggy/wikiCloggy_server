@@ -6,4 +6,11 @@ exports.dbUrl = function(){
 // mongod
 
 
-// docker 사용?
+// server url
+// http://ec2-13-125-187-247.ap-northeast-2.compute.amazonaws.com:3000/api/
+
+// persist Server
+// screen
+
+// reconnect persist SERVER
+// screen -r
