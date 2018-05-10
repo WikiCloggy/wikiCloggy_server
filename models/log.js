@@ -10,9 +10,9 @@ const { Schema } = mongoose;
 
 const LogSchema = new Schema({
   user_code: { type: String, required: true},
-  img_path: {type: String, required: true},
+  img_path: {type: String},
   createdAt: {type: Date, default: Date.now},
-  keyword: { type: String},
+  result_ref: { type: String },
 });
 
 
@@ -27,7 +27,6 @@ LogSchema.statics = {
 
 const log = mongoose.model('log', LogSchema);
 
-// ?? why use
 module.exports = {
   Log: log,
 };

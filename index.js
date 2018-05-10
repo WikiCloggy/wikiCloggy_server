@@ -27,4 +27,5 @@ app.use(bodyParser.json());
 app.use('/api',require('./api'));
 
 module.exports = app;
-// 일단 회원 정보 받아오는 것 부터 진행.
+
+// 사용자 로그 부분 진행중

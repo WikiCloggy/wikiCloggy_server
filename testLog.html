@@ -1,0 +1,51 @@
+<html>
+<head>
+</head>
+<body>
+  <div class="js-form">
+    <input type="text" id="user_code" placeholder="user_code"class="js-user-code">
+    <input type="file" id="file" class="js-input-file">
+    <input type="submit" class="js-submit" value="submit">
+  </div>
+  <script type="text/javascript">
+    const file = document.querySelector('.js-input-file');
+    const form = document.querySelector('.js-form');
+    const submit = document.querySelector('.js-submit');
+    const user_code = document.querySelector('.js-user-code');
+
+    function uploadAvatar(id) {
+      const data = new FormData();
+      const name= file.files[0].name.split('.')[0];
+      const ext= file.files[0].name.split('.').pop();
+      data.append('logFile', file.files[0], `${id}.${ext}`);
+      const config = {
+        method : 'POST',
+        body: data,
+        credentials: 'same-origin',
+      };
+
+      return fetch(`/api/log/files/${id}`, config)
+        .then((res) => {
+          if (res.status >= 200 && res.status < 300) {
+            return res.json();
+          }
+        })
+        .catch((ex) => {
+          console.log('request failed', ex);
+        });
+    }
+
+
+    const handleSubmit = (event) => {
+      event.preventDefault();
+      const check = file.files[0].name.split('.').pop().toLowerCase();
+      if (check !== 'bmp' && check !== 'jpg' && check !== 'png') {
+        file.value = '';
+        alert('Select avatar file!'); // eslint-disable-line no-alert
+      }
+      Promise.all([uploadAvatar(user_code.value)]);
+    };
+    submit.addEventListener('click', handleSubmit);
+  </script>
+</body>
+</html>
