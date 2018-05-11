@@ -17,7 +17,7 @@
       const data = new FormData();
       const name= file.files[0].name.split('.')[0];
       const ext= file.files[0].name.split('.').pop();
-      data.append('avatarFile', file.files[0], `${id}.${ext}`);
+      data.append('avatarFile', file.files[0]);
       const config = {
         method : 'POST',
         body: data,

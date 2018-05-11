@@ -8,11 +8,12 @@ function uploadAvatar(req, res) {
       cb(null, './files/avatar/');
     },
     filename: function (request, file, cb) {
+      console.log(request);
       const uploadedFile = {
         name: file.originalname.split('.')[0],
         ext: file.originalname.split('.').pop(),
       };
-      cb(null, `${uploadedFile.name}-avatar.${uploadedFile.ext}`);
+      cb(null, `${request.params.id}-avatar.${uploadedFile.ext}`);
     },
   });
   const upload = multer({ storage : storage }).fields([{ name: 'avatarFile' }]);
