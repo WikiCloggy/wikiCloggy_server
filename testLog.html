@@ -13,11 +13,11 @@
     const submit = document.querySelector('.js-submit');
     const user_code = document.querySelector('.js-user-code');
 
-    function uploadAvatar(id) {
+    function uploadFile(id) {
       const data = new FormData();
-      const name= file.files[0].name.split('.')[0];
-      const ext= file.files[0].name.split('.').pop();
-      data.append('logFile', file.files[0], `${id}.${ext}`);
+
+      data.append('logFile', file.files[0]);
+
       const config = {
         method : 'POST',
         body: data,
@@ -34,16 +34,46 @@
           console.log('request failed', ex);
         });
     }
-
+    function createUserLog() {
+      const json = { 'user_code' : user_code.value };
+      const config = {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(json),
+        credentials: 'same-origin',
+      };
+      return fetch('/api/log/', config)
+        .then((res) => {
+          if (res.status >= 200 && res.status < 300) {
+            return res.json();
+          }
+          const error = new Error(res.statusText);
+          error.res = res;
+          throw error;
+        })
+        .catch((ex) => {
+          console.log('form request failed', ex); // eslint-disable-line no-console
+        })
+        .then((json) => {
+          if (json) {
+            uploadFile(json._id); // eslint-disable-line no-underscore-dangle
+          }
+        })
+        .catch((f) => {
+          console.log('file upload failed', f); // eslint-disable-line no-console
+        });
+    }
 
     const handleSubmit = (event) => {
       event.preventDefault();
       const check = file.files[0].name.split('.').pop().toLowerCase();
       if (check !== 'bmp' && check !== 'jpg' && check !== 'png') {
         file.value = '';
-        alert('Select avatar file!'); // eslint-disable-line no-alert
+        alert('Select img file!'); // eslint-disable-line no-alert
       }
-      Promise.all([uploadAvatar(user_code.value)]);
+      Promise.all([createUserLog()]);
     };
     submit.addEventListener('click', handleSubmit);
   </script>

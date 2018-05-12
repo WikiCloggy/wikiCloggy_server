@@ -12,6 +12,7 @@ router.delete('/:id', logCtrl.delete);
 
 // fetch log, get log info from server
 // user = user_code , id = _id
+router.get('/show', logCtrl.showAll);
 router.get('/list/:user', logCtrl.get);
 router.get('/details/:id', logCtrl.getDetail);
 

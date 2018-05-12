@@ -62,7 +62,6 @@ exports.editProfile = (req, res) => {
 exports.uploadAvatar = (req, res) => {
   upload(req, res)
     .then((files) => {
-      console.log(req.files);
       User.where({user_code : req.params.id})
       .update({ $set : {avatar_path: `${req.files.avatarFile[0].destination.match(/[^/]+/g).pop()}/${req.files.avatarFile[0].filename}` } }).exec()
       .then(() => {

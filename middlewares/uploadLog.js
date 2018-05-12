@@ -2,7 +2,7 @@
 
 const multer = require('multer');
 
-function uploadAvatar(req, res) {
+function uploadLog(req, res) {
   const storage = multer.diskStorage({
     destination: function (request, file, cb) {
       cb(null, './files/log/');
@@ -29,4 +29,4 @@ function uploadAvatar(req, res) {
   return promise;
 }
 
-module.exports = uploadAvatar;
+module.exports = uploadLog;

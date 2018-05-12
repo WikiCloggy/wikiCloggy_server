@@ -8,7 +8,6 @@ function uploadAvatar(req, res) {
       cb(null, './files/avatar/');
     },
     filename: function (request, file, cb) {
-      console.log(request);
       const uploadedFile = {
         name: file.originalname.split('.')[0],
         ext: file.originalname.split('.').pop(),

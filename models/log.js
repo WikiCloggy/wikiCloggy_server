@@ -20,10 +20,11 @@ LogSchema.plugin(autoIncrement.plugin, 'log');
 
 LogSchema.statics = {
   create(data, callback) {
-    const writing = new this(data);
-    writing.save(callback);
-  }
-}
+    const log = new this(data);
+    log.save(callback);
+  },
+
+};
 
 const log = mongoose.model('log', LogSchema);
 
