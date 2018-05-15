@@ -29,4 +29,6 @@ router.get('/upload', function(req, res) {
   });
 });
 
+router.delete('/:id', userCtrl.delete);
+
 module.exports = router;

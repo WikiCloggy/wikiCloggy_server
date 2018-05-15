@@ -23,6 +23,14 @@ exports.create = (req, res) => {
   });
 };
 
+exports.delete = (req, res) => {
+  User.findOneAndDelete({_id: req.params.id}, (err, result) => {
+    if(!err) {
+    return res.json(result);
+  };
+  return res.json({});
+  });
+}
 // 회원 프로필 관리
 
 // 모든 회원 정보 가져오기, 확인을 위한 함수, 필요 없음
