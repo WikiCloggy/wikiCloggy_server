@@ -9,7 +9,7 @@ const upload = require('../../middlewares/uploadAvatar');
 exports.create = (req, res) => {
 // user code가 이미 서버 디비에 존재하는지 확인 : 없다면 생성, 있다면 패스
   User.find({user_code : req.body.user_code}, function (err, user) {
-    if(err) return res.status(404).send('User query failed');
+    if(err) return res.json({});
     else if(user == '') {
       User.create(req.body, (err, result) => {
         if(!err) {
@@ -32,7 +32,7 @@ exports.showAll = (req, res) => {
     if(!err) {
       return res.json(result);
     }
-    return res.status(500).send(err);
+    return res.json({});
   });
 }
 
@@ -40,7 +40,7 @@ exports.showAll = (req, res) => {
 //api/user/details/id
 exports.getProfile = (req, res) => {
   User.find({user_code : req.params.id}, (err, result) => {
-    if (err) return res.status(500).send(err);
+    if (err) return res.json({});
     return res.json(result);
   });
 };
@@ -53,7 +53,7 @@ exports.editProfile = (req, res) => {
       if(!err) {
         return res.json(result);
       }
-      else return res.status(404).send('User query failed');
+      else return res.json({});
     });
 };
 
@@ -68,7 +68,7 @@ exports.uploadAvatar = (req, res) => {
         res.json(files);
       })
       .catch((err) => {
-        res.status(500).json({err : err, message : 'there is no such user_code'});
+        return res.json({});
       });
     })
     .catch((err) => {

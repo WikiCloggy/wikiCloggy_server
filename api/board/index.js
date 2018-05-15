@@ -3,22 +3,21 @@ const express = require('express');
 const router = express.Router();
 const boardCtrl = require('./board.controller');
 
-// 검색어로 찾기
-router.get('details:/id',boardCtrl.getByValue);
-// 게시글 목록 불러오기
-// router.get('/list', boardCtrl.getAll);
-// router.get('/list/:page',boardCtrl.getMore);
+// 선택 글 보기
+router.get('details:/id',boardCtrl.getDetail);
 
+// 유저 아이디로 보기
+router.get('/list:user', boardCtrl.getAll);
 
 // post create edit delete
 router.post('/', boardCtrl.create);
-router.post('/file', boardCtrl.uploadFile);
-router.patch('/:id',boardCtrl.update);
-router.delete('/delete/:id',boardCtrl.delete);
+router.post('/files/:id', boardCtrl.uploadFile);
+router.post('/:id',boardCtrl.updatePost);
+router.delete('/delete/:id',boardCtrl.deletePost);
 
 // comment create edit delete
-// router.post('/comments',boardCtrl.createComment);
-// router.patch('/comments/:id',boardCtrl.updateComment);
-// router.delete('/delete/:id/:comment', boardCtrl.deleteComment);
+router.post('/comments',boardCtrl.createComment);
+router.post('/comments/:id',boardCtrl.updateComment);
+router.delete('/delete/:id/:comment', boardCtrl.deleteComment);
 
 module.exports = router;

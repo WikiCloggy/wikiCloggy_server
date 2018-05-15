@@ -3,7 +3,7 @@ const path = require('path');
 const { Board } = require('../../models/board');
 
 // 게시글 검색 정보 찾아오기
-exports.getByValue = (req, res) => {
+exports.getDetail = (req, res) => {
   // 수정 필요 찾으려고 하는 지표 설정
   // get post by id
   Board.getByvalue({_id: req.params.id}, (err, board)=> {
@@ -12,6 +12,10 @@ exports.getByValue = (req, res) => {
 
     return res.json(result);
   });
+};
+
+exports.getAll = (req, res) => {
+
 };
 
 //post create edit delete
@@ -34,29 +38,29 @@ exports.uploadFile = (req, res) => {
 }
 
 // 게시글 수정하기
-exports.update = (req, res) => {
+exports.updatePost = (req, res) => {
 
 }
 
 // 게시글 지우기
-exports.delete = (req, res) => {
+exports.deletePost = (req, res) => {
 
 }
 
 
-//commnet create edit delete
+//comment create edit delete
 
 // 댓글 생성하기
-exports.createCommnet = (req, res) => {
+exports.createComment = (req, res) => {
 
 }
 
 // 댓글 수정하기
-exports.updateCommnet = (req, res) => {
+exports.updateComment = (req, res) => {
 
 }
 
 // 댓글 삭제하기
-exports.deleteCommnet = (req, res) => {
+exports.deleteComment = (req, res) => {
 
 }
