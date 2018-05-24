@@ -3,7 +3,7 @@ const path = require('path');
 const { Log } = require('../../models/log');
 const { User } = require('../../models/user');
 const upload = require('../../middlewares/uploadLog');
-
+const config = require('../../config/server.config');
 // 로그 생성
 // /api/log/
 exports.create = (req, res) => {
@@ -38,7 +38,7 @@ exports.uploadFile = (req, res) => {
   upload(req, res)
     .then((files) => {
       Log.where({_id : req.params.id})
-      .update({ $set : {img_path: `${req.files.logFile[0].destination.match(/[^/]+/g).pop()}/${req.files.logFile[0].filename}` } }).exec()
+      .update({ $set : {img_path: `${config.serverUrl()}files${req.files.logFile[0].destination.match(/[^/]+/g).pop()}/${req.files.logFile[0].filename}` } }).exec()
       .then(() => {
         res.json(files);
       })

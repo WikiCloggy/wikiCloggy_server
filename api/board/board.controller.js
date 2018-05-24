@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const { Board } = require('../../models/board');
-
+const config = require('../../config/server.config');
 // 게시글 검색 정보 찾아오기
 exports.getDetail = (req, res) => {
   // 수정 필요 찾으려고 하는 지표 설정
