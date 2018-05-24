@@ -7,13 +7,14 @@ const upload = require('../../middlewares/uploadAvatar');
 // 회원 생성
 // /api/user/
 exports.create = (req, res) => {
+  console.log("req : ", req.body);
 // user code가 이미 서버 디비에 존재하는지 확인 : 없다면 생성, 있다면 패스
   User.find({user_code : req.body.user_code}, function (err, user) {
     if(err) return res.json({});
     else if(user == '') {
       User.create(req.body, (err, result) => {
         if(!err) {
-          return res.json(result);
+          return  res.json(result);
         }
       }); // 존재하지 않는 회원 id는 새로 생성.
     }
@@ -59,7 +60,7 @@ exports.editProfile = (req, res) => {
   User.findOneAndUpdate(
     {user_code: req.params.id}, { $set:req.body }, (err, result) => {
       if(!err) {
-        return res.json(result);
+        return fetch(`/api/user/profile/files/${req.body.user_code}`);
       }
       else return res.json({});
     });
@@ -71,7 +72,7 @@ exports.uploadAvatar = (req, res) => {
   upload(req, res)
     .then((files) => {
       User.where({user_code : req.params.id})
-      .update({ $set : {avatar_path: `${req.files.avatarFile[0].destination.match(/[^/]+/g).pop()}/${req.files.avatarFile[0].filename}` } }).exec()
+      .update({ $set : {avatar_path: `files/${req.files.avatarFile[0].destination.match(/[^/]+/g).pop()}/${req.files.avatarFile[0].filename}` } }).exec()
       .then(() => {
         res.json(files);
       })

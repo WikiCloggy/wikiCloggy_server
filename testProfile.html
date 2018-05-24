@@ -5,7 +5,7 @@
   <div class="js-form">
     <input type="text" id="user_code" placeholder="user_code"class="js-user-code">
     <input type="file" id="file" class="js-input-file">
-    <input type="submit" class="js-submit" value="submit">
+    <input type="submit" class="js-submit" value="submit">z
   </div>
   <script type="text/javascript">
     const file = document.querySelector('.js-input-file');
@@ -15,8 +15,6 @@
 
     function uploadAvatar(id) {
       const data = new FormData();
-      const name= file.files[0].name.split('.')[0];
-      const ext= file.files[0].name.split('.').pop();
       data.append('avatarFile', file.files[0]);
       const config = {
         method : 'POST',

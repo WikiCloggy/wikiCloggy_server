@@ -25,7 +25,7 @@ autoIncrement.initialize(db);
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use('/api',require('./api'));
-
+app.use('/files', express.static(__dirname + '/files'));
 module.exports = app;
 
 // 사용자 로그 부분 진행중
