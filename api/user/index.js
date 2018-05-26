@@ -11,9 +11,11 @@ router.post('/',userCtrl.create);
 
 // make & edit profile by user code
 router.get('/show',userCtrl.showAll);
-router.get('/details/:id', userCtrl.getProfile);
+router.get('/profile/:id', userCtrl.getProfile);
 router.post('/profile/:id', userCtrl.editProfile);
 router.post('/profile/files/:id', userCtrl.uploadAvatar); // profile photo
+
+router.delete('/:id', userCtrl.delete);
 
 // for test in web
 router.get('/upload', function(req, res) {
@@ -28,7 +30,5 @@ router.get('/upload', function(req, res) {
     res.end();
   });
 });
-
-router.delete('/:id', userCtrl.delete);
 
 module.exports = router;

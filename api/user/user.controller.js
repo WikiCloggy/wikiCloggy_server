@@ -7,7 +7,6 @@ const config = require('../../config/server.config');
 // 회원 생성
 // /api/user/
 exports.create = (req, res) => {
-  console.log("req : ", req.body);
 // user code가 이미 서버 디비에 존재하는지 확인 : 없다면 생성, 있다면 패스
   User.find({user_code : req.body.user_code}, function (err, user) {
     if(err) return res.json({});
@@ -60,7 +59,7 @@ exports.editProfile = (req, res) => {
   User.findOneAndUpdate(
     {user_code: req.params.id}, { $set:req.body }, (err, result) => {
       if(!err) {
-        return fetch(`/api/user/profile/files/${req.body.user_code}`);
+        return res.json(result);
       }
       else return res.json({});
     });
@@ -74,7 +73,10 @@ exports.uploadAvatar = (req, res) => {
       User.where({user_code : req.params.id})
       .update({ $set : {avatar_path: `${config.serverUrl()}files/${req.files.avatarFile[0].destination.match(/[^/]+/g).pop()}/${req.files.avatarFile[0].filename}` } }).exec()
       .then(() => {
-        res.json(files);
+        User.find({user_code : req.params.id}, (err, result) => {
+          if (err) return res.json({});
+          return res.json(result);
+        });
       })
       .catch((err) => {
         return res.json({});
