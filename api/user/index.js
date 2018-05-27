@@ -21,7 +21,7 @@ router.post('/profile/files/:id', userCtrl.uploadAvatar); // profile photo
 // This command is for admin*************************************
 
 // delete user
-router.delete('admin/delete/:id', userCtrl.delete);
+router.delete('/admin/delete/:id', userCtrl.delete);
 
 // Get All User
 router.get('/admin/show',userCtrl.showAll);

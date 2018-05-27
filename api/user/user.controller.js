@@ -13,12 +13,12 @@ exports.create = (req, res) => {
     else if(user == '') {
       User.create(req.body, (err, result) => {
         if(!err) {
-          return  res.json(result);
+          return  res.json({result : "ok"});
         }
       }); // 존재하지 않는 회원 id는 새로 생성.
     }
     else {
-      return res.json(user);
+      return res.json({result : "fail"});
     }
   });
 };
@@ -28,16 +28,16 @@ exports.getUser = (req, res) => {
     if(!err) {
       return res.json(result);
     }
-    return res.json({});
+    return res.json({result : "fail"});
   })
 }
 
 exports.delete = (req, res) => {
   User.findOneAndDelete({_id: req.params.id}, (err, result) => {
     if(!err) {
-    return res.json(result);
+    return res.json({result : "ok"});
   }
-  return res.json({});
+  return res.json({result : "fail"});
   });
 }
 // 회원 프로필 관리
@@ -49,7 +49,7 @@ exports.showAll = (req, res) => {
     if(!err) {
       return res.json(result);
     }
-    return res.json({});
+    return res.json({result : "fail"});
   });
 }
 
@@ -61,7 +61,7 @@ exports.editProfile = (req, res) => {
       if(!err) {
         return res.json(result);
       }
-      else return res.json({});
+      else return res.json({ result : "fail"});
     });
 };
 
@@ -79,7 +79,7 @@ exports.uploadAvatar = (req, res) => {
         });
       })
       .catch((err) => {
-        return res.json({});
+        return res.json({result : "fail"});
       });
     })
     .catch((err) => {
