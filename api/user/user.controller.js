@@ -23,11 +23,20 @@ exports.create = (req, res) => {
   });
 };
 
+exports.getUser = (req, res) => {
+  User.find({user_code : req.params.id}, (err, result) => {
+    if(!err) {
+      return res.json(result);
+    }
+    return res.json({});
+  })
+}
+
 exports.delete = (req, res) => {
   User.findOneAndDelete({_id: req.params.id}, (err, result) => {
     if(!err) {
     return res.json(result);
-  };
+  }
   return res.json({});
   });
 }
@@ -43,15 +52,6 @@ exports.showAll = (req, res) => {
     return res.json({});
   });
 }
-
-// 해당 user_code를 조회하여 회원 정보 가져오기
-//api/user/details/id
-exports.getProfile = (req, res) => {
-  User.find({user_code : req.params.id}, (err, result) => {
-    if (err) return res.json({});
-    return res.json(result);
-  });
-};
 
 // user_code를 조회하여 해당 회원 프로필 변경하기
 //api/user/profile/id

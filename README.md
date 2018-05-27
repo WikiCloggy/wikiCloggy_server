@@ -6,31 +6,31 @@
 ## User
 user_code, avartar_path, name
 
-### (Get) 모든 회원 정보 보기 (test 용도 : 데이터가 들어갔는지 확인할 때 사용)
-  : `/api/user/show`
+### (Post) User create (필요 data : user_code, name, profile file)
+  : `/api/user/`  <br/>
+	ex) {user_code : hyeon} <br/>
+    -> user code 존재할 시, user데이터 반환 or 서버 사용자 등록 <br/>
 
+### (Post) Profile file upload
+  : `/api/user/profile/files/:user_code` <br/>
+
+### (Post) 해당 user_code의 Profile 정보 수정
+  : `/api/user/profile/:user_code` <br/>
+  	 ex) /api/user/profile/hyeon <br/>
+  		{ name : hyeongyeong, dog : [ name : puppy] } <br/>
 
 ### (Get) 특정 user_code 의 정보 보기 (user_code = id)
   : `/api/user/details/:user_code` <br/>
 	 ex) /api/user/details/hyeon <br/>
 
 
-### (Post) 해당 user_code의 Profile 정보 수정
-  : `/api/user/profile/:user_code` <br/>
-	 ex) /api/user/profile/hyeon <br/>
-		{ name : hyeongyeong, dog : [ name : puppy] } <br/>
-
-### (Post) Profile file upload
-  : `/api/user/profile/files/:user_code` <br/>
-
-### (Post) User create (필요 data : user_code, name, profile file)
-  : `/api/user/`  <br/>
-	ex) {user_code : hyeon} <br/>
-    -> user code 존재할 시, user데이터 반환 or 서버 사용자 등록 <br/>
+<hr> 
+## User For admin
 
 ### (Delete) User Delete (필요 data : db id) - Admin
-  : `/api/user/:id`
-
+  : `/api/user/admin/delete/:id`
+### (Get) 모든 회원 정보 보기 (test 용도 : 데이터가 들어갔는지 확인할 때 사용)
+  : `/api/user/admin/show`
 
 ### (Web test) 웹으로 프로필 사진 test를 원할시 사용 - Admin
   : `/api/user/upload` <br/>

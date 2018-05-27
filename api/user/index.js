@@ -9,16 +9,25 @@ const fs = require ('fs');
 // create user
 router.post('/',userCtrl.create);
 
+// get user info
+router.get('/details/:id',userCtrl.getUser);
+
 // make & edit profile by user code
-router.get('/show',userCtrl.showAll);
-router.get('/profile/:id', userCtrl.getProfile);
 router.post('/profile/:id', userCtrl.editProfile);
 router.post('/profile/files/:id', userCtrl.uploadAvatar); // profile photo
 
-router.delete('/:id', userCtrl.delete);
 
-// for test in web
-router.get('/upload', function(req, res) {
+
+// This command is for admin*************************************
+
+// delete user
+router.delete('admin/delete/:id', userCtrl.delete);
+
+// Get All User
+router.get('/admin/show',userCtrl.showAll);
+
+// upload profile image in web
+router.get('/admin/upload', function(req, res) {
   res.writeHead(200, {'Content-Type': 'text/html'});
   fs.readFile('testProfile.html', null, function(error, data) {
     if(error) {
