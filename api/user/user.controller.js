@@ -71,7 +71,7 @@ exports.uploadAvatar = (req, res) => {
   upload(req, res)
     .then((files) => {
       User.where({user_code : req.params.id})
-      .update({ $set : {avatar_path: `${config.serverUrl()}files/${req.files.avatarFile[0].destination.match(/[^/]+/g).pop()}/${req.files.avatarFile[0].filename}` } }).exec()
+      .update({ $set : {avatar_path: `${config.serverUrl()}files/${req.files.avatarFile[0].destination.match(/[^/]+/g).pop()}/${req.files.avatarFile[0].filename}` }}).exec()
       .then(() => {
         User.find({user_code : req.params.id}, (err, result) => {
           if (err) return res.json({});

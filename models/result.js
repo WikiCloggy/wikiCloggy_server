@@ -10,9 +10,9 @@ const { Schema } = mongoose;
 
 const ResultSchema = new Schema({
   keyword: { type: String, required: true},
+  analysis: { type: String, required: true},
   ref: [{
     img_path: { type: String, required: true},
-    result: { type: String, required: true},
   }],
 });
 

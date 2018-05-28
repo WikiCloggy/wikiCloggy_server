@@ -12,14 +12,15 @@ router.delete('/:id', logCtrl.delete);
 
 // fetch log, get log info from server
 // user = user_code , id = _id
-router.get('/show', logCtrl.showAll);
-router.get('/list/:user', logCtrl.get);
+
+router.get('/list/:user_code', logCtrl.get);
 router.get('/details/:id', logCtrl.getDetail);
 
 // 데이터 양이 많아질 경우 page 로 불러오는 데이터 양을 한정해야함. - 추후 수정 예정
 
-// for test in web
-// /api/log/upload
+// for admin
+router.get('/admin/show', logCtrl.showAll);
+
 router.get('/upload', function(req, res) {
   res.writeHead(200, {'Content-Type': 'text/html'});
   fs.readFile('testLog.html', null, function(error, data) {

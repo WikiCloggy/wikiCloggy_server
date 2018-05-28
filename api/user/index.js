@@ -3,7 +3,6 @@
 const express = require('express');
 const router = express.Router();
 const userCtrl = require('./user.controller');
-const User = require('../../models/user');
 const fs = require ('fs');
 
 // create user

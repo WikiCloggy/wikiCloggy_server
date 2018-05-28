@@ -3,7 +3,7 @@
 *기울어진 글* - 추가 예정
 
 
-## User
+## User *완료*
 user_code, avartar_path, name
 
 ### (Post) User create (필요 data : user_code, name, profile file)
@@ -24,8 +24,7 @@ user_code, avartar_path, name
 	 ex) /api/user/details/hyeon <br/>
 
 
-<hr> 
-## User For admin
+## User admin
 
 ### (Delete) User Delete (필요 data : db id) - Admin
   : `/api/user/admin/delete/:id`
@@ -33,46 +32,67 @@ user_code, avartar_path, name
   : `/api/user/admin/show`
 
 ### (Web test) 웹으로 프로필 사진 test를 원할시 사용 - Admin
-  : `/api/user/upload` <br/>
+  : `/api/user/admin/upload` <br/>
 
 
-추가 되어야 하는 코드 <br/>
-1.
+## Result  *완료* **admin을 위한 URL - 키워드 생성할 때 사용**
+keyword, img[], analysis
+
+### (POST) Create Keyword (Keyword, analysis, img[])
+  : `/api/result/`<br/>
+    ex) <br/>
+
+### (POST) ADD Files to Keyword
+  : `/api/result/files/:id` <br/>
+    ex) api/result/files/신남 <br/>
+
+### (POST) Edit Keyword Informaion
+  : `/api/result/admin/edit/:id`
+
+### (DELETE) Delete Keyword
+  : `/api/result/admin/delete/:id` <br/>
+
+### (GET) Show All Keyword Info
+  : `/api/result/admin/show`<br/>
+
+### (Web test) 웹으로 keyword create
+  : `/api/result/admin/upload` <br/>
 
 
-## Log
-user_code, img_path, createdAt, *result*
+## Log  *진행중* **사용자가 카메라를 사용하여 질문할 때 사용**
+user_code, img_path, createdAt, result ID
 
-### (POST) log 생성 (필요 data : user_code, log file, *result*)
+### (POST) log 생성 (필요 data : user_code, File)
   : `/api/log/` <br/>
-    ex) {user_code : hyeon} <br/>
-    -> user_code가 User DB에 존재할 시, log db에 해당 정보 저장 <br/>
 
-### (POST) log 생성시 사용자 요청 파일 path 설정 (id = db 고유 id, log생성될 때 반한되는 db id )
+### (POST) File path (id = db id)
   : `/api/log/files/:id` <br/>
 
 ### (DELETE) log 정보 삭제 (id = db id)
-  : `/api/log/:id` <br/>
-
-### (GET) 모든 log 정보 받아오기 (test 용도 : 데이터가 들어갔는지 확인할 때 사용)
-  : `/api/log/show` <br/>
+  : `/api/log/delete/:id` <br/>
 
 ### (GET) 해당 user log 받아오기 (user = user_code)
   : `/api/log/list/:user_code` <br/>
     ex) /api/log/list/hyeon <br/>
 
 ### (GET) 해당 log detail 받아오기 (id = db id)
-  : `/api/log/profile/:id` <br/>
+  : `/api/log/details/:id` <br/>
     ex) /api/log/details/0 <br/>
 
+## Query admin
+
+### (GET) 모든 log 정보 받아오기 (test 용도 : 데이터가 들어갔는지 확인할 때 사용)
+  : `/api/log/admin/show` <br/>
+
 ### (Web test) 웹으로 log create test를 원할시 사용
-  : `/api/log/upload` <br/>
+  : `/api/log/admin/upload` <br/>
 
   추가 되어야 하는 코드 <br/>
   1. DA로 분석된 데이터 저장하는 코드 필요. </br>
+  2. log 불러올 시, 5개씩 클라이언트에 보내주는 코드 필요 </br>
 
 
-## Board
+## Board *수정예정*
 title, content, img_path, *comments* , author, createdAt
 
 ### (GET) 선택된 게시글 보기 (id = db id)
