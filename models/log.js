@@ -12,7 +12,7 @@ const LogSchema = new Schema({
   user_code: { type: String, required: true},
   img_path: {type: String},
   createdAt: {type: Date, default: Date.now},
-  keyword: { type: String },
+  result_id : {type : String},
 });
 
 

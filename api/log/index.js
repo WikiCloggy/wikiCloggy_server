@@ -21,7 +21,7 @@ router.get('/details/:id', logCtrl.getDetail);
 // for admin
 router.get('/admin/show', logCtrl.showAll);
 
-router.get('/upload', function(req, res) {
+router.get('/admin/upload', function(req, res) {
   res.writeHead(200, {'Content-Type': 'text/html'});
   fs.readFile('testLog.html', null, function(error, data) {
     if(error) {

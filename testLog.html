@@ -54,15 +54,16 @@
           throw error;
         })
         .catch((ex) => {
-          console.log('form request failed', ex); // eslint-disable-line no-console
+          console.log('form request failed', ex);
         })
         .then((json) => {
           if (json) {
-            uploadFile(json._id); // eslint-disable-line no-underscore-dangle
+            console.log(json);
+            uploadFile(json._id);
           }
         })
         .catch((f) => {
-          console.log('file upload failed', f); // eslint-disable-line no-console
+          console.log('file upload failed', f);
         });
     }
 
@@ -71,7 +72,7 @@
       const check = file.files[0].name.split('.').pop().toLowerCase();
       if (check !== 'bmp' && check !== 'jpg' && check !== 'png') {
         file.value = '';
-        alert('Select img file!'); // eslint-disable-line no-alert
+        alert('Select img file!');
       }
       Promise.all([createUserLog()]);
     };

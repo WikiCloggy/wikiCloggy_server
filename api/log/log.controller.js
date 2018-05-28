@@ -2,6 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const { Log } = require('../../models/log');
 const { User } = require('../../models/user');
+const {Result} = require('../../models/result');
 const upload = require('../../middlewares/uploadLog');
 const config = require('../../config/server.config');
 // 로그 생성
@@ -40,7 +41,17 @@ exports.uploadFile = (req, res) => {
       Log.where({_id : req.params.id})
       .update({ $set : {img_path: `${config.serverUrl()}files${req.files.logFile[0].destination.match(/[^/]+/g).pop()}/${req.files.logFile[0].filename}` } }).exec()
       .then(() => {
-        res.json(files);
+        // 기술에서 keyword json array 형식으로 받아와서 jsonarrya 에 0 번째 있는 keyword 값을 넣어줌.
+        Result.find({keyword:"기분좋음"}, (err, keyword) => {
+          if(!err) {
+            Log.findOneAndUpdate({_id : req.params.id}, { $set : {result_id : keyword._id}}, (err, result) => {
+              if(!err) {
+                return res.json(keyword);
+              }
+            });
+          }
+          else console.log("keyword not exist");
+        });
       })
       .catch((err) => {
         res.status(500).json({err : err, message : 'the data not exist'});

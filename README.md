@@ -40,11 +40,9 @@ keyword, img[], analysis
 
 ### (POST) Create Keyword (Keyword, analysis, img[])
   : `/api/result/`<br/>
-    ex) <br/>
 
 ### (POST) ADD Files to Keyword
   : `/api/result/files/:id` <br/>
-    ex) api/result/files/신남 <br/>
 
 ### (POST) Edit Keyword Informaion
   : `/api/result/admin/edit/:id`
