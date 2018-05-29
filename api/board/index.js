@@ -7,7 +7,7 @@ const boardCtrl = require('./board.controller');
 router.get('details:/id',boardCtrl.getDetail);
 
 // 유저 아이디로 보기
-router.get('/list:user', boardCtrl.getAll);
+router.get('/log/:user', boardCtrl.getAll);
 
 // post create edit delete
 router.post('/', boardCtrl.create);

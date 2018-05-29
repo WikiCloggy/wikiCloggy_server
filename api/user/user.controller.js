@@ -18,7 +18,7 @@ exports.create = (req, res) => {
       }); // 존재하지 않는 회원 id는 새로 생성.
     }
     else {
-      return res.json({result : "fail"});
+      return res.json({result : "exist"});
     }
   });
 };

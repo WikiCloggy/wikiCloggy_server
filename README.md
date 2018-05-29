@@ -3,7 +3,8 @@
 *기울어진 글* - 추가 예정
 
 
-## User *완료*
+## User
+*완료*
 user_code, avartar_path, name
 
 ### (Post) User create (필요 data : user_code, name, profile file)
@@ -35,7 +36,8 @@ user_code, avartar_path, name
   : `/api/user/admin/upload` <br/>
 
 
-## Result  *완료* **admin을 위한 URL - 키워드 생성할 때 사용**
+## Result  
+*완료* **admin을 위한 URL - 키워드 생성할 때 사용**
 keyword, img[], analysis
 
 ### (POST) Create Keyword (Keyword, analysis, img[])
@@ -57,7 +59,8 @@ keyword, img[], analysis
   : `/api/result/admin/upload` <br/>
 
 
-## Log  *진행중* **사용자가 카메라를 사용하여 질문할 때 사용**
+## Log  
+*연동중* **사용자가 카메라를 사용하여 질문할 때 사용**
 user_code, img_path, createdAt, result ID
 
 ### (POST) log 생성 (필요 data : user_code, File)
@@ -90,7 +93,8 @@ user_code, img_path, createdAt, result ID
   2. log 불러올 시, 5개씩 클라이언트에 보내주는 코드 필요 </br>
 
 
-## Board *수정예정*
+## Board
+*수정예정*
 title, content, img_path, *comments* , author, createdAt
 
 ### (GET) 선택된 게시글 보기 (id = db id)
@@ -98,7 +102,7 @@ title, content, img_path, *comments* , author, createdAt
     ex) /api/board/details/hyeon <br/>
 
 ### (GET) 현재 로그인 되어있는 사용자가 작성한 게시글 보기
-  : `/api/board/list/:user_code` <br/>
+  : `/api/board/log/:user_code` <br/>
     ex) /api/board/details/hyeon <br/>
 
 ### (POST) 게시글 생성하기 (필요 데이터 : 제목, 내용, 사진)
