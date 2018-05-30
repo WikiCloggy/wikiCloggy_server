@@ -59,24 +59,24 @@ keyword, img[], analysis
   : `/api/result/admin/upload` <br/>
 
 
-## Log  
+## Query
 *연동중* **사용자가 카메라를 사용하여 질문할 때 사용**
 user_code, img_path, createdAt, result ID
 
-### (POST) log 생성 (필요 data : user_code, File)
+### (POST) query log 생성 (필요 data : user_code, File)
   : `/api/log/` <br/>
 
 ### (POST) File path (id = db id)
   : `/api/log/files/:id` <br/>
 
-### (DELETE) log 정보 삭제 (id = db id)
+### (DELETE) query log 정보 삭제 (id = db id)
   : `/api/log/delete/:id` <br/>
 
-### (GET) 해당 user log 받아오기 (user = user_code)
+### (GET) 해당 user query log 받아오기 (user = user_code)
   : `/api/log/list/:user_code` <br/>
     ex) /api/log/list/hyeon <br/>
 
-### (GET) 해당 log detail 받아오기 (id = db id)
+### (GET) 해당 log query detail 받아오기 (id = db id)
   : `/api/log/details/:id` <br/>
     ex) /api/log/details/0 <br/>
 
@@ -96,7 +96,7 @@ user_code, img_path, createdAt, result ID
 ## Board
 *수정중*
 title, content, img_path,author, createdAt </br>
-*comments* = [commenter , body, adopted, keyword, createdAt] 
+*comments* = [commenter , body, adopted, keyword, createdAt]
 ### (GET) 선택된 게시글 보기 (id = db id)
   : `/api/board/details/:id` <br/>
     ex) /api/board/details/0 <br/>
