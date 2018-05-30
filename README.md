@@ -129,4 +129,4 @@ title, content, img_path, *comments* , author, createdAt
     ex)  <br/>
 
 추가 되어야 하는 코드 <br/>
-1.  </br>
+1.  댓글 기능 구현 및 게시글 Detail 가져올 때 populate하기.</br>

@@ -16,9 +16,7 @@ const BoardSchema = new Schema({
     commenter: {type: String, required: true},
     body: {type: String, required: true},
     adopted: {type: Boolean},
-    keywords: [{
-      word: {type: String, required: true},
-    }],
+    keywords: {type: String, required: true},
     createdAt : {type: Date, default: Date.now},
   }],
   author: { type: String },
