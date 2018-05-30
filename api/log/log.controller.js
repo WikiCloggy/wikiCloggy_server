@@ -108,7 +108,7 @@ exports.delete = (req, res) => {
 // 로그 받아오기
 // /api/log/list/:user
 exports.get = (req, res) => {
-  Log.find({user_code : req.params.user}, function (err, result) {
+  Log.find({user_code : req.params.user_code}, function (err, result) {
     if(!err) {
       return res.json(result);
     }
