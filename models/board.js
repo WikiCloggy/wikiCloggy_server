@@ -21,7 +21,7 @@ const BoardSchema = new Schema({
     }],
     createdAt : {type: Date, default: Date.now},
   }],
-  author: { type: mongoose.Schema.Types.ObjectId },
+  author: { type: String },
   createdAt: { type: Date, default: Date.now},
 });
 

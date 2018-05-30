@@ -94,12 +94,12 @@ user_code, img_path, createdAt, result ID
 
 
 ## Board
-*수정예정*
+*수정중*
 title, content, img_path, *comments* , author, createdAt
 
 ### (GET) 선택된 게시글 보기 (id = db id)
   : `/api/board/details/:id` <br/>
-    ex) /api/board/details/hyeon <br/>
+    ex) /api/board/details/0 <br/>
 
 ### (GET) 현재 로그인 되어있는 사용자가 작성한 게시글 보기
   : `/api/board/log/:user_code` <br/>
@@ -107,27 +107,22 @@ title, content, img_path, *comments* , author, createdAt
 
 ### (POST) 게시글 생성하기 (필요 데이터 : 제목, 내용, 사진)
   : `/api/board/` <br/>
-    ex)  <br/>
 
 ### (POST) 게시글 생성시 사용자 요청 파일 path 설정 (id = db 고유 id, 게시글 생성될 때 반한되는 db id )
   : `/api/board/files/:id` <br/>
-    ex)  <br/>
 
 ### (POST) 게시글 수정하기 (id = 게시글 db id)
-  : `/api/board/:id` <br/>
+  : `/api/board/edit/:id` <br/>
     ex)  <br/>
 
-### (POST) 덧글 작성하기
-  : `/api/board/comments` <br/>
-    ex)  <br/>
+### (POST) 덧글 작성하기 (id = 게시글 db id)
+  : `/api/board/comments/:id` <br/>
 
 ### (POST) 덧글 수정하기
-  : `/api/board/comments/:id` <br/>
-    ex)  <br/>
+  : `/api/board/comments/:id/:comment` <br/>
 
 ### (DELETE) 게시글 삭제하기
   : `/api/board/delete/:id` <br/>
-    ex)  <br/>
 
 ### (DELETE) 덧글 삭제하기
   : `/api/board/delete/:id/:comment` <br/>
