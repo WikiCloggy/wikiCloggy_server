@@ -5,6 +5,7 @@ const { User } = require('../../models/user');
 const {Result} = require('../../models/result');
 const upload = require('../../middlewares/uploadLog');
 const config = require('../../config/server.config');
+const PythonShell = require('python-shell');
 // 로그 생성
 // /api/log/
 exports.create = (req, res) => {
@@ -42,16 +43,45 @@ exports.uploadFile = (req, res) => {
       .update({ $set : {img_path: `${config.serverUrl()}files/${req.files.logFile[0].destination.match(/[^/]+/g).pop()}/${req.files.logFile[0].filename}` } }).exec()
       .then(() => {
         // 기술에서 keyword json array 형식으로 받아와서 jsonarrya 에 0 번째 있는 keyword 값을 넣어줌.
-        Result.find({keyword:"기분좋음"}, (err, keyword) => {
+        PythonShell.run("hi.py",{mode :'text', pythonOptions:['-u'],scriptPath:'',args:[ `files/${req.files.logFile[0].destination.match(/[^/]+/g).pop()}/${req.files.logFile[0].filename}`]}, function (err, results) {
+         if(err) console.log("err msg :"+ err);
+          // var filename = `${req.files.logFile[0].filename.split('.')[0]}` +'.json';
+          var filename = "sample.json"
+          var content = fs.readFileSync(filename);
+          var jsonContent = JSON.parse(content);
+          for(var i=0; i<jsonContent.length;i++) {
+            switch(jsonContent[i].keyword){
+              case "exciting" :
+                jsonContent[i].keyword = "기분좋음";
+                break;
+              case "very_aggressive" :
+                jsonContent[i].keyword = "공격적상태";
+                break;
+              case "stomachache" :
+                jsonContent[i].keyword = "췌장염";
+                break;
+              case "stressed" :
+                jsonContent[i].keyword ="긴장상태";
+                break;
+              case "butt_scooting" :
+                jsonContent[i].keyword = "항문낭염";
+                break;
+            }
+          }
+          Result.find({keyword: jsonContent[0].keyword}, (err, keyword) => {
           if(!err) {
             Log.findOneAndUpdate({_id : req.params.id}, { $set : {result_id : keyword._id}}, (err, result) => {
               if(!err) {
-                return res.json(keyword);
+                // console.log({percentage : jsonContent, path : keyword[0].ref, stat : keyword[0].analysis});
+               return res.json({percentage : jsonContent, path : keyword[0].ref, state : keyword[0].analysis});
               }
             });
           }
           else console.log("keyword not exist");
         });
+       });
+
+       
       })
       .catch((err) => {
         res.status(500).json({err : err, message : 'the data not exist'});

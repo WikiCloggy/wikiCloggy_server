@@ -1,0 +1,14 @@
+[
+	{
+		"keyword": "exciting",
+		"probability": "0.88"
+	},
+	{
+		"keyword": "stomachache",
+		"probability": "0.10"
+	},
+	{
+		"keyword": "stressed",
+		"probability": "0.02"
+	}
+]
