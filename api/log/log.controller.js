@@ -9,6 +9,7 @@ const PythonShell = require('python-shell');
 // 로그 생성
 // /api/log/
 exports.create = (req, res) => {
+  console.log("start!");
   User.find({user_code : req.body.user_code}, function (err, user) {
     if(err) return res.status(404).send('finding query failed');
     else if(user == '') {
@@ -17,6 +18,7 @@ exports.create = (req, res) => {
     else {
       Log.create(req.body, (err, result) => {
         if(!err) {
+          console.log("create");
           return res.json(result);
         }
       });
@@ -37,17 +39,20 @@ exports.showAll = (req, res) => {
 // 요청되었던 사진 정보 업로드
 // /api/log/file/:id
 exports.uploadFile = (req, res) => {
+  console.log("file");
   upload(req, res)
     .then((files) => {
+      console.log("here?"+req.params.id);
       Log.where({_id : req.params.id})
       .update({ $set : {img_path: `${config.serverUrl()}files/${req.files.logFile[0].destination.match(/[^/]+/g).pop()}/${req.files.logFile[0].filename}` } }).exec()
       .then(() => {
         // 기술에서 keyword json array 형식으로 받아와서 jsonarrya 에 0 번째 있는 keyword 값을 넣어줌.
-        PythonShell.run("hi.py",{mode :'text', pythonOptions:['-u'],scriptPath:'',args:[ `files/${req.files.logFile[0].destination.match(/[^/]+/g).pop()}/${req.files.logFile[0].filename}`]}, function (err, results) {
+        console.log("ready");
+        PythonShell.run("cloggy_state_estimator.py",{mode :'text', pythonOptions:['-u'],scriptPath:'../wikiCloggy_cloggy_state_estimator/',args:[ `files/${req.files.logFile[0].destination.match(/[^/]+/g).pop()}/${req.files.logFile[0].filename}`]}, function (err, results) {
          if(err) console.log("err msg :"+ err);
-          // var filename = `${req.files.logFile[0].filename.split('.')[0]}` +'.json';
-          var filename = "sample.json"
-          var content = fs.readFileSync(filename);
+          var filename = `${req.files.logFile[0].filename.split('.')[0]}` +'.json';
+          var content = fs.readFileSync('../wikiCloggy_cloggy_state_estimator/data/result/'+filename);
+          console.log("conent = " +content);
           var jsonContent = JSON.parse(content);
           for(var i=0; i<jsonContent.length;i++) {
             switch(jsonContent[i].keyword){
@@ -55,7 +60,7 @@ exports.uploadFile = (req, res) => {
                 jsonContent[i].keyword = "기분좋음";
                 break;
               case "very_aggressive" :
-                jsonContent[i].keyword = "공격적상태";
+                jsonContent[i].keyword = "공격적인상태";
                 break;
               case "stomachache" :
                 jsonContent[i].keyword = "췌장염";
@@ -72,7 +77,7 @@ exports.uploadFile = (req, res) => {
           if(!err) {
             Log.findOneAndUpdate({_id : req.params.id}, { $set : {result_id : keyword._id}}, (err, result) => {
               if(!err) {
-                // console.log({percentage : jsonContent, path : keyword[0].ref, stat : keyword[0].analysis});
+                // console.log({percentage : jsonContent, path : keyword.ref, stat : keyword.analysis});
                return res.json({percentage : jsonContent, path : keyword[0].ref, state : keyword[0].analysis});
               }
             });
@@ -81,7 +86,7 @@ exports.uploadFile = (req, res) => {
         });
        });
 
-       
+
       })
       .catch((err) => {
         res.status(500).json({err : err, message : 'the data not exist'});
