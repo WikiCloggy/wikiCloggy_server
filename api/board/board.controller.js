@@ -99,7 +99,6 @@ exports.createComment = (req, res) => {
     }
     else return res.json({result : "fail"});
   });
-  })
 }
 
 // 댓글 수정하기

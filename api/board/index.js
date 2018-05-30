@@ -21,7 +21,6 @@ router.post('/comments/:id/:comment',boardCtrl.updateComment);
 router.delete('/delete/:id/:comment', boardCtrl.deleteComment);
 
 // for admin
-
-router.get('/log/admin/show', boardCrtl.getAll);
+router.get('/admin/show', boardCtrl.getAll);
 
 module.exports = router;

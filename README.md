@@ -95,8 +95,8 @@ user_code, img_path, createdAt, result ID
 
 ## Board
 *수정중*
-title, content, img_path, *comments* , author, createdAt
-
+title, content, img_path,author, createdAt </br>
+*comments* = [commenter , body, adopted, keyword, createdAt] 
 ### (GET) 선택된 게시글 보기 (id = db id)
   : `/api/board/details/:id` <br/>
     ex) /api/board/details/0 <br/>
