@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-const { Board } = require('../../models/board');
+const Board  = require('../../models/board');
 const config = require('../../config/server.config');
 const upload = require('../../middlewares/uploadPost');
 // 게시글 검색 정보 찾아오기

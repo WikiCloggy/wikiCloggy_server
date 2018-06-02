@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-const { Result } = require('../../models/result');
+const  Result  = require('../../models/result');
 const upload = require('../../middlewares/uploadKeyword');
 const config = require('../../config/server.config');
 

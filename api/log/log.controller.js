@@ -1,8 +1,8 @@
 const fs = require('fs');
 const path = require('path');
-const { Log } = require('../../models/log');
-const { User } = require('../../models/user');
-const {Result} = require('../../models/result');
+const  Log  = require('../../models/log');
+const  User  = require('../../models/user');
+const Result = require('../../models/result');
 const upload = require('../../middlewares/uploadLog');
 const config = require('../../config/server.config');
 const PythonShell = require('python-shell');
