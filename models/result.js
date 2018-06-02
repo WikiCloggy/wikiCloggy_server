@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const autoIncrement = require('mongoose-auto-increment');
 
-const  Schema = mongoose;
+const {Schema } = mongoose;
 
 /**
 * @module result
