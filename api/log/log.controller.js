@@ -50,7 +50,7 @@ exports.uploadFile = (req, res) => {
       .then(() => {
         // 기술에서 keyword json array 형식으로 받아와서 jsonarrya 에 0 번째 있는 keyword 값을 넣어줌.
         console.log("ready");
-        PythonShell.run("start_estimate.py",{mode :'text', pythonOptions:['-u'],scriptPath:'../wikiCloggy_cloggy_state_estimator/',args:[ `files/${req.files.logFile[0].destination.match(/[^/]+/g).pop()}/${req.files.logFile[0].filename}`]}, function (err, results) {
+        PythonShell.run("start_estimate.py",{mode :'text', pythonOptions:['-u'],pythonPath: 'python3',scriptPath:'../wikiCloggy_cloggy_state_estimator/',args:[ `files/${req.files.logFile[0].destination.match(/[^/]+/g).pop()}/${req.files.logFile[0].filename}`]}, function (err, results) {
          if(err) console.log("err msg :"+ err);
           var filename = `${req.files.logFile[0].filename.split('.')[0]}` +'.json';
           var content = fs.readFileSync('../data/result/'+filename);
