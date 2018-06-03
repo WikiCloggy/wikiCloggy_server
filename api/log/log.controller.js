@@ -83,11 +83,11 @@ exports.uploadFile = (req, res) => {
               if(!err) {
                 // console.log({percentage : jsonContent, path : keyword.ref, stat : keyword.analysis});
                 if(success==true)
-                  return res.json({percentage : jsonContent, path : keyword[0].ref, state : keyword[0].analysis});
+                  return res.json({result : "success", percentage : jsonContent, path : keyword[0].ref, state : keyword[0].analysis});
               }
             });
           }
-          else return res.json({result :  "fail"}, {reason : "cloggy not found"});
+          else return res.json({result :  "fail", reason : "cloggy not found"});
         });
        });
 
