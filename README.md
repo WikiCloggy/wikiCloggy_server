@@ -60,7 +60,7 @@ keyword, img[], analysis
 
 
 ## Query
-*수정중* **사용자가 카메라를 사용하여 질문할 때 사용**
+*연동중* **사용자가 카메라를 사용하여 질문할 때 사용**
 user_code, img_path, createdAt, result ID
 
 ### (POST) query log 생성 (필요 data : user_code, File)
@@ -72,9 +72,13 @@ user_code, img_path, createdAt, result ID
 ### (DELETE) query log 정보 삭제 (id = db id)
   : `/api/log/delete/:id` <br/>
 
-### (GET) 해당 user query log 받아오기 (user = user_code)
+### (GET) 모든 user query log 받아오기 (user = user_code)
   : `/api/log/list/:user_code` <br/>
     ex) /api/log/list/hyeon <br/>
+
+### (GET) 페이지당 5개의 user query log 받아오기 (user = user_code, page)
+  : `/api/log/list/:user_code/:page` <br/>
+    ex) /api/log/list/hyeon/1 <br/>
 
 ### (GET) 해당 log query detail 받아오기 (id = db id)
   : `/api/log/details/:id` <br/>
@@ -87,10 +91,6 @@ user_code, img_path, createdAt, result ID
 
 ### (Web test) 웹으로 log create test를 원할시 사용
   : `/api/log/admin/upload` <br/>
-
-  추가 되어야 하는 코드 <br/>
-  1. DA로 분석된 데이터 저장하는 코드 필요. </br>
-  2. log 불러올 시, 5개씩 클라이언트에 보내주는 코드 필요 </br>
 
 
 ## Board

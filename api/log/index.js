@@ -13,7 +13,8 @@ router.delete('/:id', logCtrl.delete);
 // fetch log, get log info from server
 // user = user_code , id = _id
 
-router.get('/list/:user_code', logCtrl.get);
+router.get('/list/:user_code', logCtrl.getAll);
+router.get('/list/:user_code/:page', logCtrl.getMore);
 router.get('/details/:id', logCtrl.getDetail);
 
 // 데이터 양이 많아질 경우 page 로 불러오는 데이터 양을 한정해야함. - 추후 수정 예정

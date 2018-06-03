@@ -7,6 +7,7 @@ const upload = require('../../middlewares/uploadLog');
 const config = require('../../config/server.config');
 const PythonShell = require('python-shell');
 
+const npage = 5;
 
 // 로그 생성
 // /api/log/
@@ -54,7 +55,7 @@ exports.uploadFile = (req, res) => {
          if(err) console.log("err msg :"+ err);
           var filename = `${req.files.logFile[0].filename.split('.')[0]}` +'.json';
           var content = fs.readFileSync('../data/result/'+filename);
-          console.log("conent = " +content);
+          console.log("content = " +content);
           var jsonContent = JSON.parse(content);
           var success = false;
           for(var i=0; i<jsonContent.length;i++) {
@@ -123,13 +124,22 @@ exports.delete = (req, res) => {
 
 // 로그 받아오기
 // /api/log/list/:user
-exports.get = (req, res) => {
+exports.getAll = (req, res) => {
   Log.find({user_code : req.params.user_code}, function (err, result) {
     if(!err) {
       return res.json(result);
     }
     return res.status(500).send(err);
   });
+};
+
+const showPage = function(page) {
+  return Log.find({_id: req.params.id}).sort({"_id: -1 "}).skip((page-1)*npage).limit(npage);
+}
+
+// 한 페이지당 5개의 log 정보를 불러와서 return. sort 는 id 순으로.
+exports.getMore = (req, res) => {
+  return res.json({showPage(req.params.page)});
 };
 
 // 로그 자세히 보기
