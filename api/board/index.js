@@ -9,6 +9,9 @@ router.get('details/:id',boardCtrl.getDetail);
 // 유저 아이디로 보기, User_code
 router.get('/log/:user_code', boardCtrl.getLog);
 
+// 게시판 보기
+router.get('/list/:page',boardCtrl.getMore);
+
 // post create edit delete
 router.post('/', boardCtrl.create);
 router.post('/files/:id', boardCtrl.uploadFile);

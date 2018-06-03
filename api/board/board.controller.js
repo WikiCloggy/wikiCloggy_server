@@ -3,8 +3,10 @@ const path = require('path');
 const Board  = require('../../models/board');
 const config = require('../../config/server.config');
 const upload = require('../../middlewares/uploadPost');
-// 게시글 검색 정보 찾아오기
 
+const npage = 5 ; // 페이지당 5개 게시글 불러오기
+
+// 게시글 검색 정보 찾아오기
 exports.getDetail = (req, res) => {
   // 수정 필요 찾으려고 하는 지표 설정
   // get post by id
@@ -23,27 +25,26 @@ exports.getLog = (req, res) => {
   });
 };
 
-exports.getAll = (req, res) => {
+// 한 페이지당 5개의 log 정보를 불러와서 return. sort 는 id 순으로.
+exports.getMore = (req, res) => {
+  page = req.params.page;
   Board.find({}, function (err, result) {
     if(!err) {
-      return res.json(result);
+      return res.json({"title": result[0].title, "createdAt":result[0].createdAt, "img_path": result[0].img_path, "author": result[0].author});
     }
-    return res.json({result : "fail"});
-  });
+    return res.status(500).send(err);
+  }).sort({_id: -1 }).skip((page)*npage).limit(npage);
 };
 
 //post create edit delete
-
 // 게시글 생성하기
 exports.create = (req, res) => {
-
   Board.create(req.body, (err, result) => {
     if (!err) {
       return res.json(result);
     }
     return res.status(500).send(err); // 500 error
   });
-
 }
 
 // 게시글에 딸린 사진 저장하기
@@ -87,13 +88,21 @@ exports.deletePost = (req, res) => {
   });
 }
 
+// for admin
+exports.getAll = (req, res) => {
+  Board.find({}, function (err, result) {
+    if(!err) {
+      return res.json(result);
+    }
+    return res.json({result : "fail"});
+  });
+};
 
 //comment create edit delete
-
 // 댓글 생성하기
 exports.createComment = (req, res) => {
   Board.findOneAndUpdate({ _id : req.params.id } ,{ $push : {comments :{commenter:req.body.user_code , body : req.body.body,
-  adopted : req.body.adopted, keywords: req.body.keywords}}},
+  adopted : req.body.adopted, keywords: req.body.keyword}}},
   (err, result) => {
     if(!err) {
       return res.json({result : "ok"});

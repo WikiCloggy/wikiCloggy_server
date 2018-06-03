@@ -3,7 +3,6 @@ exports.dbUrl = function(){
 };
 
 exports.serverUrl = function() {
-  // return 'http://ec2-13-125-187-247.ap-northeast-2.compute.amazonaws.com:3000/';
   return 'http://35.200.17.32:3000/'
 };
 // mongodb 시작

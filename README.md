@@ -4,7 +4,7 @@
 
 
 ## User
-*완료*
+*완료* <br/>
 user_code, avartar_path, name
 
 ### (Post) User create (필요 data : user_code, name, profile file)
@@ -37,7 +37,9 @@ user_code, avartar_path, name
 
 
 ## Result  
-*완료* **admin을 위한 URL - 키워드 생성할 때 사용**
+*완료* <br/>
+**admin을 위한 URL - 키워드 생성할 때 사용** </br>
+*추후 일정 : admin page 만들기 - keyword 관리하는 페이지*<br/>
 keyword, img[], analysis
 
 ### (POST) Create Keyword (Keyword, analysis, img[])
@@ -60,7 +62,8 @@ keyword, img[], analysis
 
 
 ## Query
-*연동중* **사용자가 카메라를 사용하여 질문할 때 사용**
+*완료* <br/>
+**사용자가 카메라를 사용하여 질문할 때 사용** <br/>
 user_code, img_path, createdAt, result ID
 
 ### (POST) query log 생성 (필요 data : user_code, File)
@@ -94,9 +97,10 @@ user_code, img_path, createdAt, result ID
 
 
 ## Board
-*연동중*
+*연동중* <br/>
 title, content, img_path,author, createdAt </br>
-*comments* = [commenter , body, adopted, keyword, createdAt]
+*댓글 수정 및 삭제 기능 추가하기 - comments* = [commenter , body, adopted, keyword, createdAt]
+
 ### (GET) 선택된 게시글 보기 (id = db id)
   : `/api/board/details/:id` <br/>
     ex) /api/board/details/0 <br/>
@@ -104,6 +108,9 @@ title, content, img_path,author, createdAt </br>
 ### (GET) 현재 로그인 되어있는 사용자가 작성한 게시글 보기
   : `/api/board/log/:user_code` <br/>
     ex) /api/board/details/hyeon <br/>
+
+### (GET) 페이지당 5개의 게시글 받아오기
+  : `/api/board/list/:page` <br/>
 
 ### (POST) 게시글 생성하기 (필요 데이터 : 제목, 내용, 사진)
   : `/api/board/` <br/>
@@ -129,4 +136,5 @@ title, content, img_path,author, createdAt </br>
     ex)  <br/>
 
 추가 되어야 하는 코드 <br/>
-1.  댓글 기능 구현 및 게시글 Detail 가져올 때 populate하기.</br>
+1.  댓글 기능 구현 및 게시글 Detail 가져올 때 populate하기.<br/>
+2.  댓글 수정 및 삭제 기능 추가하기.<br/>
