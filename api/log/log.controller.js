@@ -135,13 +135,13 @@ exports.getAll = (req, res) => {
 
 // 한 페이지당 5개의 log 정보를 불러와서 return. sort 는 id 순으로.
 exports.getMore = (req, res) => {
-  page = req.params.page+1;
+  page = req.params.page;
   Log.find({user_code: req.params.user_code}, function (err, result) {
     if(!err) {
       return res.json(result);
     }
     return res.status(500).send(err);
-  }).sort({_id: -1 }).skip((page-1)*npage).limit(npage);
+  }).sort({_id: -1 }).skip((page)*npage).limit(npage);
 };
 
 // 로그 자세히 보기

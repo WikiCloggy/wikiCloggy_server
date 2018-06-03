@@ -12,7 +12,13 @@ const LogSchema = new Schema({
   user_code: { type: String, required: true},
   img_path: {type: String},
   createdAt: {type: Date, default: Date.now},
-  result_id : {type : String}
+  result : [{
+    result_id : {type : mongoose.Schema.Types.ObjectId},
+    analysis : [{
+      keyword: {type: String},
+      percentage:{type:String}
+    }]
+  }]
 });
 
 
