@@ -56,29 +56,36 @@ exports.uploadFile = (req, res) => {
           var content = fs.readFileSync('../data/result/'+filename);
           console.log("conent = " +content);
           var jsonContent = JSON.parse(content);
+          var success = false;
           for(var i=0; i<jsonContent.length;i++) {
             switch(jsonContent[i].keyword){
               case "exciting" :
+                success = true;
                 jsonContent[i].keyword = "기분좋음";
                 break;
               case "very_aggressive" :
+                success = true;
                 jsonContent[i].keyword = "공격적인상태";
                 break;
               case "stomachache" :
+                success = true;
                 jsonContent[i].keyword = "췌장염";
                 break;
               case "stressed" :
+                success = true;
                 jsonContent[i].keyword ="긴장상태";
                 break;
               case "butt_scooting" :
+                success = true;
                 jsonContent[i].keyword = "항문낭염";
                 break;
               default :
+                success = false;
                 break;
             }
           }
           Result.find({keyword: jsonContent[0].keyword}, (err, keyword) => {
-          if(!err) {
+          if(!err && success) {
             Log.findOneAndUpdate({_id : req.params.id}, { $set : {result_id : keyword._id}}, (err, result) => {
               if(!err) {
                 // console.log({percentage : jsonContent, path : keyword.ref, stat : keyword.analysis});
