@@ -87,8 +87,7 @@ exports.uploadFile = (req, res) => {
           }
           Result.find({keyword: jsonContent[0].keyword}, (err, keyword) => {
           if(!err && success) {
-            console.log('keyword'+keyword+ keyword[0]._id);
-            Log.findOneAndUpdate({_id : req.params.id}, { $set : {result_id : keyword._id}, $push: { analysis : jsonContent}}, (err, result) => {
+            Log.findOneAndUpdate({_id : req.params.id}, { $set : {result_id : keyword[0]._id}, $push: { analysis : jsonContent}}, (err, result) => {
               if(!err) {
                 // console.log({percentage : jsonContent, path : keyword.ref, stat : keyword.analysis});
                 return res.json({result : "success", percentage : jsonContent, path : keyword[0].ref, state : keyword[0].analysis});
