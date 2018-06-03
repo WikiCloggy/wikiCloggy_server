@@ -1,9 +1,10 @@
 const fs = require('fs');
 const path = require('path');
-const  Result  = require('../../models/result');
+const result = require('../../models/result');
 const upload = require('../../middlewares/uploadKeyword');
 const config = require('../../config/server.config');
 
+const Result = new result();
 
 exports.create = (req, res) => {
   Result.find({keyword : req.body.keyword}, function (err, keyword) {
