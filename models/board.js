@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 // const autoIncrement = require('mongoose-auto-increment');
 
-const { Schema }  = mongoose;
+const  Schema   = mongoose;
 
 /**
 * @module board
@@ -17,10 +17,10 @@ const BoardSchema = new Schema({
     body: {type: String, required: true},
     adopted: {type: Boolean},
     keyword: {type: String, required: true},
-    createdAt : {type: Date, default: Date.now},
+    createdAt : {type: Date, default: Date.now}
   }],
   author: { type: String },
-  createdAt: { type: Date, default: Date.now},
+  createdAt: { type: Date, default: Date.now}
 });
 
 

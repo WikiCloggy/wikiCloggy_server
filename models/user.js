@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const autoIncrement = require('mongoose-auto-increment');
 
-const  { Schema }  = mongoose;
+const   Schema   = mongoose;
 
 /**
 * @module user
@@ -17,7 +17,7 @@ const UserSchema = new Schema({
     gender: { type: String},
     name: { type: String},
     age: { type: Number}
-  }],
+  }]
 });
 
 UserSchema.plugin(autoIncrement.plugin, 'user');

@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const autoIncrement = require('mongoose-auto-increment');
 
-const {Schema } = mongoose;
+const Schema  = mongoose;
 
 /**
 * @module result
@@ -12,8 +12,8 @@ const ResultSchema = new Schema({
   keyword: { type: String, required: true},
   analysis: { type: String, required: true},
   ref: [{
-    img_path: { type: String, required: true},
-  }],
+    img_path: { type: String, required: true}
+  }]
 });
 
 
