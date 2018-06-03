@@ -73,6 +73,8 @@ exports.uploadFile = (req, res) => {
               case "butt_scooting" :
                 jsonContent[i].keyword = "항문낭염";
                 break;
+              default :
+                break;
             }
           }
           Result.find({keyword: jsonContent[0].keyword}, (err, keyword) => {
@@ -80,11 +82,12 @@ exports.uploadFile = (req, res) => {
             Log.findOneAndUpdate({_id : req.params.id}, { $set : {result_id : keyword._id}}, (err, result) => {
               if(!err) {
                 // console.log({percentage : jsonContent, path : keyword.ref, stat : keyword.analysis});
-               return res.json({percentage : jsonContent, path : keyword[0].ref, state : keyword[0].analysis});
+                if(success==true)
+                  return res.json({percentage : jsonContent, path : keyword[0].ref, state : keyword[0].analysis});
               }
             });
           }
-          else console.log("keyword not exist");
+          else return res.json({result :  "fail"}, {reason : "cloggy not found"});
         });
        });
 
