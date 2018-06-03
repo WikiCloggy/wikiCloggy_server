@@ -8,7 +8,7 @@ const  Schema  = mongoose;
 * @description make the log data from user history
 */
 
-const LogSchema = new Schema({
+const LogSchema = new mongoose({
   user_code: { type: String, required: true},
   img_path: {type: String},
   createdAt: {type: Date, default: Date.now},

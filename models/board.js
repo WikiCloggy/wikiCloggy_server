@@ -8,7 +8,7 @@ const  Schema   = mongoose;
 * @description contain the board info and comment
 */
 
-const BoardSchema = new Schema({
+const BoardSchema = new mongoose({
   title: { type: String, required: true},
   content: { type: String, required: true},
   img_path: { type: String, required: true},
