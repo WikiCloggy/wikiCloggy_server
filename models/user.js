@@ -8,7 +8,7 @@ const Schema = mongoose;
 * @description contain the details of user info
 */
 
-const UserSchema = new mongoose({
+const UserSchema = new mongoose.Schema({
   user_code: { type: String, required: true },
   avatar_path: {type: String },
   name: { type: String },

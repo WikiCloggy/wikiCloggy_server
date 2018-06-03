@@ -8,7 +8,7 @@ const Schema  = mongoose;
 * @description contain the result of analysis data
 */
 
-const ResultSchema = new mongoose({
+const ResultSchema = new mongoose.Schema({
   keyword: { type: String, required: true},
   analysis: { type: String, required: true},
   ref: [{
