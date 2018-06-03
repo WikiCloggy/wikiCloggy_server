@@ -15,7 +15,7 @@ const LogSchema = new Schema({
   result_id : {type : mongoose.Schema.Types.ObjectId, ref: 'Result'},
   analysis : [{
       keyword: {type: String},
-      percentage:{type:String}
+      probability:{type:String}
     }]
 });
 
