@@ -135,7 +135,7 @@ exports.getAll = (req, res) => {
 
 // 한 페이지당 5개의 log 정보를 불러와서 return. sort 는 id 순으로.
 exports.getMore = (req, res) => {
-  page = req.params.page;
+  page = req.params.page+1;
   Log.find({user_code: req.params.user_code}, function (err, result) {
     if(!err) {
       return res.json(result);
