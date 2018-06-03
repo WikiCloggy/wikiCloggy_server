@@ -1,13 +1,13 @@
 const fs = require('fs');
 const path = require('path');
-const  log  = require('../../models/log');
+const Log  = require('../../models/log');
 const  User  = require('../../models/user');
 const Result = require('../../models/result');
 const upload = require('../../middlewares/uploadLog');
 const config = require('../../config/server.config');
 const PythonShell = require('python-shell');
 
-const Log = new log();
+
 // 로그 생성
 // /api/log/
 exports.create = (req, res) => {

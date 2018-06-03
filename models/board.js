@@ -35,8 +35,6 @@ BoardSchema.statics = {
 }
 
 // DEFINE MODEL
-const board = mongoose.model('board', BoardSchema);
+const model = mongoose.model('board', BoardSchema);
 
-module.exports = {
-  Board: board,
-};
+module.exports = model;

@@ -26,8 +26,6 @@ LogSchema.statics = {
 
 };
 
-const log = mongoose.model('log', LogSchema);
+const model = mongoose.model('log', LogSchema);
 
-module.exports = {
-  Log: log,
-};
+module.exports = model;

@@ -29,8 +29,6 @@ UserSchema.statics = {
   },
 };
 
-const user = mongoose.model('user', UserSchema);
+const model = mongoose.model('user', UserSchema);
 
-module.exports = {
-  User: user,
-};
+module.exports = model;
