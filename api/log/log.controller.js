@@ -53,7 +53,7 @@ exports.uploadFile = (req, res) => {
         PythonShell.run("start_estimate.py",{mode :'text', pythonOptions:['-u'],scriptPath:'../wikiCloggy_cloggy_state_estimator/',args:[ `files/${req.files.logFile[0].destination.match(/[^/]+/g).pop()}/${req.files.logFile[0].filename}`]}, function (err, results) {
          if(err) console.log("err msg :"+ err);
           var filename = `${req.files.logFile[0].filename.split('.')[0]}` +'.json';
-          var content = fs.readFileSync('../wikiCloggy_cloggy_state_estimator/data/result/'+filename);
+          var content = fs.readFileSync('../data/result/'+filename);
           console.log("conent = " +content);
           var jsonContent = JSON.parse(content);
           for(var i=0; i<jsonContent.length;i++) {

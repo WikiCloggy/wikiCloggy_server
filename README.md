@@ -60,7 +60,7 @@ keyword, img[], analysis
 
 
 ## Query
-*연동중* **사용자가 카메라를 사용하여 질문할 때 사용**
+*수정중* **사용자가 카메라를 사용하여 질문할 때 사용**
 user_code, img_path, createdAt, result ID
 
 ### (POST) query log 생성 (필요 data : user_code, File)
@@ -94,7 +94,7 @@ user_code, img_path, createdAt, result ID
 
 
 ## Board
-*수정중*
+*연동중*
 title, content, img_path,author, createdAt </br>
 *comments* = [commenter , body, adopted, keyword, createdAt]
 ### (GET) 선택된 게시글 보기 (id = db id)
