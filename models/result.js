@@ -1,14 +1,14 @@
 const mongoose = require('mongoose');
 const autoIncrement = require('mongoose-auto-increment');
 
-const Schema  = mongoose;
+const Schema  = mongoose.Schema;
 
 /**
 * @module result
 * @description contain the result of analysis data
 */
 
-const ResultSchema = new mongoose.Schema({
+const ResultSchema = new Schema({
   keyword: { type: String, required: true},
   analysis: { type: String, required: true},
   ref: [{

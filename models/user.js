@@ -1,14 +1,14 @@
 const mongoose = require('mongoose');
 const autoIncrement = require('mongoose-auto-increment');
 
-const Schema = mongoose;
+const Schema = mongoose.Schema;
 
 /**
 * @module user
 * @description contain the details of user info
 */
 
-const UserSchema = new mongoose.Schema({
+const UserSchema = new Schema({
   user_code: { type: String, required: true },
   avatar_path: {type: String },
   name: { type: String },

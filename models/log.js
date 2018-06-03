@@ -1,14 +1,14 @@
 const mongoose = require('mongoose');
 const autoIncrement = require('mongoose-auto-increment');
 
-const  Schema  = mongoose;
+const  Schema  = mongoose.Schema;
 
 /**
 * @module log
 * @description make the log data from user history
 */
 
-const LogSchema = new mongoose.Schema({
+const LogSchema = new Schema({
   user_code: { type: String, required: true},
   img_path: {type: String},
   createdAt: {type: Date, default: Date.now},

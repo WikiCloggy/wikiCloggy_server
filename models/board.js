@@ -1,14 +1,14 @@
 const mongoose = require('mongoose');
 // const autoIncrement = require('mongoose-auto-increment');
 
-const  Schema   = mongoose;
+const  Schema   = mongoose.Schema;
 
 /**
 * @module board
 * @description contain the board info and comment
 */
 
-const BoardSchema = new mongoose.Schema({
+const BoardSchema = new Schema({
   title: { type: String, required: true},
   content: { type: String, required: true},
   img_path: { type: String, required: true},
