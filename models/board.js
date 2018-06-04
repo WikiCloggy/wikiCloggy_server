@@ -23,6 +23,7 @@ const BoardSchema = new Schema({
   }]
 });
 
+BoardSchema.plugin(autoIncrement.plugin, 'board');
 
 BoardSchema.statics = {
   create(data, callback) {

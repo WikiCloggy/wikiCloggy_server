@@ -39,12 +39,12 @@ exports.getMore = (req, res) => {
 //post create edit delete
 // 게시글 생성하기
 exports.create = (req, res) => {
-  console.log("here Post board", req.body);
   Board.create(req.body, (err, result) => {
     if (!err) {
-      return res.json({"result" : "success"});
+      console.log("create");
+      return res.json({ "_id" : result[0]._id});
     }
-    return res.status(500).send(err); // 500 error
+    else return res.status(500).send(err); // 500 error
   });
 }
 
