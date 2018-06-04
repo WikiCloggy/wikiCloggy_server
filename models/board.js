@@ -11,7 +11,7 @@ const  Schema   = mongoose.Schema;
 const BoardSchema = new Schema({
   title: { type: String, required: true},
   content: { type: String, required: true},
-  img_path: { type: String, required: true},
+  img_path: { type: String},
   author: { type: String },
   createdAt: { type: String},
   comments: [{
@@ -27,8 +27,8 @@ BoardSchema.plugin(autoIncrement.plugin, 'board');
 
 BoardSchema.statics = {
   create(data, callback) {
-    const writing = new this(data);
-    writing.save(callback);
+    const board = new this(data);
+    board.save(callback);
   },
   getByValue(query, callback) {
     this.fineOne(query, callback);
