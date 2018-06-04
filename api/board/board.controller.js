@@ -39,6 +39,7 @@ exports.getMore = (req, res) => {
 //post create edit delete
 // 게시글 생성하기
 exports.create = (req, res) => {
+  console.log("here Post board", req.body);
   Board.create(req.body, (err, result) => {
     if (!err) {
       return res.json({"result" : "success"});
