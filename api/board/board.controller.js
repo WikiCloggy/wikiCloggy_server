@@ -43,7 +43,7 @@ exports.create = (req, res) => {
     console.log("here?");
     if (err) return res.status(500).send(err); // 500 error
     console.log("create");
-    return res.json({ "_id" : result[0]._id});
+    return res.json({ "_id" : result._id});
   });
 };
 
