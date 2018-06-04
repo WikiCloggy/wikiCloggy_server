@@ -40,9 +40,8 @@ exports.getMore = (req, res) => {
 // 게시글 생성하기
 exports.create = (req, res) => {
   Board.create(req.body, (err, result) => {
-    console.log("here?");
     if (err) return res.status(500).send(err); // 500 error
-    console.log("create");
+    console.log("create Post");
     return res.json({ "_id" : result._id});
   });
 };
@@ -51,7 +50,7 @@ exports.create = (req, res) => {
 exports.uploadFile = (req, res) => {
   upload(req, res)
     .then((files) => {
-      User.where({user_code : req.params.id})
+      Board.where({_id : req.params.id})
       .update({ $set : {img_path: `${config.serverUrl()}files/${req.files.postFile[0].destination.match(/[^/]+/g).pop()}/${req.files.postFile[0].filename}` }}).exec()
       .then(() => {
         return res.json({result : "ok"});
