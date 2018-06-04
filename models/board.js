@@ -32,7 +32,7 @@ BoardSchema.statics = {
   },
   getByValue(query, callback) {
     this.fineOne(query, callback);
-  }
+  },
 };
 
 // DEFINE MODEL

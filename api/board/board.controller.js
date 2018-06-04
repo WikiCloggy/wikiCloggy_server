@@ -46,7 +46,7 @@ exports.create = (req, res) => {
     }
     else return res.status(500).send(err); // 500 error
   });
-}
+};
 
 // 게시글에 딸린 사진 저장하기
 exports.uploadFile = (req, res) => {
@@ -64,7 +64,7 @@ exports.uploadFile = (req, res) => {
     .catch((err) => {
       res.status(500).send('Upload middlewares error');
     });
-}
+};
 
 // 게시글 수정하기
 exports.updatePost = (req, res) => {
@@ -75,7 +75,7 @@ exports.updatePost = (req, res) => {
       }
       else return res.json({ result : "fail"});
     });
-}
+};
 
 // 게시글 지우기
 exports.deletePost = (req, res) => {
@@ -87,7 +87,7 @@ exports.deletePost = (req, res) => {
   };
   return res.status(404).send({ message: 'No data found to delete' });
   });
-}
+};
 
 // for admin
 exports.getAll = (req, res) => {
@@ -110,14 +110,14 @@ exports.createComment = (req, res) => {
     }
     else return res.json({result : "fail"});
   });
-}
+};
 
 // 댓글 수정하기
 exports.updateComment = (req, res) => {
 
-}
+};
 
 // 댓글 삭제하기
 exports.deleteComment = (req, res) => {
 
-}
+};

@@ -37,7 +37,7 @@ exports.showAll = (req, res) => {
     }
     return res.status(500).send(err);
   });
-}
+};
 
 // 요청되었던 사진 정보 업로드
 // /api/log/file/:id
