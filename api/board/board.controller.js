@@ -40,6 +40,7 @@ exports.getMore = (req, res) => {
 // 게시글 생성하기
 exports.create = (req, res) => {
   Board.create(req.body, (err, result) => {
+    console.log("here?");
     if (!err) {
       console.log("create");
       return res.json({ "_id" : result[0]._id});
