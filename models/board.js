@@ -13,13 +13,13 @@ const BoardSchema = new Schema({
   content: { type: String, required: true},
   img_path: { type: String, required: true},
   author: { type: String },
-  createdAt: { type: Date, default: Date.now},
+  createdAt: { type: String},
   comments: [{
     commenter: {type: String, required: true},
     body: {type: String, required: true},
     adopted: {type: Boolean},
     keyword: {type: String, required: true},
-    createdAt : {type: Date, default: Date.now}
+    createdAt : {type: String}
   }]
 });
 

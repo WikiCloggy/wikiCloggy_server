@@ -41,7 +41,7 @@ exports.getMore = (req, res) => {
 exports.create = (req, res) => {
   Board.create(req.body, (err, result) => {
     if (!err) {
-      return res.json(result);
+      return res.json({"result" : "success"});
     }
     return res.status(500).send(err); // 500 error
   });
