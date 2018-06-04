@@ -30,7 +30,7 @@ exports.getMore = (req, res) => {
   page = req.params.page;
   Board.find({}, function (err, result) {
     if(!err) {
-      return res.json({"title": result[0].title, "createdAt":result[0].createdAt, "img_path": result[0].img_path, "author": result[0].author});
+      return res.json({"title": result.title, "createdAt":result.createdAt, "img_path": result.img_path, "author": result.author});
     }
     return res.status(500).send(err);
   }).sort({_id: -1 }).skip((page)*npage).limit(npage);
