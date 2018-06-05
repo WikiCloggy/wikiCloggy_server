@@ -23,7 +23,7 @@ exports.getLog = (req, res) => {
     if(err)  return res.json({result : "fail"});
     User.find({user_code : req.body.author}, (err, result) => {
       if (err) return res.status(500).send(err);
-      return res.json(board, {name : result[0].name});
+      return res.json(board, {name : result.name});
     });
   }).sort({_id: -1 }).skip((page)*npage).limit(npage);
 };
@@ -35,7 +35,7 @@ exports.getMore = (req, res) => {
     if(err)  return res.json({result : "fail"});
     User.find({user_code : req.body.author}, (err, result) => {
       if (err) return res.status(500).send(err);
-      return res.json(board, {name : result[0].name});
+      return res.json(board, {name : result.name});
     });
   });
 };
