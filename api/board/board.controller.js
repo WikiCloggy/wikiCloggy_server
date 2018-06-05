@@ -11,7 +11,7 @@ const npage = 5 ; // 페이지당 5개 게시글 불러오기
 exports.getDetail = (req, res) => {
   // 수정 필요 찾으려고 하는 지표 설정
   // get post by id
-  Board.getByvalue({_id: req.params.id}, (err, board)=> {
+  Board.getByvalue({_id: req.params.id}, (err, board) {
     if (err) return res.status(500).send(err); // 500 error
       return res.json(board);
   });
@@ -21,11 +21,10 @@ exports.getDetail = (req, res) => {
 exports.getLog = (req, res) => {
   Board.find({author : req.body.user_code}, function (err, result) {
     if(err)  return res.json({result : "fail"});
-    User.find({user_code : req.body.author}, (err, result) => {
+    User.find({user_code : req.body.author}, (err, result) {
       if (err) return res.status(500).send(err);
       return res.json(board, {name : result[0].name});
     });
-
   }).sort({_id: -1 }).skip((page)*npage).limit(npage);
 };
 
@@ -34,10 +33,11 @@ exports.getMore = (req, res) => {
   page = req.params.page;
   Board.find({}, function (err, result) {
     if(err)  return res.json({result : "fail"});
-    User.find({user_code : req.body.author}, (err, result)=> {
+    User.find({user_code : req.body.author}, (err, result) {
       if (err) return res.status(500).send(err);
       return res.json(board, {name : result[0].name});
     });
+  };
 };
 
 //post create edit delete
