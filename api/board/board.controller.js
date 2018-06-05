@@ -21,11 +21,7 @@ exports.getDetail = (req, res) => {
 exports.getLog = (req, res) => {
   Board.find({author : req.params.user_code}, function (err, result) {
     if(err)  return res.json({result : "fail"});
-    User.find({user_code : req.params.user_code}, (err, user) => {
-      console.log(user);
-      if (err) return res.status(500).send(err);
-      return res.json(result, {name : user[0].name});
-    });
+    return res.json(result);
   }).sort({_id: -1 }).skip((page)*npage).limit(npage);
 };
 
@@ -34,11 +30,7 @@ exports.getMore = (req, res) => {
   page = req.params.page;
   Board.find({}, function (err, result) {
     if(err)  return res.json({result : "fail"});
-    User.find({user_code : req.body.author}, (err, user) => {
-      console.log(user);
-      if (err) return res.status(500).send(err);
-      return res.json(result, {name : user[0].name});
-    });
+    return res.json(result);
   });
 };
 
