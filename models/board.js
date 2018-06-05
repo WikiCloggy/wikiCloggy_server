@@ -12,7 +12,7 @@ const BoardSchema = new Schema({
   title: { type: String, required: true},
   content: { type: String, required: true},
   img_path: { type: String},
-  author: { type: String },
+  author: { type: mongoose.Schema.Types.ObjectId, ref:'User'},
   createdAt: { type: String},
   comments: [{
     commenter: {type: String, required: true},

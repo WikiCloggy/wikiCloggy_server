@@ -11,7 +11,7 @@ const Schema  = mongoose.Schema;
 const ResultSchema = new Schema({
   keyword: { type: String, required: true},
   analysis: { type: String, required: true},
-  ref: [{
+  img_paths: [{
     img_path: { type: String, required: true}
   }]
 });
