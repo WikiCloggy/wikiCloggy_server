@@ -11,7 +11,7 @@ const npage = 5 ; // 페이지당 5개 게시글 불러오기
 exports.getDetail = (req, res) => {
   // 수정 필요 찾으려고 하는 지표 설정
   // get post by id
-  Board.getByvalue({_id: req.params.id}, (err, board) {
+  Board.getByvalue({_id: req.params.id}, (err, board) => {
     if (err) return res.status(500).send(err); // 500 error
       return res.json(board);
   });
