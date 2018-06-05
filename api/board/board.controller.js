@@ -37,7 +37,7 @@ exports.getMore = (req, res) => {
       if (err) return res.status(500).send(err);
       return res.json(board, {name : result[0].name});
     });
-  };
+  });
 };
 
 //post create edit delete
