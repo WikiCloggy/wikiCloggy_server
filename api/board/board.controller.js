@@ -19,9 +19,9 @@ exports.getDetail = (req, res) => {
 
 // populate : https://m.blog.naver.com/PostView.nhn?blogId=azure0777&logNo=220606306753&proxyReferer=https%3A%2F%2Fwww.google.co.kr%2F
 exports.getLog = (req, res) => {
-  Board.find({author : req.body.user_code}, function (err, result) {
+  Board.find({author : req.params.user_code}, function (err, result) {
     if(err)  return res.json({result : "fail"});
-    User.find({user_code : req.body.user_code}, (err, result) => {
+    User.find({user_code : req.params.user_code}, (err, result) => {
       console.log(result);
       if (err) return res.status(500).send(err);
       return res.json(board, {name : result.name});
