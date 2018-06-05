@@ -21,7 +21,8 @@ exports.getDetail = (req, res) => {
 exports.getLog = (req, res) => {
   Board.find({author : req.body.user_code}, function (err, result) {
     if(err)  return res.json({result : "fail"});
-    User.find({user_code : req.body.author}, (err, result) => {
+    User.find({user_code : req.body.user_code}, (err, result) => {
+      console.log(result);
       if (err) return res.status(500).send(err);
       return res.json(board, {name : result.name});
     });
@@ -34,6 +35,7 @@ exports.getMore = (req, res) => {
   Board.find({}, function (err, result) {
     if(err)  return res.json({result : "fail"});
     User.find({user_code : req.body.author}, (err, result) => {
+      console.log(result);
       if (err) return res.status(500).send(err);
       return res.json(board, {name : result.name});
     });
