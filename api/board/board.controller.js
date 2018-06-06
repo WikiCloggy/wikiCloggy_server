@@ -38,12 +38,9 @@ exports.getMore = (req, res) => {
 //post create edit delete
 // 게시글 생성하기
 exports.create = (req, res) => {
-  User.find({user_code : result.author},(err, user) => {
-      if (err) return res.status(500).send(err); // 500 error
     Board.create(req.body, (err, result) => {
       if (err) return res.status(500).send(err); // 500 error
       return res.json({ "_id" : result._id});
-    });
   });
 };
 
