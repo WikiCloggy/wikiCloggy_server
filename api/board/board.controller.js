@@ -31,6 +31,7 @@ exports.getMore = (req, res) => {
   page = req.params.page;
   Board.find({}, function (err, result) {
     if(err)  return res.json({result : "fail"});
+    console.log(result);
     return res.json(result);
   }).populate('author', 'name avatar_path').sort({_id: -1 }).skip((page)*npage).limit(npage);
 };
