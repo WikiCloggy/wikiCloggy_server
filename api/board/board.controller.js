@@ -21,19 +21,18 @@ exports.getDetail = (req, res) => {
 exports.getLog = (req, res) => {
   Board.find({author : req.params.user_code}, function (err, result) {
     if(err)  return res.json({result : "fail"});
-    console.log(result);
     return res.json(result);
-  }).populate('author', 'name avatar_path').sort({_id: -1 }).skip((page)*npage).limit(npage);
+  }).sort({_id: -1 }).skip((page)*npage).limit(npage);
 };
 
 // 한 페이지당 5개의 log 정보를 불러와서 return. sort 는 id 순으로.
 exports.getMore = (req, res) => {
   page = req.params.page;
-  Board.find({}, function (err, result) {
+  Board.findOneAndUpdate({}, function (err, result) {
     if(err)  return res.json({result : "fail"});
     console.log(result);
     return res.json(result);
-  }).populate('author', 'name avatar_path').sort({_id: -1 }).skip((page)*npage).limit(npage);
+  }).sort({_id: -1 }).skip((page)*npage).limit(npage);
 };
 
 //post create edit delete
@@ -41,7 +40,7 @@ exports.getMore = (req, res) => {
 exports.create = (req, res) => {
   Board.create(req.body, (err, result) => {
     if (err) return res.status(500).send(err); // 500 error
-    console.log("create Post");
+    Board.findOneAndUpdate ({_id : result._id} , {$set : {name : board.author_name.name}});
     return res.json({ "_id" : result._id});
   });
 };
