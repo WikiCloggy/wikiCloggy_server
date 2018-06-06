@@ -31,7 +31,7 @@ exports.getMore = (req, res) => {
   Board.find({}, function (err, result) {
     if(err)  return res.json({result : "fail"});
     return res.json(result);
-  });
+  }).sort({_id: -1 }).skip((page)*npage).limit(npage);
 };
 
 //post create edit delete
@@ -75,7 +75,7 @@ exports.updatePost = (req, res) => {
 
 // 게시글 지우기
 exports.deletePost = (req, res) => {
-  Board.findOneAndDelete({_id: req.params.id}, (err, result) => {
+  Board.findOneAndRemove({_id: req.params.id}, (err, result) => {
     if(!err && result) { fs.unlink(path.join(__dirname, `../../files/${result.img_path}`), (fsErr) => {
       if (fsErr) console.warn({ err: 'not removed on Server' });
     }); // db에 저장된 img_path와 함께 해당 파일 삭제
