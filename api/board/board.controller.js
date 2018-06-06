@@ -22,7 +22,7 @@ exports.getLog = (req, res) => {
   Board.find({author : req.params.user_code}, function (err, result) {
     if(err)  return res.json({result : "fail"});
     return res.json(result);
-  }).sort({_id: -1 }).skip((page)*npage).limit(npage);
+  }).populate('author', 'name avatar_path').sort({_id: -1 }).skip((page)*npage).limit(npage);
 };
 
 // 한 페이지당 5개의 log 정보를 불러와서 return. sort 는 id 순으로.
@@ -31,7 +31,7 @@ exports.getMore = (req, res) => {
   Board.find({}, function (err, result) {
     if(err)  return res.json({result : "fail"});
     return res.json(result);
-  }).sort({_id: -1 }).skip((page)*npage).limit(npage);
+  }).populate('author', 'name avatar_path').sort({_id: -1 }).skip((page)*npage).limit(npage);
 };
 
 //post create edit delete
