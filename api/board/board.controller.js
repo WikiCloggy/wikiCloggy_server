@@ -19,6 +19,7 @@ exports.getDetail = (req, res) => {
 
 // populate : https://m.blog.naver.com/PostView.nhn?blogId=azure0777&logNo=220606306753&proxyReferer=https%3A%2F%2Fwww.google.co.kr%2F
 exports.getLog = (req, res) => {
+  var page = req.params.page;
   Board.find({author : req.params.user_code}, function (err, result) {
     if(err)  return res.json({result : "fail"});
     return res.json(result);
@@ -27,7 +28,7 @@ exports.getLog = (req, res) => {
 
 // 한 페이지당 5개의 log 정보를 불러와서 return. sort 는 id 순으로.
 exports.getMore = (req, res) => {
-  page = req.params.page;
+  var page = req.params.page;
   Board.find({}, function (err, result) {
     if(err)  return res.json({result : "fail"});
     return res.json(result);
