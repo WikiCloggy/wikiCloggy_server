@@ -22,7 +22,7 @@ exports.getLog = (req, res) => {
   Board.find({author : req.params.user_code}, function (err, result) {
     if(err)  return res.json({result : "fail"});
     return res.json(result);
-  }).sort({_id: -1 }).skip((page)*npage).limit(npage);
+  }).populate('author_id', 'name').sort({_id: -1 }).skip((page)*npage).limit(npage);
 };
 
 // 한 페이지당 5개의 log 정보를 불러와서 return. sort 는 id 순으로.
@@ -32,16 +32,18 @@ exports.getMore = (req, res) => {
     if(err)  return res.json({result : "fail"});
     console.log(result);
     return res.json(result);
-  }).sort({_id: -1 }).skip((page)*npage).limit(npage);
+  }).populate('author_id','name').sort({_id: -1 }).skip((page)*npage).limit(npage);
 };
 
 //post create edit delete
 // 게시글 생성하기
 exports.create = (req, res) => {
-  Board.create(req.body, (err, result) => {
-    if (err) return res.status(500).send(err); // 500 error
-    Board.findOneAndUpdate ({_id : result._id} , {$set : {name : board.author_name.name}});
-    return res.json({ "_id" : result._id});
+  User.find({user_code : result.author},(err, user) => {
+      if (err) return res.status(500).send(err); // 500 error
+    Board.create(req.body,author_id:user._id, (err, result) => {
+      if (err) return res.status(500).send(err); // 500 error
+      return res.json({ "_id" : result._id});
+    });
   });
 };
 
