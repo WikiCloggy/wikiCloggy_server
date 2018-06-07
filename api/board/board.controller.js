@@ -38,7 +38,7 @@ exports.getMore = (req, res) => {
 exports.create = (req, res) => {
   User.find({user_code : req.body.author}, (err, user) =>{
     if(err) return res.status(500).send(err); // 500 error
-    Board.create({title:req.body.title, content : req.body.content, author : req.body.author,createdAt : req.body.createdAt,author_id : user._id}, (err, result) => {
+    Board.create({title:req.body.title, content : req.body.content, author : req.body.author,createdAt : req.body.createdAt,author_id : user}, (err, result) => {
       if (err) return res.status(500).send(err); // 500 error
       return res.json({ "_id" : result._id});
   });
