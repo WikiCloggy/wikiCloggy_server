@@ -37,9 +37,8 @@ user_code, avartar_path, name
 
 
 ## Result  
-*완료* <br/>
 **admin을 위한 URL - 키워드 생성할 때 사용** </br>
-*추후 일정 : admin page 만들기 - keyword 관리하는 페이지*<br/>
+*추후 일정 : admin page 만들기 - keyword 관리하는 페이지 - 윤경담당(client)*<br/>
 keyword, img[], analysis
 
 ### (POST) Create Keyword (Keyword, analysis, img[])
@@ -60,6 +59,21 @@ keyword, img[], analysis
 ### (Web test) 웹으로 keyword create
   : `/api/result/admin/upload` <br/>
 
+
+## Keyword Admin page
+*Web for admin*
+
+###(Admin page)
+  : `/client/home.html`
+
+### (POST) Add keyword
+  : `/client/add.html`
+
+### (POST) Modify keyword
+  : `/client/modify.html`
+
+### (POST) add & check dataset from board
+  : `/client/checkdataset.html`
 
 ## Query
 *완료* <br/>
@@ -97,7 +111,7 @@ user_code, img_path, createdAt, result ID
 
 
 ## Board
-*연동중* <br/>
+*검색 기능 및 댓글, 게시글 post 연동중* <br/>
 title, content, img_path,author, createdAt </br>
 *댓글 수정 및 삭제 기능 추가하기 - comments* = [commenter , body, adopted, keyword, createdAt]
 
@@ -111,6 +125,12 @@ title, content, img_path,author, createdAt </br>
 
 ### (GET) 페이지당 5개의 게시글 받아오기
   : `/api/board/list/:page` <br/>
+
+
+### (GET) 게시판 검색하기
+  : `/api/board/serach/:type` <br/>
+  type = 0 (전체 검색) , type = 1 (author_name 검색), type = 2 (제목 검색) <br/>
+  json {query : 질문내용}  <br/>
 
 ### (POST) 게시글 생성하기 (필요 데이터 : 제목, 내용, 사진)
   : `/api/board/` <br/>

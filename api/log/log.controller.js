@@ -112,7 +112,7 @@ exports.uploadFile = (req, res) => {
 // 로그 삭제
 // /api/log/:id
 exports.delete = (req, res) => {
-  Log.findOneAndDelete({_id: req.params.id}, (err, result) => {
+  Log.findOneAndRemove({_id: req.params.id}, (err, result) => {
     if(!err && result) { fs.unlink(path.join(__dirname, `../../files/${result.img_path}`), (fsErr) => {
       if (fsErr) console.warn({ err: 'not removed on Server' });
     }); // db에 저장된 img_path와 함께 해당 파일 삭제

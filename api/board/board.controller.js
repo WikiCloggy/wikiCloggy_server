@@ -7,10 +7,8 @@ const upload = require('../../middlewares/uploadPost');
 
 const npage = 5 ; // 페이지당 5개 게시글 불러오기
 
-// 게시글 검색 정보 찾아오기
+// 게시글 상세보기
 exports.getPost = (req, res) => {
-  // 수정 필요 찾으려고 하는 지표 설정
-  // get post by id
   Board.find({_id: req.params.id}, (err, board) => {
     if (err) return res.status(500).send(err); // 500 error
       return res.json(board);
@@ -85,6 +83,40 @@ exports.deletePost = (req, res) => {
   });
 };
 
+
+exports.searchPost = (req, res) => {
+  var type = req.params.type;
+  switch(type)
+  {
+    case "0" : // 전체
+      Board.find({$or : [{"title" : req.body.query}, {"name" :req.body.query}]}, (err,result) => {
+        if(err) return res.json({ result : "fail"});
+        else return res.json(result);
+      });
+      break;
+
+    case "1" : // author name
+      Board.find({name : req.body.query}, (err, result) => {
+        if(err) return res.json({ result : "fail"});
+        else return res.json(result);
+      });
+      break;
+
+    case "2" : // title
+    Board.find({title : req.body.query}, (err, result) => {
+      if(err) return res.json({ result : "fail"});
+      else return res.json(result);
+    });
+      break;
+
+    default : // error
+      return res.json({ result : "fail"});
+      break;
+  }
+};
+
+
+
 // for admin
 exports.getAll = (req, res) => {
   Board.find({}, function (err, result) {
@@ -98,8 +130,8 @@ exports.getAll = (req, res) => {
 //comment create edit delete
 // 댓글 생성하기
 exports.createComment = (req, res) => {
-  Board.findOneAndUpdate({ _id : req.params.id } ,{ $push : {comments :{commenter:req.body.user_code , body : req.body.body,
-  adopted : req.body.adopted, keywords: req.body.keyword}}},
+  Board.findOneAndUpdate({ _id : req.params.id } ,{ $push : {comments :{commenter:req.body.user_code , name : req.body.name, body : req.body.body,
+  adopted : req.body.adopted, keywords: req.body.keyword , createdAt: req.body.createdAt}}},
   (err, result) => {
     if(!err) {
       return res.json({result : "ok"});

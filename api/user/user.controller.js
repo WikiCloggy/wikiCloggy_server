@@ -34,7 +34,7 @@ exports.getUser = (req, res) => {
 }
 
 exports.delete = (req, res) => {
-  User.findOneAndDelete({_id: req.params.id}, (err, result) => {
+  User.findOneAndRemove({_id: req.params.id}, (err, result) => {
     if(!err) {
     return res.json({result : "ok"});
   }

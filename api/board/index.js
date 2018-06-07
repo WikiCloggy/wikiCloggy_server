@@ -12,6 +12,10 @@ router.get('/log/:user_code/:page', boardCtrl.getLog);
 // 게시판 보기
 router.get('/list/:page',boardCtrl.getMore);
 
+// 게시판 검색
+router.get('/search/:type',boardCtrl.searchPost);
+
+
 // post create edit delete
 router.post('/', boardCtrl.create);
 router.post('/files/:id', boardCtrl.uploadFile);
