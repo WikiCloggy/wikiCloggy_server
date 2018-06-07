@@ -149,7 +149,7 @@ $(".hover").mouseleave(
         $(this).removeClass("hover");
     }
 );
-
+//
 $(document).on('click', '.snip1535', function () {
 
     console.log("IMG");
