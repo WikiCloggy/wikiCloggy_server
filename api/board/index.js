@@ -4,7 +4,7 @@ const router = express.Router();
 const boardCtrl = require('./board.controller');
 
 // 선택 글 보기, 게시글의 id
-router.get('/details/:id',boardCtrl.getDetail);
+router.get('/details/:id',boardCtrl.getPost);
 
 // 유저 아이디로 보기, User_code
 router.get('/log/:user_code/:page', boardCtrl.getLog);
