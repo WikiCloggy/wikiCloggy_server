@@ -25,7 +25,7 @@ exports.create = (req, res) => {
 exports.uploadFile = (req, res) => {
   upload(req, res)
     .then((files) => {
-      Result.findOneAndUpdate({ _id : req.params.id } ,{ $push : {ref :{img_path: `${config.serverUrl()}files/${req.files.queryFile[0].destination.match(/[^/]+/g).pop()}/${req.files.queryFile[0].filename}`}}},
+      Result.findOneAndUpdate({ _id : req.params.id } ,{ $push : {img_paths :{img_path: `${config.serverUrl()}files/${req.files.queryFile[0].destination.match(/[^/]+/g).pop()}/${req.files.queryFile[0].filename}`}}},
       (err, result) => {
         if(!err) {
           return res.json(result);

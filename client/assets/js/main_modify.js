@@ -33,12 +33,12 @@ function makeTemplate(json, i) {
     console.log("makeTemplate");
     var site = document.getElementById("accordion");
     var makeTemplate = document.createElement('div');
-    if (json.ref.length == 0) {
+    if (json.img_paths.length == 0) {
         var img = "";
     }
     else {
         var img = "";
-        for (var j = 0; j < json.ref.length; j++) {
+        for (var j = 0; j < json.img_paths.length; j++) {
             img += "<img class=\"img-with-k" + (json._id+1) + "\"id =\"img-with-k" + (json._id+1) + "_" + j + "\"src = \"" + json.ref[j].img_path + "\"><input type=\"checkbox\" id=\"c" + (json._id+1) + "_" + j + "\" name=\"cc\"/>\n";
         }
     }
@@ -116,16 +116,16 @@ function POST_ImgModified(img, json_id) {
         const data = [];
 
         for (var i = 0; i < img.length; i++) {
-            for (var j = 0; j < jsonobject.ref.length; j++) {
+            for (var j = 0; j < jsonobject.img_paths.length; j++) {
                 var imgsrc = img[i].src;
-                if ('' + imgsrc == '' + jsonobject.ref[j].img_path) {
-                    data.push(jsonobject.ref[j]);
+                if ('' + imgsrc == '' + jsonobject.img_paths[j].img_path) {
+                    data.push(jsonobject.img_paths[j]);
                     break;
                 }
             }
         };
         console.log(jsonobject);
-        const jsonModified = { 'keyword': jsonobject.keyword, 'ref': data };
+        const jsonModified = { 'keyword': jsonobject.keyword, 'img_paths': data };
         console.log(jsonModified);
         const config_post = {
             method: 'POST',
