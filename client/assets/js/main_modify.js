@@ -43,7 +43,6 @@ function makeTemplate(json, i) {
         }
     }
     
-    if (i == 0) {
         makeTemplate.setAttribute('class', 'panel');
         makeTemplate.innerHTML =
             `<div class="panel-heading">
@@ -63,27 +62,7 @@ function makeTemplate(json, i) {
             <button class="snip1535" id ="button-img`+ (json._id+1)+ `">Img Modify</button>
         </div></div>
         `
-    }
-    else {
-        makeTemplate.setAttribute('class', 'panel');
-        makeTemplate.innerHTML =
-            `<div class="panel-heading">
-                <h4 class="panel-title id="panel-title`+ (json._id+1) + `">` + json.keyword + `</h4>
-                <a data-toggle="collapse" data-parent="#accordion" href="#accordion`+ (json._id+1)+ `"></a>
-            </div>
-            <div id="accordion`+ (json._id+1)+ `"class="panel-collapse collapse">
-                <div class="panel-body">
-                <textarea class="addanalysisinput`+ (json._id+1) + `" rows="4" cols="90">
-                `+ json.analysis + `</textarea>
-                    <button class="snip1535_analy" id="button-analy`+ (json._id+1) + `">Analysis Modify</button><div class= \"img\"><p>Choose the image to delete</p>
-                    `
-            + img + `
-                </div>  </div>
-                <div class="buttons">
-                    <button class="snip1535" id ="button-img`+ (json._id+1) + `">Img Modify</button>
-                </div></div>`
-    }
-
+    
     site.appendChild(makeTemplate);
 }
 function findJSON(json, json_id) {

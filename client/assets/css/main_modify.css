@@ -1482,27 +1482,62 @@ url(https://fonts.googleapis.com/css?family=BenchNine:700);
 }
 
 .panel-body  {
-	
 	left: 50px;
+	
 }
-
+.panel-body textarea {
+	width : 100%;
+	height: 100%;
+	text-align: left;
+}
 .panel-body img {
 	width : 80%;
 	height: 80%;
 	align-self: center;
 }
-
-.panel-body checkbox {
-	width:20%;
-	height:20%;
-	position: relative;
-	margin-left : 5px;
+input[type=checkbox]
+{
+  /* Double-sized Checkboxes */
+  -ms-transform: scale(2); /* IE */
+  -moz-transform: scale(2); /* FF */
+  -webkit-transform: scale(2); /* Safari and Chrome */
+  -o-transform: scale(2); /* Opera */
+  padding: 10px;
 }
-
-.panel-body textarea {
-	width : 100%;
-	height: 100%;
-}
+  /* On mouse-over, add a grey background color */
+.container:hover input ~ .checkmark {
+	background-color: #ccc;
+  }
+  
+  /* When the checkbox is checked, add a blue background */
+  .container input:checked ~ .checkmark {
+	background-color: #2196F3;
+  }
+  
+  /* Create the checkmark/indicator (hidden when not checked) */
+  .checkmark:after {
+	content: "";
+	position: absolute;
+	display: none;
+  }
+  
+  /* Show the checkmark when checked */
+  .container input:checked ~ .checkmark:after {
+	display: block;
+  }
+  
+  /* Style the checkmark/indicator */
+  .container .checkmark:after {
+	left: 9px;
+	top: 5px;
+	width: 5px;
+	height: 10px;
+	border: solid white;
+	border-width: 0 3px 3px 0;
+	-webkit-transform: rotate(45deg);
+	-ms-transform: rotate(45deg);
+	transform: rotate(45deg);
+  }
 /*===  Progress Circle Element ===*/
 .circle-progress {
 	text-align: center;
