@@ -14,6 +14,7 @@ const BoardSchema = new Schema({
   img_path: { type: String},
   author: { type: String},
   author_name : {type: String, ref:'user'},
+  adminChecked :{type : Boolean, default :false},
   createdAt: { type: String},
   comments: [{
     commenter: {type: String}, // commenter_user_code
