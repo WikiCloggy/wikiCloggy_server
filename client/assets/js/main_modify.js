@@ -39,7 +39,7 @@ function makeTemplate(json, i) {
     else {
         var img = "";
         for (var j = 0; j < json.ref.length; j++) {
-            img += "<img class=\"img-with-k" + json._id + "\"id =\"img-with-k" + json._id + "_" + j + "\"src = \"" + json.ref[j].img_path + "\"><input type=\"checkbox\" id=\"c" + json._id + "_" + j + "\" name=\"cc\"/>\n";
+            img += "<img class=\"img-with-k" + (json._id+1) + "\"id =\"img-with-k" + (json._id+1) + "_" + j + "\"src = \"" + json.ref[j].img_path + "\"><input type=\"checkbox\" id=\"c" + json._id + "_" + j + "\" name=\"cc\"/>\n";
         }
     }
     
@@ -47,20 +47,20 @@ function makeTemplate(json, i) {
         makeTemplate.setAttribute('class', 'panel');
         makeTemplate.innerHTML =
             `<div class="panel-heading">
-            <h4 class="panel-title"  id="panel-title`+ json._id + `">` + json.keyword + `</h4>
-            <a data-toggle="collapse" data-parent="#accordion" href="#accordion`+ (i + 1) + `"></a>
+            <h4 class="panel-title"  id="panel-title`+ (json._id+1) + `">` + json.keyword + `</h4>
+            <a data-toggle="collapse" data-parent="#accordion" href="#accordion`+ (json._id+1)+ `"></a>
         </div>
-        <div id="accordion`+ json._id + `"class="panel-collapse collapse">
+        <div id="accordion`+ (json._id+1) + `"class="panel-collapse collapse">
             <div class="panel-body">
             <p> Modify your analysis </p>
-            <textarea class="addanalysisinput`+ json._id + `" rows="4" cols="90">` + json.analysis + `</textarea> 
+            <textarea class="addanalysisinput`+ (json._id+1) + `" rows="4" cols="90">` + json.analysis + `</textarea> 
             <div class="buttons">
-                <button class="snip1535_analy" id="button-analy`+ json._id + `"> Analysis Modify</button></div><div class= \"img\"><p>Choose the image to delete</p>`
+                <button class="snip1535_analy" id="button-analy`+(json._id+1)+ `"> Analysis Modify</button></div><div class= \"img\"><p>Choose the image to delete</p>`
             + img + `</div>
             </div>
         
         <div class="buttons">
-            <button class="snip1535" id ="button-img`+ json._id + `">Img Modify</button>
+            <button class="snip1535" id ="button-img`+ (json._id+1)+ `">Img Modify</button>
         </div></div>
         `
     }
@@ -68,19 +68,19 @@ function makeTemplate(json, i) {
         makeTemplate.setAttribute('class', 'panel');
         makeTemplate.innerHTML =
             `<div class="panel-heading">
-                <h4 class="panel-title id="panel-title`+ json._id + `">` + json.keyword + `</h4>
-                <a data-toggle="collapse" data-parent="#accordion" href="#accordion`+ json._id + `"></a>
+                <h4 class="panel-title id="panel-title`+ (json._id+1) + `">` + json.keyword + `</h4>
+                <a data-toggle="collapse" data-parent="#accordion" href="#accordion`+ (json._id+1)+ `"></a>
             </div>
-            <div id="accordion`+ json._id + `"class="panel-collapse collapse">
+            <div id="accordion`+ (json._id+1)+ `"class="panel-collapse collapse">
                 <div class="panel-body">
-                <textarea class="addanalysisinput`+ json._id + `" rows="4" cols="90">
+                <textarea class="addanalysisinput`+ (json._id+1) + `" rows="4" cols="90">
                 `+ json.analysis + `</textarea>
-                    <button class="snip1535_analy" id="button-analy`+ json._id + `">Analysis Modify</button><div class= \"img\"><p>Choose the image to delete</p>
+                    <button class="snip1535_analy" id="button-analy`+ (json._id+1) + `">Analysis Modify</button><div class= \"img\"><p>Choose the image to delete</p>
                     `
             + img + `
                 </div>  </div>
                 <div class="buttons">
-                    <button class="snip1535" id ="button-img`+  json._id + `">Img Modify</button>
+                    <button class="snip1535" id ="button-img`+ (json._id+1) + `">Img Modify</button>
                 </div></div>`
     }
 
@@ -116,7 +116,9 @@ function POST_AnalysisModified(analysis, json_id) {
         };
         fetch('../api/result/admin/edit/' + json_id, config_post).then(function (response) {
             
-        });
+        }).then(function () {
+            window.location.reload();
+       });;
     })
 
 }
@@ -175,7 +177,7 @@ $(document).on('click', '.snip1535', function () {
     var $this = $(this);
     var $this_id = $this[0].id;
     var $id_num_tmp = $this_id.split("button-img");
-    var $id_num=$id_num_tmp[1];
+    var $id_num= parseInt($id_num_tmp[1]);
     console.log($id_num);
     var img = document.getElementsByClassName("img-with-k" + $id_num);
     var imgTosend = [];
@@ -185,7 +187,8 @@ $(document).on('click', '.snip1535', function () {
         else
             imgTosend.push(document.getElementById("img-with-k" + $id_num + "_" + i));
     }
-    POST_ImgModified(imgTosend, $id_num);
+    POST_ImgModified(imgTosend, ($id_num-1));
+    alert('Image modified');
 });
 
 $(document).on('click', '.snip1535_analy', function () {
@@ -193,9 +196,11 @@ $(document).on('click', '.snip1535_analy', function () {
     var $this = $(this);
     var $this_id = $this[0].id;
     var $id_num_tmp = $this_id.split("button-analy");
-    var $id_num=$id_num_tmp[1];
+    var $id_num= parseInt($id_num_tmp[1]);
+    console.log($id_num);
     var analysis = document.getElementsByClassName("addanalysisinput" + $id_num);
-    POST_AnalysisModified(analysis, $id_num);
+    POST_AnalysisModified(analysis, ($id_num-1));
+    alert('Analysis modified');
 });
 (function ($) {
     getFirstKeywordModel();
