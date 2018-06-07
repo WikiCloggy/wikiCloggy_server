@@ -36,13 +36,14 @@ exports.getMore = (req, res) => {
 //post create edit delete
 // 게시글 생성하기
 exports.create = (req, res) => {
-    Board.create(req.body, (err, result) => {
+  User.find({user_code : req.body.author}, (err, user) =>{
+    Board.create({title:req.body.title, content : req.body.content, author : req.body.author,createdAt : req.body.createdAt,author_id : user._id}, (err, result) => {
       if (err) return res.status(500).send(err); // 500 error
-      User.find({user_code : req.body.author}, (err, user) =>{
-        result.author_id = user._id;
-      });
       return res.json({ "_id" : result._id});
   });
+
+  });
+
 };
 
 // 게시글에 딸린 사진 저장하기
