@@ -21,7 +21,7 @@ exports.getLog = (req, res) => {
   Board.find({author : req.params.user_code}, function (err, result) {
     if(err)  return res.json({result : "fail"});
     return res.json(result);
-  }).populate('author_id', 'name').sort({_id: -1 }).skip((page)*npage).limit(npage);
+  }).sort({_id: -1 }).skip((page)*npage).limit(npage);
 };
 
 // 한 페이지당 5개의 log 정보를 불러와서 return. sort 는 id 순으로.
@@ -30,7 +30,7 @@ exports.getMore = (req, res) => {
   Board.find({}, function (err, result) {
     if(err)  return res.json({result : "fail"});
     return res.json(result);
-  }).populate('author_id', 'name').sort({_id: -1 }).skip((page)*npage).limit(npage);
+  }).sort({_id: -1 }).skip((page)*npage).limit(npage);
 };
 
 //post create edit delete
@@ -38,7 +38,7 @@ exports.getMore = (req, res) => {
 exports.create = (req, res) => {
   User.find({user_code : req.body.author}, (err, user) =>{
     if(err) return res.status(500).send(err); // 500 error
-    Board.create({title:req.body.title, content : req.body.content, author : req.body.author,createdAt : req.body.createdAt,author_id : user}, (err, result) => {
+    Board.create({title:req.body.title, content : req.body.content, author : req.body.author,createdAt : req.body.createdAt,author_name : user.name}, (err, result) => {
       if (err) return res.status(500).send(err); // 500 error
       return res.json({ "_id" : result._id});
   });
