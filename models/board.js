@@ -16,10 +16,11 @@ const BoardSchema = new Schema({
   name : {type : String },
   createdAt: { type: String},
   comments: [{
-    commenter: {type: String, required: true},
-    body: {type: String, required: true},
+    commenter: {type: String}, // commenter_user_code
+    name:{type: String},
+    body: {type: String},
     adopted: {type: Boolean},
-    keyword: {type: String, required: true},
+    keyword: {type: String},
     createdAt : {type: String}
   }]
 });

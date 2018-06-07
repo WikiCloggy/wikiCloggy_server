@@ -39,7 +39,7 @@ exports.uploadFile = (req, res) => {
 };
 
 exports.delete = (req, res) => {
-  Result.findOneAndDelete({_id : req.params.id}, (err, result) => {
+  Result.findOneAndRemove({_id : req.params.id}, (err, result) => {
     if(!err) {
       return res.json({result : "ok"});
     }
