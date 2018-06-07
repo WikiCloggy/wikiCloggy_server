@@ -63,7 +63,7 @@ keyword, img[], analysis
 ## Keyword Admin page
 *Web for admin*
 
-###(Admin page)
+### (Admin page)
   : `/client/home.html`
 
 ### (POST) Add keyword
@@ -72,7 +72,7 @@ keyword, img[], analysis
 ### (POST) Modify keyword
   : `/client/modify.html`
 
-### (POST) add & check dataset from board
+### (POST) Add & Check dataset from board
   : `/client/checkdataset.html`
 
 ## Query
