@@ -38,7 +38,7 @@ exports.getMore = (req, res) => {
 exports.create = (req, res) => {
   User.find({user_code : req.body.author}, (err, user) =>{
     if(err) return res.status(500).send(err); // 500 error
-    Board.create({title:req.body.title, content : req.body.content, author : req.body.author,createdAt : req.body.createdAt,author_name : user.name}, (err, result) => {
+    Board.create({title:req.body.title, content : req.body.content, author : req.body.author,createdAt : req.body.createdAt, author_name : user[0].name}, (err, result) => {
       if (err) return res.status(500).send(err); // 500 error
       return res.json({ "_id" : result._id});
   });
@@ -94,14 +94,14 @@ exports.searchPost = (req, res) => {
   switch(type)
   {
     case "0" : // 전체
-      Board.find({$or : [{"title" : req.body.query}, {"name" :req.body.query}]}, (err,result) => {
+      Board.find({$or : [{"title" : req.body.query}, {"author_name" :req.body.query}]}, (err,result) => {
         if(err) return res.json({ result : "fail"});
         else return res.json(result);
       });
       break;
 
     case "1" : // author name
-      Board.find({name : req.body.query}, (err, result) => {
+      Board.find({author_name : req.body.query}, (err, result) => {
         if(err) return res.json({ result : "fail"});
         else return res.json(result);
       });
