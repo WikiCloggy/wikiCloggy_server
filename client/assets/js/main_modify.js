@@ -39,7 +39,7 @@ function makeTemplate(json, i) {
     else {
         var img = "";
         for (var j = 0; j < json.ref.length; j++) {
-            img += "<img class=\"img-with-k" + (json._id+1) + "\"id =\"img-with-k" + (json._id+1) + "_" + j + "\"src = \"" + json.ref[j].img_path + "\"><input type=\"checkbox\" id=\"c" + json._id + "_" + j + "\" name=\"cc\"/>\n";
+            img += "<img class=\"img-with-k" + (json._id+1) + "\"id =\"img-with-k" + (json._id+1) + "_" + j + "\"src = \"" + json.ref[j].img_path + "\"><input type=\"checkbox\" id=\"c" + (json._id+1) + "_" + j + "\" name=\"cc\"/>\n";
         }
     }
     
