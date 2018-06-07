@@ -585,5 +585,7 @@ body {
 
 .header-section p {
     color : black;
-    font-size : 100%;
+    font-size : 120%;
+    font-weight :bold;
+    text-align: center;
 }
