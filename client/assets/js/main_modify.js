@@ -167,12 +167,9 @@ $(".hover").mouseleave(
         $(this).removeClass("hover");
     }
 );
-<<<<<<< HEAD
 //
-=======
 
 //event when you clicked Img modify button
->>>>>>> 1a64816bb50bdabf4d3c54a382157f8b8406ac84
 $(document).on('click', '.snip1535', function () {
 
     console.log("IMG");
