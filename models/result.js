@@ -10,7 +10,7 @@ const Schema  = mongoose.Schema;
 
 const ResultSchema = new Schema({
   keyword: { type: String, required: true},
-  keyword_eng : {type: String}
+  keyword_eng : {type: String},
   analysis: { type: String, required: true},
   img_paths: [{
     img_path: { type: String, required: true}
