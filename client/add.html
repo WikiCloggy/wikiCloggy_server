@@ -63,7 +63,7 @@
               //const form = document.querySelector('.js-form');
               const submit = document.querySelector('.addkeyword-form-btn');
               const keyword = document.querySelector('.addkeywordinput_kor');
-							const keyword_eng = document.querySelector('.addkeywordinput_eng');
+							const keywordEng = document.querySelector('.addkeywordinput_eng');
               const analysis = document.querySelector('.addanalysisinput');
 
               function uploadFile(id) {
@@ -90,7 +90,7 @@
                   });
               }
               function createKeyword() {
-                const json = { 'keyword' : keyword.value, 'keyword_eng' : keyword_eng.value , 'analysis': analysis.value };
+                const json = { 'keyword' : keyword.value, 'keyword_eng' : keywordEng.value , 'analysis': analysis.value };
                 const config = {
                   method: 'POST',
                   headers: {
