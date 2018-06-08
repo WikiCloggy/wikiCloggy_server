@@ -57,10 +57,16 @@ exports.uploadFile = (req, res) => {
           var content = fs.readFileSync('../data/result/'+filename);
           console.log("content = " +content);
           var jsonContent = JSON.parse(content);
-          var success = false;
 
           Result.find({eng_keyword: jsonContent[0].keyword}, (err, keyword) => {
-          if(!err && success) {
+
+          if(jsonContent[0].keyword == "cloggy_not_found" && !err)
+            return res.json({result :  "fail", reason : "cloggy not found"});
+
+          else if (jsonContent[0].keyword == "head_not_found" && !err)
+            return res.json({result : "fail", reason : "head not found"});
+
+          else if(!err) {
             Log.findOneAndUpdate({_id : req.params.id}, { $set : {result_id : keyword[0]._id}, $push: { analysis : jsonContent}}, (err, result) => {
               if(!err) {
                 // console.log({percentage : jsonContent, path : keyword.ref, stat : keyword.analysis});
@@ -68,7 +74,7 @@ exports.uploadFile = (req, res) => {
               }
             });
           }
-          else return res.json({result :  "fail", reason : "cloggy not found"});
+          else return res.json({result :  "fail", reason : "wrong query"});
         });
        });
 
