@@ -5,142 +5,64 @@
 	Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
 -->
 <html>
-	<head>
-		<title>Add Keyword</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
-        <link rel="stylesheet" href="./assets/css/checkdataset.css" />
-        <link rel="stylesheet" href="./assets/css/main_add.css" />
-        <!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
 
-    </head>
-    <body>
-            <div class="container-addkeyword">
+<head>
+  <title>Add Keyword</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+  <link rel="stylesheet" href="./assets/css/checkdataset.css" />
+  <link rel="stylesheet" href="./assets/css/main_add.css" />
+  <!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
 
-                    <div class="wrap-addkeyword">
-                        <form class="addkeyword-form validate-form">
-                            <span class="addkeyword-form-title">
-                                ADD KEYWORD
-                            </span>
+</head>
 
-                            <div class="wrap-addkeywordinput validate-input" data-validate="Please enter keyword">
-                                <input class="addkeywordinput_kor" type="text" name="name" placeholder="Keyword with Korean">
-                                <span class="focus-addkeywordinput"></span>
-                            </div>
+<body>
+  <div class="container-addkeyword">
 
-                            <div class="wrap-addkeywordinput validate-input" data-validate="Please enter keyword">
-                                <input class="addkeywordinput_eng" type="text" name="name" placeholder="Keyword with English">
-                                <span class="focus-addkeywordinput"></span>
-                            </div>
+    <div class="wrap-addkeyword">
+      <form class="addkeyword-form validate-form">
+        <span class="addkeyword-form-title">
+          ADD KEYWORD
+        </span>
 
-
-                            <div class="wrap-addkeywordinput validate-input" data-validate = "Please enter your message">
-                                <textarea class="addanalysisinput" name="message" placeholder="Your Analysis Report"></textarea>
-                                <span class="focus-addanalysisinput"></span>
-                            </div>
-
-                            <div class="wrap-addkeywordinput validate-input" data-validate = "Please enter your message">
-                                <input type="file" id="file" class="addkeywordfileinput">
-                                    <span class="focus-addanalysisinput"></span>
-                            </div>
-
-
-                            <div class="container-addkeyword-form-btn">
-                                <button class="addkeyword-form-btn">
-                                    <span>
-                                        <i class="fa fa-paper-plane-o m-r-6" aria-hidden="true"></i>
-                                        Register
-                                    </span>
-                                </button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
+        <div class="wrap-addkeywordinput validate-input" data-validate="Please enter keyword">
+          <input class="addkeywordinput_kor" type="text" name="name" placeholder="Keyword with Korean">
+          <span class="focus-addkeywordinput"></span>
         </div>
-            <script type="text/javascript">
-              const file = document.querySelector('.addkeywordfileinput');
-              //const form = document.querySelector('.js-form');
-              const submit = document.querySelector('.addkeyword-form-btn');
-              const keyword = document.querySelector('.addkeywordinput_kor');
-							const keywordEng = document.querySelector('.addkeywordinput_eng');
-              const analysis = document.querySelector('.addanalysisinput');
 
-              function uploadFile(id) {
-                const data = new FormData();
+        <div class="wrap-addkeywordinput validate-input" data-validate="Please enter keyword">
+          <input class="addkeywordinput_eng" type="text" name="name" placeholder="Keyword with English">
+          <span class="focus-addkeywordinput"></span>
+        </div>
 
-                data.append('queryFile', file.files[0]);
 
-                const config = {
-                  method : 'POST',
-                  body: data,
-                  credentials: 'same-origin',
-                };
+        <div class="wrap-addkeywordinput validate-input" data-validate="Please enter your message">
+          <textarea class="addanalysisinput" name="message" placeholder="Your Analysis Report"></textarea>
+          <span class="focus-addanalysisinput"></span>
+        </div>
 
-                return fetch(`/api/result/files/${id}`, config)
-                  .then((res) => {
-                    if (res.status >= 200 && res.status < 300) {
+        <div class="wrap-addkeywordinput validate-input" data-validate="Please enter your message">
+          <input type="file" id="file" class="addkeywordfileinput">
+          <span class="focus-addanalysisinput"></span>
+        </div>
 
-                      return res.json();
-                    }
 
-                  })
-                  .catch((ex) => {
-                    console.log('request failed', ex);
-                  });
-              }
-              function createKeyword() {
-                const json = { 'keyword' : keyword.value, 'eng_keyword' : keywordEng.value , 'analysis': analysis.value };
-                const config = {
-                  method: 'POST',
-                  headers: {
-                    'Content-Type': 'application/json',
-                  },
-                  body: JSON.stringify(json),
-                  credentials: 'same-origin',
-                };
-                return fetch('/api/result/', config)
-                  .then((res) => {
-                    if (res.status >= 200 && res.status < 300) {
-                      return res.json();
-                    }
-                    const error = new Error(res.statusText);
-                    error.res = res;
-                    throw error;
-                  })
-                  .catch((ex) => {
-                    console.log('form request failed', ex);
-                  })
-                  .then((json) => {
-                    if (json) {
-                      console.log(json[0]);
-                      if(file.files[0]){
-                        console.log(json[0]._id);
-                        uploadFile(json[0]._id);}
-                      // uploadFile(keyword.value);
+        <div class="container-addkeyword-form-btn">
+          <button class="addkeyword-form-btn">
+            <span>
+              <i class="fa fa-paper-plane-o m-r-6" aria-hidden="true"></i>
+              Register
+            </span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+  </div>
+  <script src="assets/js/jquery.min.js"></script>
+  <script src="assets/js/main_add.js"></script>
 
-                    }
-                  })
-                  .catch((f) => {
-                    console.log('file upload failed', f);
-                  });
-              }
+</body>
 
-              const handleSubmit = (event) => {
-
-                event.preventDefault();
-                if(file.files[0]){
-                    const check = file.files[0].name.split('.').pop().toLowerCase();
-                    if (check !== 'bmp' && check !== 'jpg' && check !== 'png') {
-                        file.value = '';
-                        alert('Select img file!');
-                    }
-                  }
-                    Promise.all([createKeyword()]);
-                    alert('Create Keyword Done! check on modify Keyword!');
-                    window.location.reload();
-              };
-              submit.addEventListener('click', handleSubmit);
-            </script>
-          </body>
 </html>

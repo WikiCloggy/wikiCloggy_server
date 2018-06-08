@@ -132,6 +132,13 @@ exports.getAll = (req, res) => {
   });
 };
 
+exports.getKeywords = (req, res) => {
+  Board.find({$and : {comments : {$size : {$gt : 5}}}, {adminChecked : false}}, function (err, result) {
+      if(err) return res.json({result : "fail"});
+      else return res.json(result);
+  });
+};
+
 //comment create edit delete
 // 댓글 생성하기
 exports.createComment = (req, res) => {
@@ -147,10 +154,20 @@ exports.createComment = (req, res) => {
 
 // 댓글 수정하기
 exports.updateComment = (req, res) => {
-
+  Board.findOneAndUpdate({_id: req.params.id, comments : {_id : req.params.comment}}, {$set : req.body},(err, result) => {
+    if(!err) {
+      return res.json({result : "ok"});
+    }
+    else return res.json({result : "fail"});
+  });
 };
 
 // 댓글 삭제하기
 exports.deleteComment = (req, res) => {
-
+    Board.findOneAndUpdate({_id: req.params.id}, {$pull : {comments : {_id : req.params.comment}}}, (err, result) => {
+      if(!err) {
+        return res.json({result : "ok"});
+      }
+      else return res.json({result : "fail"});
+    });
 };
