@@ -58,34 +58,8 @@ exports.uploadFile = (req, res) => {
           console.log("content = " +content);
           var jsonContent = JSON.parse(content);
           var success = false;
-          for(var i=0; i<jsonContent.length;i++) {
-            switch(jsonContent[i].keyword){
-              case "exciting" :
-                success = true;
-                jsonContent[i].keyword = "기분좋음";
-                break;
-              case "very_aggressive" :
-                success = true;
-                jsonContent[i].keyword = "공격적인상태";
-                break;
-              case "stomachache" :
-                success = true;
-                jsonContent[i].keyword = "췌장염";
-                break;
-              case "stressed" :
-                success = true;
-                jsonContent[i].keyword ="긴장상태";
-                break;
-              case "butt_scooting" :
-                success = true;
-                jsonContent[i].keyword = "항문낭염";
-                break;
-              default :
-                success = false;
-                break;
-            }
-          }
-          Result.find({keyword: jsonContent[0].keyword}, (err, keyword) => {
+
+          Result.find({eng_keyword: jsonContent[0].keyword}, (err, keyword) => {
           if(!err && success) {
             Log.findOneAndUpdate({_id : req.params.id}, { $set : {result_id : keyword[0]._id}, $push: { analysis : jsonContent}}, (err, result) => {
               if(!err) {

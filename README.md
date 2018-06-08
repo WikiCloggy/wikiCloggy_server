@@ -128,7 +128,7 @@ title, content, img_path,author, createdAt </br>
 
 
 ### (GET) 게시판 검색하기
-  : `/api/board/serach/:type` <br/>
+  : `/api/board/search/:type` <br/>
   type = 0 (전체 검색) , type = 1 (author_name 검색), type = 2 (제목 검색) <br/>
   json {query : 질문내용}  <br/>
 
