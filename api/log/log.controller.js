@@ -70,7 +70,7 @@ exports.uploadFile = (req, res) => {
             Log.findOneAndUpdate({_id : req.params.id}, { $set : {result_id : keyword[0]._id}, $push: { analysis : jsonContent}}, (err, result) => {
               if(!err) {
                 // console.log({percentage : jsonContent, path : keyword.ref, stat : keyword.analysis});
-                return res.json({result : "success", percentage : jsonContent, path : keyword[0].ref, state : keyword[0].analysis});
+                return res.json({result : "success", percentage : jsonContent, path : keyword[0].img_paths, state : keyword[0].analysis});
               }
             });
           }
