@@ -143,7 +143,7 @@ exports.getKeywords = (req, res) => {
 // 댓글 생성하기
 exports.createComment = (req, res) => {
   Board.findOneAndUpdate({ _id : req.params.id } ,{ $push : {comments :{commenter:req.body.user_code , name : req.body.name, body : req.body.body,
-  adopted : req.body.adopted, keywords: req.body.keyword , createdAt: req.body.createdAt}}},
+  adopted : req.body.adopted, keyword: req.body.keyword , createdAt: req.body.createdAt}}},
   (err, result) => {
     if(!err) {
       return res.json({result : "ok"});
