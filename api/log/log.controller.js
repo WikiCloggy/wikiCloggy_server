@@ -66,18 +66,24 @@ exports.uploadFile = (req, res) => {
               else if(keyword == '') // 키워드 검색했을 때 그 값이 존재하지 않을 때
               {
                 if (jsonContent[i].keyword == "head_not_found")
+                console.log("head not found");
                   return res.json({result : "fail", reason : "head_not_found"});
                 // head not found
                 else (jsontConetent[i].keyword == "cloggy_not_found")
+                console.log("cloggy not found")
                   return res.json({result : "fail", reason : "cloggy_not_found"});
                 // cloggy not found
               }// 결과 값을 찾지 못했을 때
               else if( i == 0) {
                 if(jsonContent[i].probability < 0.4){ // 결과값 부정확 ㅡ 지식견
+                  console.log("it is not correct");
                   return res.json({result : "fail", reason : "not_correct"});
                 }
                 else
+                {
                   resultKeyword = keyword[0];
+                  console.log("this is the first value = ", resultKeyword, JSON.parse(keyword[0]));
+                }
               }// 키워드가 존재 할 때 제일 첫번째 대표 키워드 값에 대한 setting.
               else {
                 // eng keyword -> korean keyword
