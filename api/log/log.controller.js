@@ -75,9 +75,9 @@ exports.uploadFile = (req, res) => {
               else if( i == 0) {
                 if(jsonContent[i].probability < 0.4){ // 결과값 부정확 ㅡ 지식견
                   return res.json({result : "fail", reason : "not_correct"});
-              }
-              else
-                resultKeyword = JSON.parse(keyword);
+                }
+                else
+                  resultKeyword = keyword[0];
               }// 키워드가 존재 할 때 제일 첫번째 대표 키워드 값에 대한 setting.
               else {
                 // eng keyword -> korean keyword
