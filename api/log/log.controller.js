@@ -76,10 +76,10 @@ exports.uploadFile = (req, res) => {
           Result.find({eng_keyword : jsonContent[0].keyword}, (err,keyword) => {
             resultID = keyword[0]._id;
             jsonContent[0].keyword = keyword[0].keyword;
-            Result.find({eng_keyword : jsonContent[1].keyword}, (err, keyword) => {
-              jsonContent[1].keyword = keyword[1].keyword;
+            Result.find({eng_keyword : jsonContent[1].keyword}, (err, keyword2) => {
+              jsonContent[1].keyword = keyword[0].keyword;
               Result.find({eng_keyword : jsonContent[2].keyword}, (err, keyword) => {
-                jsonContent[2].keyword = keyword[2].keyword;
+                jsonContent[2].keyword = keyword[0].keyword;
                 Log.findOneAndUpdate({_id : req.params.id}, { $set : {result_id : resultID}, $push: { analysis : jsonContent}}, (err, result) => {
                   if(!err) {
                     console.log("resut = " + jsonContent);
