@@ -40,7 +40,6 @@ exports.showAll = (req, res) => {
 };
 
 function settingPythonShell (img_path,type ,callback) {
-  var img_path = result[0].img_path;
   var splitPath = img_path.split("/");
   var nArLength = splitPath.length;
   var filename = splitPath[nArLength-1].split('.')[0]+'.json';
