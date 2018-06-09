@@ -50,7 +50,7 @@ exports.getDirection = (req, res) => {
         console.log(relativePath);
         var flip;
         var filename = splitPath[nArLength-1].split('.')[0]+'.json';
-        if(req.params.type == "left")
+        if(req.params.type === "left")
           flip="False";
         else flip = "True"
         PythonShell.run("start_estimate.py",{mode :'text', pythonOptions:['-u'],pythonPath: 'python3',scriptPath:'../wikiCloggy_cloggy_state_estimator/',args:[ relativePath,"-flip",flip]},
