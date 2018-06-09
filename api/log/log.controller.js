@@ -66,10 +66,9 @@ exports.uploadFile = (req, res) => {
           else if (jsonContent[0].keyword == "head_not_found" && !err)
             return res.json({result : "fail", reason : "head not found"});
 
-          else if(!err) {
+          else if (!err) {
             Log.findOneAndUpdate({_id : req.params.id}, { $set : {result_id : keyword[0]._id}, $push: { analysis : jsonContent}}, (err, result) => {
               if(!err) {
-                // console.log({percentage : jsonContent, path : keyword.ref, stat : keyword.analysis});
                 return res.json({result : "success", percentage : jsonContent, path : keyword[0].img_paths, state : keyword[0].analysis});
               }
             });
