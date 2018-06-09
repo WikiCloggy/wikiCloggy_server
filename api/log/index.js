@@ -17,6 +17,10 @@ router.get('/list/:user_code', logCtrl.getAll);
 router.get('/list/:user_code/:page', logCtrl.getMore);
 router.get('/details/:id', logCtrl.getDetail);
 
+
+// 머리 못찾았을 때 left right 찾아줌
+router.get('/direction/:id/:type', logCtrl.getDirection);
+
 // 데이터 양이 많아질 경우 page 로 불러오는 데이터 양을 한정해야함. - 추후 수정 예정
 
 // for admin

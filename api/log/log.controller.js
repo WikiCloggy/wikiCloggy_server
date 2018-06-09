@@ -39,6 +39,51 @@ exports.showAll = (req, res) => {
   });
 };
 
+exports.getDirection = (req, res) => {
+  Log.find({_id : req.params.id}, function (err, result){
+      if(!err) {
+        var img_path = result[0].img_path;
+        var splitPath = img_path.split("/");
+        var nArLength = splitPath.length;
+        var relativePath = '/'+splitPath[nArLength-3]+'/'+splitPath[nArLength-2]+'/' +splitPath[nArLength-1];
+        var flip;
+        if(req.params.type == "left")
+          flip="False";
+        else flip = "True"
+        PythonShell.run("start_estimate.py",{mode :'text', pythonOptions:['-u'],pythonPath: 'python3',scriptPath:'../wikiCloggy_cloggy_state_estimator/',args:[ `files/${req.files.logFile[0].destination.match(/[^/]+/g).pop()}/${req.files.logFile[0].filename}`,"-flip",flip]},
+         function (err, results) {
+         if(err) console.log("err msg :"+ err);
+          var filename = `${req.files.logFile[0].filename.split('.')[0]}` +'.json';
+          var content = fs.readFileSync('../data/result/'+filename);
+          console.log("content = " +content);
+          var jsonContent = JSON.parse(content);
+
+          if(jsonContent[0].probability < 0.4){ // 결과값 부정확 ㅡ 지식견
+            console.log("it is not correct");
+            return res.json({result : "fail", reason : "not_correct"});
+          }
+          //promise 로 수정 예정!
+          Result.find({eng_keyword : jsonContent[0].keyword}, (err,keyword1) => {
+            jsonContent[0].keyword = keyword1[0].keyword;
+            Result.find({eng_keyword : jsonContent[1].keyword}, (err, keyword2) => {
+              jsonContent[1].keyword = keyword2[0].keyword;
+              Result.find({eng_keyword : jsonContent[2].keyword}, (err, keyword3) => {
+                jsonContent[2].keyword = keyword3[0].keyword;
+                Log.findOneAndUpdate({_id : req.params.id}, { $set : {result_id : keyword1[0]._id}, $push: { analysis : jsonContent}}, (err, result) => {
+                  if(!err) {
+                    console.log("result = " + jsonContent);
+                    return res.json({result : "success", percentage : jsonContent, path : keyword1[0].img_paths, state : keyword1[0].analysis});
+                  }
+                });
+              });
+            });
+          });
+      });
+    }
+    return res.status(500).send(err);
+  })
+};
+
 // 요청되었던 사진 정보 업로드
 // /api/log/file/:id
 exports.uploadFile = (req, res) => {
@@ -51,17 +96,17 @@ exports.uploadFile = (req, res) => {
       .then(() => {
         // 기술에서 keyword json array 형식으로 받아와서 jsonarrya 에 0 번째 있는 keyword 값을 넣어줌.
         console.log("ready");
-        PythonShell.run("start_estimate.py",{mode :'text', pythonOptions:['-u'],pythonPath: 'python3',scriptPath:'../wikiCloggy_cloggy_state_estimator/',args:[ `files/${req.files.logFile[0].destination.match(/[^/]+/g).pop()}/${req.files.logFile[0].filename}`]}, function (err, results) {
+        PythonShell.run("start_estimate.py",{mode :'text', pythonOptions:['-u'],pythonPath: 'python3',scriptPath:'../wikiCloggy_cloggy_state_estimator/',args:[ `files/${req.files.logFile[0].destination.match(/[^/]+/g).pop()}/${req.files.logFile[0].filename}`]},
+         function (err, results) {
          if(err) console.log("err msg :"+ err);
           var filename = `${req.files.logFile[0].filename.split('.')[0]}` +'.json';
           var content = fs.readFileSync('../data/result/'+filename);
           console.log("content = " +content);
           var jsonContent = JSON.parse(content);
-          var resultID;
 
           if (jsonContent[0].keyword == "head_not_found"){
             console.log("head not found");
-            return res.json({result : "fail", reason : "head_not_found"});
+            return res.json({result : "fail", reason : "head_not_found", _id : req.params.id});
           }
           // head not found
           else if (jsonContent[0].keyword == "cloggy_not_found"){
