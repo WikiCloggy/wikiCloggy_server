@@ -86,6 +86,7 @@ exports.uploadFile = (req, res) => {
                 }
                 else
                 {
+                  console.log(keyword);
                   resultKeyword = keyword[0]._id;
                 }
               }// 키워드가 존재 할 때 제일 첫번째 대표 키워드 값에 대한 setting.
@@ -97,7 +98,7 @@ exports.uploadFile = (req, res) => {
         }
           // query log에 들어있는 값 업데이트.
           // 필수 과정
-        console.log(resultKeyword);
+        console.log(jsonContent);
         Log.findOneAndUpdate({_id : req.params.id}, { $set : {result_id : resultKeyword}, $push: { analysis : jsonContent}}, (err, result) => {
           if(!err) {
             return res.json({result : "success", percentage : jsonContent, path : result.img_paths, state : result.analysis});
