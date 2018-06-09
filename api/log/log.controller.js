@@ -82,7 +82,7 @@ exports.uploadFile = (req, res) => {
                 else
                 {
                   resultKeyword = keyword[0];
-                  console.log("this is the first value = ", resultKeyword, JSON.parse(keyword[0]));
+                  console.log("this is the first value = " + resultKeyword + JSON.parse(keyword[0]));
                 }
               }// 키워드가 존재 할 때 제일 첫번째 대표 키워드 값에 대한 setting.
               else {
