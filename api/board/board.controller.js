@@ -164,7 +164,7 @@ exports.updateComment = (req, res) => {
 
 // 댓글 삭제하기
 exports.deleteComment = (req, res) => {
-    Board.findOneAndUpdate({_id: req.params.id}, {$pull : {"comments._id" : req.params.comment}}, (err, result) => {
+    Board.findOneAndUpdate({_id: req.params.id}, {$pull : {_id : req.params.comment}}, (err, result) => {
       if(!err) {
         return res.json({result : "ok"});
       }
