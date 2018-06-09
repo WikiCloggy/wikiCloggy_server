@@ -46,7 +46,7 @@ exports.getDirection = (req, res) => {
         var img_path = result[0].img_path;
         var splitPath = img_path.split("/");
         var nArLength = splitPath.length;
-        var relativePath = '/home/jhikm1003/wikiCloggy_server/'+splitPath[nArLength-3]+'/'+splitPath[nArLength-2]+'/' +splitPath[nArLength-1];
+        var relativePath = splitPath[nArLength-3]+'/'+splitPath[nArLength-2]+'/' +splitPath[nArLength-1];
         console.log(relativePath);
         var flip;
         var filename = splitPath[nArLength-1].split('.')[0]+'.json';
