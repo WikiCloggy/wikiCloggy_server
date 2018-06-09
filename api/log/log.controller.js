@@ -68,7 +68,7 @@ exports.uploadFile = (req, res) => {
             console.log("cloggy not found");
             return res.json({result : "fail", reason : "cloggy_not_found"});
           }
-          else if(jsonContent[i].probability < 0.4){ // 결과값 부정확 ㅡ 지식견
+          else if(jsonContent[0].probability < 0.4){ // 결과값 부정확 ㅡ 지식견
             console.log("it is not correct");
             return res.json({result : "fail", reason : "not_correct"});
           }
