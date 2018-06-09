@@ -46,7 +46,7 @@ exports.getDirection = (req, res) => {
         var img_path = result[0].img_path;
         var splitPath = img_path.split("/");
         var nArLength = splitPath.length;
-        var relativePath = '/'+splitPath[nArLength-3]+'/'+splitPath[nArLength-2]+'/' +splitPath[nArLength-1];
+        var relativePath = '/home/jhikm1003/wikiCloggy_server/'+splitPath[nArLength-3]+'/'+splitPath[nArLength-2]+'/' +splitPath[nArLength-1];
         console.log(relativePath);
         var flip;
         var filename = splitPath[nArLength-1].split('.')[0]+'.json';
@@ -60,12 +60,12 @@ exports.getDirection = (req, res) => {
           flip = "True";
           break;
           default :
-          return res.json({result : fail, reason : wrong_query});
+          return res.json({result : "fail", reason : "wrong_query"});
         }
         console.log("flip = " + flip);
         PythonShell.run("start_estimate.py",{mode :'text', pythonOptions:['-u'],pythonPath: 'python3',scriptPath:'../wikiCloggy_cloggy_state_estimator/',args:[ relativePath,"-flip",flip]},
          function (err, results) {
-         if(err) console.log("err msg :"+ err);
+         if(err) {console.log("err msg :"+ err); res.json({result:"fail", reason : "estimate_failed"})};
           var content = fs.readFileSync('../data/result/'+filename);
           console.log("content = " +content);
           var jsonContent = JSON.parse(content);
