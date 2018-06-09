@@ -89,7 +89,7 @@ exports.uploadFile = (req, res) => {
           // 필수 과정
         Log.findOneAndUpdate({_id : req.params.id}, { $set : {result_id : resultKeyword[0]._id}, $push: { analysis : jsonContent}}, (err, result) => {
           if(!err) {
-            return res.json({result : "success", percentage : jsonContent, path : resultKeyword[0].img_paths, state : resultKeyword[0].analysis});
+            return res.json({result : "success", percentage : jsonContent, path : resultKeyword.img_paths, state : resultKeyword.analysis});
           }
         }); // 결과 값을 받았을 때 query log 등록
       });
