@@ -65,13 +65,15 @@ exports.uploadFile = (req, res) => {
               if (err) res.status(500).send(err); // jsonContent에 있는 영어 keyword 검색
               else if(keyword == '') // 키워드 검색했을 때 그 값이 존재하지 않을 때
               {
-                if (jsonContent[i].keyword == "head_not_found")
-                console.log("head not found");
+                if (jsonContent[i].keyword == "head_not_found"){
+                  console.log("head not found");
                   return res.json({result : "fail", reason : "head_not_found"});
+                }
                 // head not found
-                else (jsontConetent[i].keyword == "cloggy_not_found")
-                console.log("cloggy not found")
+                else (jsontConetent[i].keyword == "cloggy_not_found"){
+                  console.log("cloggy not found")
                   return res.json({result : "fail", reason : "cloggy_not_found"});
+                }
                 // cloggy not found
               }// 결과 값을 찾지 못했을 때
               else if( i == 0) {
@@ -93,7 +95,7 @@ exports.uploadFile = (req, res) => {
         }
           // query log에 들어있는 값 업데이트.
           // 필수 과정
-          console.log(resultKeyword);
+        console.log(resultKeyword);
         Log.findOneAndUpdate({_id : req.params.id}, { $set : {result_id : resultKeyword._id}, $push: { analysis : jsonContent}}, (err, result) => {
           if(!err) {
             return res.json({result : "success", percentage : jsonContent, path : resultKeyword.img_paths, state : resultKeyword.analysis});
