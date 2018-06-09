@@ -39,42 +39,51 @@ exports.showAll = (req, res) => {
   });
 };
 
+function settingPythonShell (img_path,type ,callback) {
+  var img_path = result[0].img_path;
+  var splitPath = img_path.split("/");
+  var nArLength = splitPath.length;
+  var filename = splitPath[nArLength-1].split('.')[0]+'.json';
+  var relativePath = splitPath[nArLength-3] +'/'+splitPath[nArLength-2] +'/'+splitPath[nArLength-1];
+  var flip;
+  if(type == "left")
+    flip="False";
+  else flip="True";
+}
+
 // 요청했던 사진에 머리를 찾을 수 없어 머리의 위치를 받아와 유저에게 결과값 전송
 exports.getDirection = (req, res) => {
   Log.find({_id : req.params.id}, function (err, result){
       if(!err) {
-        PythonShell.run("start_estimate.py",{mode :'text', pythonOptions:['-u'],pythonPath: 'python3',scriptPath:'../wikiCloggy_cloggy_state_estimator/',
-        args:[result[0].img_path.split("/")[result[0].img_path.split("/").length-3] +'/'+result[0].img_path.split("/")[result[0].img_path.split("/").length-2]+'/'+
-        result[0].img_path.split("/")[result[0].img_path.split('/').length-1],"-flip",(req.params.id=="left" ? "False" :"True")]},
-         function (err, results) {
-         if(err) {console.log("err msg :"+ err); res.json({result:"fail", reason : "estimate_failed"});}
-          var content = fs.readFileSync('../data/result/'+filename);
-          console.log("content = " +content);
-          var jsonContent = JSON.parse(content);
-          var img_path = result[0].img_path;
-          var splitPath = img_path.split("/");
-          var nArLength = splitPath.length;
-          var filename = splitPath[nArLength-1].split('.')[0]+'.json';
-          if(jsonContent[0].probability < 0.4){ // 결과값 부정확 ㅡ 지식견
-            console.log("it is not correct");
-            return res.json({result : "fail", reason : "not_correct"});
-          }
-          //promise 로 수정 예정!
-          Result.find({eng_keyword : jsonContent[0].keyword}, (err,keyword1) => {
-            jsonContent[0].keyword = keyword1[0].keyword;
-            Result.find({eng_keyword : jsonContent[1].keyword}, (err, keyword2) => {
-              jsonContent[1].keyword = keyword2[0].keyword;
-              Result.find({eng_keyword : jsonContent[2].keyword}, (err, keyword3) => {
-                jsonContent[2].keyword = keyword3[0].keyword;
-                Log.findOneAndUpdate({_id : req.params.id}, { $set : {result_id : keyword1[0]._id}, $push: { analysis : jsonContent}}, (err, result) => {
-                  if(!err) {
-                    console.log("result = " + jsonContent);
-                    return res.json({result : "success", percentage : jsonContent, path : keyword1[0].img_paths, state : keyword1[0].analysis});
-                  }
+        settingPythonShell(result[0].img_path,req.params.type, function(){
+          PythonShell.run("start_estimate.py",{mode :'text', pythonOptions:['-u'],pythonPath: 'python3',scriptPath:'../wikiCloggy_cloggy_state_estimator/',
+          args:[relativePath,"-flip",flip]},
+           function (err, results) {
+           if(err) {console.log("err msg :"+ err); res.json({result:"fail", reason : "estimate_failed"});}
+            var content = fs.readFileSync('../data/result/'+filename);
+            console.log("content = " +content);
+            var jsonContent = JSON.parse(content);
+            if(jsonContent[0].probability < 0.4){ // 결과값 부정확 ㅡ 지식견
+              console.log("it is not correct");
+              return res.json({result : "fail", reason : "not_correct"});
+            }
+            //promise 로 수정 예정!
+            Result.find({eng_keyword : jsonContent[0].keyword}, (err,keyword1) => {
+              jsonContent[0].keyword = keyword1[0].keyword;
+              Result.find({eng_keyword : jsonContent[1].keyword}, (err, keyword2) => {
+                jsonContent[1].keyword = keyword2[0].keyword;
+                Result.find({eng_keyword : jsonContent[2].keyword}, (err, keyword3) => {
+                  jsonContent[2].keyword = keyword3[0].keyword;
+                  Log.findOneAndUpdate({_id : req.params.id}, { $set : {result_id : keyword1[0]._id}, $push: { analysis : jsonContent}}, (err, result) => {
+                    if(!err) {
+                      console.log("result = " + jsonContent);
+                      return res.json({result : "success", percentage : jsonContent, path : keyword1[0].img_paths, state : keyword1[0].analysis});
+                    }
+                  });
                 });
               });
             });
-          });
+        });
       });
     }
     return res.status(500).send(err);
