@@ -75,25 +75,25 @@ exports.uploadFile = (req, res) => {
               else if( i == 0) {
                 if(jsonContent[i].probability < 0.4){ // 결과값 부정확 ㅡ 지식견
                   return res.json({result : "fail", reason : "not_correct"});
-                }
-                else
-                  resultKeyword = keyword;
+              }
+              else
+                resultKeyword = keyword;
               }// 키워드가 존재 할 때 제일 첫번째 대표 키워드 값에 대한 setting.
               else {
                 // eng keyword -> korean keyword
-                jsonConetent[i].keyword = keyword[0].keyword;
+              jsonConetent[i].keyword = keyword[0].keyword;
+              }
             }); // 번역
-          }
         }
-        // query log에 들어있는 값 업데이트.
-        // 필수 과정
+          // query log에 들어있는 값 업데이트.
+          // 필수 과정
         Log.findOneAndUpdate({_id : req.params.id}, { $set : {result_id : resultKeyword[0]._id}, $push: { analysis : jsonContent}}, (err, result) => {
           if(!err) {
             return res.json({result : "success", percentage : jsonContent, path : resultKeyword[0].img_paths, state : resultKeyword[0].analysis});
           }
         }); // 결과 값을 받았을 때 query log 등록
-       });
-      })
+      });
+    })
       .catch((err) => {
         res.status(500).json({err : err, message : 'the data not exist'});
       });
