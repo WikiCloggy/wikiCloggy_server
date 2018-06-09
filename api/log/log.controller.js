@@ -88,7 +88,6 @@ exports.uploadFile = (req, res) => {
                 }
                 else
                 {
-                  console.log(keyword);
                   resultKeyword = keyword[0]._id;
                 }
               }// 키워드가 존재 할 때 제일 첫번째 대표 키워드 값에 대한 setting.
