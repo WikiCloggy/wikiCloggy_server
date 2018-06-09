@@ -71,9 +71,9 @@ exports.uploadFile = (req, res) => {
 
           for(var i=0; i<jsonContent.length; i++)
           {
-            console.log("i : " + i );
+
             Result.find({eng_keyword : jsonContent[i].keyword}, (err, keyword) => {
-              console.log(keyword);
+              console.log("i : " + i + "keyword" + keyword);
               if (err) res.status(500).send(err); // jsonContent에 있는 영어 keyword 검색
               else if(keyword == '') // 키워드 검색했을 때 그 값이 존재하지 않을 때
               {
