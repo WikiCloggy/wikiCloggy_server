@@ -57,7 +57,7 @@ exports.uploadFile = (req, res) => {
           var content = fs.readFileSync('../data/result/'+filename);
           console.log("content = " +content);
           var jsonContent = JSON.parse(content);
-          var resultKeyword;
+          var resultKeyword = '0';
 
           if (jsonContent[0].keyword == "head_not_found"){
             console.log("head not found");
@@ -86,8 +86,7 @@ exports.uploadFile = (req, res) => {
                 }
                 else
                 {
-                  resultKeyword = keyword[0];
-                  console.log("this is the first value = " + resultKeyword + JSON.parse(keyword[0]));
+                  resultKeyword = keyword[0]._id;
                 }
               }// 키워드가 존재 할 때 제일 첫번째 대표 키워드 값에 대한 setting.
               else {
@@ -99,7 +98,7 @@ exports.uploadFile = (req, res) => {
           // query log에 들어있는 값 업데이트.
           // 필수 과정
         console.log(resultKeyword);
-        Log.findOneAndUpdate({_id : req.params.id}, { $set : {result_id : resultKeyword._id}, $push: { analysis : jsonContent}}, (err, result) => {
+        Log.findOneAndUpdate({_id : req.params.id}, { $set : {result_id : resultKeyword}, $push: { analysis : jsonContent}}, (err, result) => {
           if(!err) {
             return res.json({result : "success", percentage : jsonContent, path : result.img_paths, state : result.analysis});
           }
