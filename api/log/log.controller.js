@@ -87,7 +87,7 @@ exports.uploadFile = (req, res) => {
         }
           // query log에 들어있는 값 업데이트.
           // 필수 과정
-        Log.findOneAndUpdate({_id : req.params.id}, { $set : {result_id : resultKeyword[0]._id}, $push: { analysis : jsonContent}}, (err, result) => {
+        Log.findOneAndUpdate({_id : req.params.id}, { $set : {result_id : resultKeyword._id}, $push: { analysis : jsonContent}}, (err, result) => {
           if(!err) {
             return res.json({result : "success", percentage : jsonContent, path : resultKeyword.img_paths, state : resultKeyword.analysis});
           }
