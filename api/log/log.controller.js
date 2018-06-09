@@ -92,20 +92,22 @@ exports.uploadFile = (req, res) => {
                   resultKeyword = keyword[0]._id;
                 }
               }// 키워드가 존재 할 때 제일 첫번째 대표 키워드 값에 대한 setting.
+              else if(i==jsonContent.length-1)
+              {
+                // query log에 들어있는 값 업데이트.
+                // 필수 과정
+              Log.findOneAndUpdate({_id : req.params.id}, { $set : {result_id : resultKeyword}, $push: { analysis : jsonContent}}, (err, result) => {
+                if(!err) {
+                  return res.json({result : "success", percentage : jsonContent, path : result.img_paths, state : result.analysis});
+                }
+              })
+            }
               else {
                 // eng keyword -> korean keyword
                 jsonContent[i].keyword = keyword[0].keyword;
               }
-            }); // 번역
+          });
         }
-          // query log에 들어있는 값 업데이트.
-          // 필수 과정
-        console.log(jsonContent);
-        Log.findOneAndUpdate({_id : req.params.id}, { $set : {result_id : resultKeyword}, $push: { analysis : jsonContent}}, (err, result) => {
-          if(!err) {
-            return res.json({result : "success", percentage : jsonContent, path : result.img_paths, state : result.analysis});
-          }
-        }); // 결과 값을 받았을 때 query log 등록
       });
     })
       .catch((err) => {
