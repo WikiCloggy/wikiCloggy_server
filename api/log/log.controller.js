@@ -47,7 +47,7 @@ exports.getDirection = (req, res) => {
         args:[result[0].img_path.split("/")[result[0].img_path.split("/").length-3] +'/'+result[0].img_path.split("/")[result[0].img_path.split("/").length-2]+'/'+
         result[0].img_path.split("/")[result[0].img_path.split('/').length-1],"-flip",(req.params.id=="left" ? "False" :"True")]},
          function (err, results) {
-         if(err) {console.log("err msg :"+ err); res.json({result:"fail", reason : "estimate_failed"})};
+         if(err) {console.log("err msg :"+ err); res.json({result:"fail", reason : "estimate_failed"});}
           var content = fs.readFileSync('../data/result/'+filename);
           console.log("content = " +content);
           var jsonContent = JSON.parse(content);
