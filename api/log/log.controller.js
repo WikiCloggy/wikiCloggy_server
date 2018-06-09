@@ -73,17 +73,17 @@ exports.uploadFile = (req, res) => {
             return res.json({result : "fail", reason : "not_correct"});
           }
           //promise 로 수정 예정!
-          Result.find({eng_keyword : jsonContent[0].keyword}, (err,keyword) => {
+          Result.find({eng_keyword : jsonContent[0].keyword}, (err,keyword1) => {
             resultID = keyword[0]._id;
-            jsonContent[0].keyword = keyword[0].keyword;
+            jsonContent[0].keyword = keyword1[0].keyword;
             Result.find({eng_keyword : jsonContent[1].keyword}, (err, keyword2) => {
-              jsonContent[1].keyword = keyword[0].keyword;
-              Result.find({eng_keyword : jsonContent[2].keyword}, (err, keyword) => {
-                jsonContent[2].keyword = keyword[0].keyword;
+              jsonContent[1].keyword = keyword2[0].keyword;
+              Result.find({eng_keyword : jsonContent[2].keyword}, (err, keyword3) => {
+                jsonContent[2].keyword = keyword3[0].keyword;
                 Log.findOneAndUpdate({_id : req.params.id}, { $set : {result_id : resultID}, $push: { analysis : jsonContent}}, (err, result) => {
                   if(!err) {
-                    console.log("resut = " + jsonContent);
-                    return res.json({result : "success", percentage : jsonContent, path : result.img_paths, state : result.analysis});
+                    console.log("result = " + jsonContent);
+                    return res.json({result : "success", percentage : jsonContent, path : keyword1.img_paths, state : keyword1.analysis});
                   }
                 });
               });
