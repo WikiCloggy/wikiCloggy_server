@@ -43,35 +43,18 @@ exports.showAll = (req, res) => {
 exports.getDirection = (req, res) => {
   Log.find({_id : req.params.id}, function (err, result){
       if(!err) {
-
-        var img_path = result[0].img_path;
-        var splitPath = img_path.split("/");
-        var nArLength = splitPath.length;
-        var relativePath = splitPath[nArLength-3]+'/'+splitPath[nArLength-2]+'/' +splitPath[nArLength-1];
-        console.log(relativePath);
-        var flip;
-        var filename = splitPath[nArLength-1].split('.')[0]+'.json';
-        console.log(filename);
-        switch(req.params.type)
-        {
-          case "left" :
-          flip = "False";
-          break;
-          case "right" :
-          flip = "True";
-          break;
-          default :
-          return res.json({result : "fail", reason : "wrong_query"});
-        }
-        console.log("flip = " + flip);
-        PythonShell.run("start_estimate.py",{mode :'text', pythonOptions:['-u'],pythonPath: 'python3',scriptPath:'../wikiCloggy_cloggy_state_estimator/',args:[ relativePath,"-flip",flip]},
+        PythonShell.run("start_estimate.py",{mode :'text', pythonOptions:['-u'],pythonPath: 'python3',scriptPath:'../wikiCloggy_cloggy_state_estimator/',
+        args:[result[0].img_path.split("/")[result[0].img_path.split("/").length-3] +'/'+result[0].img_path.split("/")[result[0].img_path.split("/").length-2]+'/'+
+        result[0].img_path.split("/")[result[0].img_path.split('/').length-1],"-flip",(req.params.id=="left" ? "False" :"True")]},
          function (err, results) {
-           console.log(relativePath);
          if(err) {console.log("err msg :"+ err); res.json({result:"fail", reason : "estimate_failed"})};
           var content = fs.readFileSync('../data/result/'+filename);
           console.log("content = " +content);
           var jsonContent = JSON.parse(content);
-
+          var img_path = result[0].img_path;
+          var splitPath = img_path.split("/");
+          var nArLength = splitPath.length;
+          var filename = splitPath[nArLength-1].split('.')[0]+'.json';
           if(jsonContent[0].probability < 0.4){ // 결과값 부정확 ㅡ 지식견
             console.log("it is not correct");
             return res.json({result : "fail", reason : "not_correct"});
