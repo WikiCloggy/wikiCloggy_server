@@ -73,9 +73,11 @@ exports.uploadFile = (req, res) => {
           {
             console.log("i : " + i );
             Result.find({eng_keyword : jsonContent[i].keyword}, (err, keyword) => {
+              console.log(keyword);
               if (err) res.status(500).send(err); // jsonContent에 있는 영어 keyword 검색
               else if(keyword == '') // 키워드 검색했을 때 그 값이 존재하지 않을 때
               {
+                console.log("no result exist");
                 return res.json({result : "fail", reason : "no_result"});
                 // cloggy not found
               }// 결과 값을 찾지 못했을 때
