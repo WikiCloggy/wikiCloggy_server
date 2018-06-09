@@ -82,7 +82,7 @@ exports.uploadFile = (req, res) => {
                 jsonContent[2].keyword = keyword[2].keyword;
                 Log.findOneAndUpdate({_id : req.params.id}, { $set : {result_id : resultID}, $push: { analysis : jsonContent}}, (err, result) => {
                   if(!err) {
-                    console.log("resut = " jsonContent);
+                    console.log("resut = " + jsonContent);
                     return res.json({result : "success", percentage : jsonContent, path : result.img_paths, state : result.analysis});
                   }
                 });
