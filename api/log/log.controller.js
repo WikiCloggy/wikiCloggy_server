@@ -57,7 +57,7 @@ exports.getDirection = (req, res) => {
   Log.find({_id : req.params.id}, function (err, result){
       if(!err) {
         settingPythonShell(result[0].img_path,req.params.type, function(relativePath,flip){
-          console.log("start");
+          console.log("start" + relativePath +flip);
           PythonShell.run("start_estimate.py",{mode :'text', pythonOptions:['-u'],pythonPath: 'python3',scriptPath:'../wikiCloggy_cloggy_state_estimator/',
           args:[relativePath,"-flip",flip]},
            function (err, results) {
