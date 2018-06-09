@@ -62,7 +62,7 @@ exports.getDirection = (req, res) => {
           args:[relativePath,"-flip",flip]},
            function (err, results) {
              console.log("pythonShell start");
-           if(err) {console.log("err msg :"+ err); res.json({result:"fail", reason : "estimate_failed"});}
+           if(err) {console.log("err msg :"+ err);}
             var content = fs.readFileSync('../data/result/'+filename);
             console.log("content = " +content);
             var jsonContent = JSON.parse(content);
