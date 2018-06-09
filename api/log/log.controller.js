@@ -50,6 +50,7 @@ exports.getDirection = (req, res) => {
         console.log(relativePath);
         var flip;
         var filename = splitPath[nArLength-1].split('.')[0]+'.json';
+        console.log(filename);
         switch(req.params.type)
         {
           case "left" :
