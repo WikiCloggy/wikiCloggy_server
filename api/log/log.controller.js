@@ -69,7 +69,7 @@ exports.uploadFile = (req, res) => {
             return res.json({result : "fail", reason : "cloggy_not_found"});
           }
 
-          for(var i=0; i<jsonContent.length; i++)
+          for(var i=0; i<jsonContent.length-1; i++)
           {
 
             Result.find({eng_keyword : jsonContent[i].keyword}, (err, keyword) => {
@@ -91,7 +91,7 @@ exports.uploadFile = (req, res) => {
                   resultKeyword = keyword[0]._id;
                 }
               }// 키워드가 존재 할 때 제일 첫번째 대표 키워드 값에 대한 setting.
-              else if(i==jsonContent.length-1)
+              else if(i==jsonContent.length-2)
               {
                 // query log에 들어있는 값 업데이트.
                 // 필수 과정
