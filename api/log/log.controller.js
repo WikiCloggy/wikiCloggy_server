@@ -49,14 +49,14 @@ function settingPythonShell (img_path,type ,callback) {
     flip="False";
   else flip="True";
   console.log("setting"+relativePath+flip);
-  callback();
+  callback(relativePath,flip);
 }
 
 // 요청했던 사진에 머리를 찾을 수 없어 머리의 위치를 받아와 유저에게 결과값 전송
 exports.getDirection = (req, res) => {
   Log.find({_id : req.params.id}, function (err, result){
       if(!err) {
-        settingPythonShell(result[0].img_path,req.params.type, function(){
+        settingPythonShell(result[0].img_path,req.params.type, function(relativePath,flip){
           console.log("start");
           PythonShell.run("start_estimate.py",{mode :'text', pythonOptions:['-u'],pythonPath: 'python3',scriptPath:'../wikiCloggy_cloggy_state_estimator/',
           args:[relativePath,"-flip",flip]},
