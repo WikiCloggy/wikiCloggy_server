@@ -56,9 +56,11 @@ exports.getDirection = (req, res) => {
   Log.find({_id : req.params.id}, function (err, result){
       if(!err) {
         settingPythonShell(result[0].img_path,req.params.type, function(){
+          console.log("start");
           PythonShell.run("start_estimate.py",{mode :'text', pythonOptions:['-u'],pythonPath: 'python3',scriptPath:'../wikiCloggy_cloggy_state_estimator/',
           args:[relativePath,"-flip",flip]},
            function (err, results) {
+             console.log("pythonShell start");
            if(err) {console.log("err msg :"+ err); res.json({result:"fail", reason : "estimate_failed"});}
             var content = fs.readFileSync('../data/result/'+filename);
             console.log("content = " +content);
