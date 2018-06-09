@@ -63,8 +63,6 @@ exports.getDirection = (req, res) => {
           return res.json({result : fail, reason : wrong_query});
         }
         console.log("flip = " + flip);
-        if(req.params.type == "left") flip="False";
-        else flip = "True"
         PythonShell.run("start_estimate.py",{mode :'text', pythonOptions:['-u'],pythonPath: 'python3',scriptPath:'../wikiCloggy_cloggy_state_estimator/',args:[ relativePath,"-flip",flip]},
          function (err, results) {
          if(err) console.log("err msg :"+ err);
