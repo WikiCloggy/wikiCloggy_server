@@ -62,13 +62,13 @@ exports.getDirection = (req, res) => {
           args:[relativePath,"-flip",flip]},
            function (err, results) {
              console.log("pythonShell start");
-           if(err) {console.log("err msg :"+ err);}
+           if(err) {console.log("err msg :"+ err);return res.status(500).send(err);}
             var content = fs.readFileSync('../data/result/'+filename);
             console.log("content = " +content);
             var jsonContent = JSON.parse(content);
             if(jsonContent[0].probability < 0.4){ // 결과값 부정확 ㅡ 지식견
               console.log("it is not correct");
-              return res.json({result : "fail", reason : "not_correct"});
+              return res.send({result : "fail", reason : "not_correct"});
             }
             //promise 로 수정 예정!
             Result.find({eng_keyword : jsonContent[0].keyword}, (err,keyword1) => {
@@ -80,7 +80,7 @@ exports.getDirection = (req, res) => {
                   Log.findOneAndUpdate({_id : req.params.id}, { $set : {result_id : keyword1[0]._id}, $push: { analysis : jsonContent}}, (err, result) => {
                     if(!err) {
                       console.log("result = " + jsonContent);
-                      return res.json({result : "success", percentage : jsonContent, path : keyword1[0].img_paths, state : keyword1[0].analysis});
+                      return res.send({result : "success", percentage : jsonContent, path : keyword1[0].img_paths, state : keyword1[0].analysis});
                     }
                   });
                 });
@@ -89,7 +89,7 @@ exports.getDirection = (req, res) => {
         });
       });
     }
-    return res.status(500).send(err);
+    else return res.status(500).send(err);
   })
 };
 
