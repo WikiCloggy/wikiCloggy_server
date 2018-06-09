@@ -77,7 +77,7 @@ exports.uploadFile = (req, res) => {
                   return res.json({result : "fail", reason : "not_correct"});
               }
               else
-                resultKeyword = keyword;
+                resultKeyword = JSON.parse(keyword);
               }// 키워드가 존재 할 때 제일 첫번째 대표 키워드 값에 대한 setting.
               else {
                 // eng keyword -> korean keyword
