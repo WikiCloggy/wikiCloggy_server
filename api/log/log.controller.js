@@ -64,7 +64,7 @@ exports.uploadFile = (req, res) => {
             return res.json({result : "fail", reason : "head_not_found"});
           }
           // head not found
-          else if (jsonConetent[0].keyword == "cloggy_not_found"){
+          else if (jsonContent[0].keyword == "cloggy_not_found"){
             console.log("cloggy not found");
             return res.json({result : "fail", reason : "cloggy_not_found"});
           }
