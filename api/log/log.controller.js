@@ -49,6 +49,7 @@ function settingPythonShell (img_path,type ,callback) {
     flip="False";
   else flip="True";
   console.log("setting"+relativePath+flip);
+  callback();
 }
 
 // 요청했던 사진에 머리를 찾을 수 없어 머리의 위치를 받아와 유저에게 결과값 전송
