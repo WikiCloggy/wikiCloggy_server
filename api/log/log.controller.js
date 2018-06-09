@@ -43,6 +43,7 @@ exports.showAll = (req, res) => {
 exports.getDirection = (req, res) => {
   Log.find({_id : req.params.id}, function (err, result){
       if(!err) {
+
         var img_path = result[0].img_path;
         var splitPath = img_path.split("/");
         var nArLength = splitPath.length;
@@ -65,6 +66,7 @@ exports.getDirection = (req, res) => {
         console.log("flip = " + flip);
         PythonShell.run("start_estimate.py",{mode :'text', pythonOptions:['-u'],pythonPath: 'python3',scriptPath:'../wikiCloggy_cloggy_state_estimator/',args:[ relativePath,"-flip",flip]},
          function (err, results) {
+           console.log(relativePath);
          if(err) {console.log("err msg :"+ err); res.json({result:"fail", reason : "estimate_failed"})};
           var content = fs.readFileSync('../data/result/'+filename);
           console.log("content = " +content);
