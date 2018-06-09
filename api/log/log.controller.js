@@ -47,6 +47,7 @@ exports.getDirection = (req, res) => {
         var splitPath = img_path.split("/");
         var nArLength = splitPath.length;
         var relativePath = '/'+splitPath[nArLength-3]+'/'+splitPath[nArLength-2]+'/' +splitPath[nArLength-1];
+        console.log(relativePath);
         var flip;
         var filename = splitPath[nArLength-1].split('.')[0]+'.json';
         if(req.params.type == "left")
