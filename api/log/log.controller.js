@@ -47,13 +47,13 @@ exports.getDirection = (req, res) => {
         var nArLength = splitPath.length;
         var relativePath = '/'+splitPath[nArLength-3]+'/'+splitPath[nArLength-2]+'/' +splitPath[nArLength-1];
         var flip;
+        var filename = splitPath[nArLength-1].split('.')[0]+'.json';
         if(req.params.type == "left")
           flip="False";
         else flip = "True"
         PythonShell.run("start_estimate.py",{mode :'text', pythonOptions:['-u'],pythonPath: 'python3',scriptPath:'../wikiCloggy_cloggy_state_estimator/',args:[ `files/${req.files.logFile[0].destination.match(/[^/]+/g).pop()}/${req.files.logFile[0].filename}`,"-flip",flip]},
          function (err, results) {
          if(err) console.log("err msg :"+ err);
-          var filename = `${req.files.logFile[0].filename.split('.')[0]}` +'.json';
           var content = fs.readFileSync('../data/result/'+filename);
           console.log("content = " +content);
           var jsonContent = JSON.parse(content);
