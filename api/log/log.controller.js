@@ -58,25 +58,28 @@ exports.uploadFile = (req, res) => {
           console.log("content = " +content);
           var jsonContent = JSON.parse(content);
           var resultKeyword;
+
+          if (jsonContent[0].keyword == "head_not_found"){
+            console.log("head not found");
+            return res.json({result : "fail", reason : "head_not_found"});
+          }
+          // head not found
+          else if (jsontConetent[0].keyword == "cloggy_not_found"){
+            console.log("cloggy not found");
+            return res.json({result : "fail", reason : "cloggy_not_found"});
+          }
+
           for(var i=0; i<jsonContent.length; i++)
           {
-
+            console.log("i : " + i );
             Result.find({eng_keyword : jsonContent[i].keyword}, (err, keyword) => {
               if (err) res.status(500).send(err); // jsonContent에 있는 영어 keyword 검색
               else if(keyword == '') // 키워드 검색했을 때 그 값이 존재하지 않을 때
               {
-                if (jsonContent[i].keyword == "head_not_found"){
-                  console.log("head not found");
-                  return res.json({result : "fail", reason : "head_not_found"});
-                }
-                // head not found
-                else if (jsontConetent[i].keyword == "cloggy_not_found"){
-                  console.log("cloggy not found")
-                  return res.json({result : "fail", reason : "cloggy_not_found"});
-                }
+                return res.json({result : "fail", reason : "no_result"});
                 // cloggy not found
               }// 결과 값을 찾지 못했을 때
-              else if( i == 0) {
+              else if(i == 0) {
                 if(jsonContent[i].probability < 0.4){ // 결과값 부정확 ㅡ 지식견
                   console.log("it is not correct");
                   return res.json({result : "fail", reason : "not_correct"});
@@ -89,7 +92,7 @@ exports.uploadFile = (req, res) => {
               }// 키워드가 존재 할 때 제일 첫번째 대표 키워드 값에 대한 setting.
               else {
                 // eng keyword -> korean keyword
-              jsonConetent[i].keyword = keyword[0].keyword;
+                jsonConetent[i].keyword = keyword[0].keyword;
               }
             }); // 번역
         }
@@ -98,7 +101,7 @@ exports.uploadFile = (req, res) => {
         console.log(resultKeyword);
         Log.findOneAndUpdate({_id : req.params.id}, { $set : {result_id : resultKeyword._id}, $push: { analysis : jsonContent}}, (err, result) => {
           if(!err) {
-            return res.json({result : "success", percentage : jsonContent, path : resultKeyword.img_paths, state : resultKeyword.analysis});
+            return res.json({result : "success", percentage : jsonContent, path : result.img_paths, state : result.analysis});
           }
         }); // 결과 값을 받았을 때 query log 등록
       });
