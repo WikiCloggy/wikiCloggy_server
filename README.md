@@ -1,8 +1,5 @@
 # WikiCloggy_server
 
-*기울어진 글* - 추가 예정
-
-
 ## User
 *완료* <br/>
 user_code, avartar_path, name
@@ -101,6 +98,11 @@ user_code, img_path, createdAt, result ID
   : `/api/log/details/:id` <br/>
     ex) /api/log/details/0 <br/>
 
+### (GET) 머리를 찾지 못했을 때 client로부터 방향을 가져옴
+  : `/api/log/direction/:id/:type` <br/>
+  type -> left or right <br/>
+  id -> log id <br/>
+
 ## Query admin
 
 ### (GET) 모든 log 정보 받아오기 (test 용도 : 데이터가 들어갔는지 확인할 때 사용)
@@ -111,9 +113,8 @@ user_code, img_path, createdAt, result ID
 
 
 ## Board
-*검색 기능 및 댓글, 게시글 post 연동중* <br/>
 title, content, img_path,author, createdAt </br>
-*댓글 수정 및 삭제 기능 추가하기 - comments* = [commenter , body, adopted, keyword, createdAt]
+*댓글 수정 기능 추가하기 - comments* = [commenter , body, adopted, keyword, createdAt]
 
 ### (GET) 선택된 게시글 보기 (id = db id)
   : `/api/board/details/:id` <br/>
@@ -154,7 +155,3 @@ title, content, img_path,author, createdAt </br>
 ### (DELETE) 덧글 삭제하기
   : `/api/board/delete/:id/:comment` <br/>
     ex)  <br/>
-
-추가 되어야 하는 코드 <br/>
-1.  댓글 기능 구현 및 게시글 Detail 가져올 때 populate하기.<br/>
-2.  댓글 수정 및 삭제 기능 추가하기.<br/>

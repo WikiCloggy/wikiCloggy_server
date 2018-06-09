@@ -39,6 +39,7 @@ exports.showAll = (req, res) => {
   });
 };
 
+// 요청했던 사진에 머리를 찾을 수 없어 머리의 위치를 받아와 유저에게 결과값 전송
 exports.getDirection = (req, res) => {
   Log.find({_id : req.params.id}, function (err, result){
       if(!err) {
@@ -51,7 +52,7 @@ exports.getDirection = (req, res) => {
         if(req.params.type == "left")
           flip="False";
         else flip = "True"
-        PythonShell.run("start_estimate.py",{mode :'text', pythonOptions:['-u'],pythonPath: 'python3',scriptPath:'../wikiCloggy_cloggy_state_estimator/',args:[ `files/${req.files.logFile[0].destination.match(/[^/]+/g).pop()}/${req.files.logFile[0].filename}`,"-flip",flip]},
+        PythonShell.run("start_estimate.py",{mode :'text', pythonOptions:['-u'],pythonPath: 'python3',scriptPath:'../wikiCloggy_cloggy_state_estimator/',args:[ relativePath,"-flip",flip]},
          function (err, results) {
          if(err) console.log("err msg :"+ err);
           var content = fs.readFileSync('../data/result/'+filename);
