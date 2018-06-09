@@ -64,7 +64,7 @@ exports.uploadFile = (req, res) => {
             return res.json({result : "fail", reason : "head_not_found"});
           }
           // head not found
-          else if (jsontConetent[0].keyword == "cloggy_not_found"){
+          else if (jsonConetent[0].keyword == "cloggy_not_found"){
             console.log("cloggy not found");
             return res.json({result : "fail", reason : "cloggy_not_found"});
           }
@@ -92,7 +92,7 @@ exports.uploadFile = (req, res) => {
               }// 키워드가 존재 할 때 제일 첫번째 대표 키워드 값에 대한 setting.
               else {
                 // eng keyword -> korean keyword
-                jsonConetent[i].keyword = keyword[0].keyword;
+                jsonContent[i].keyword = keyword[0].keyword;
               }
             }); // 번역
         }
