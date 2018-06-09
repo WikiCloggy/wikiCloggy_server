@@ -57,7 +57,7 @@ exports.uploadFile = (req, res) => {
           var content = fs.readFileSync('../data/result/'+filename);
           console.log("content = " +content);
           var jsonContent = JSON.parse(content);
-          var resultKeyword = '0';
+          var resultID;
 
           if (jsonContent[0].keyword == "head_not_found"){
             console.log("head not found");
@@ -68,46 +68,27 @@ exports.uploadFile = (req, res) => {
             console.log("cloggy not found");
             return res.json({result : "fail", reason : "cloggy_not_found"});
           }
-
-          for(var i=0; i<jsonContent.length; i++)
-          {
-
-            Result.find({eng_keyword : jsonContent[i].keyword}, (err, keyword) => {
-              console.log("i : " + i + "keyword" + keyword);
-              if (err) res.status(500).send(err); // jsonContent에 있는 영어 keyword 검색
-              else if(keyword == '') // 키워드 검색했을 때 그 값이 존재하지 않을 때
-              {
-                console.log("no result exist");
-                return res.json({result : "fail", reason : "no_result"});
-                // cloggy not found
-              }// 결과 값을 찾지 못했을 때
-              else if(i == 0) {
-                if(jsonContent[i].probability < 0.4){ // 결과값 부정확 ㅡ 지식견
-                  console.log("it is not correct");
-                  return res.json({result : "fail", reason : "not_correct"});
-                }
-                else
-                {
-                  resultKeyword = keyword[0]._id;
-                }
-              }// 키워드가 존재 할 때 제일 첫번째 대표 키워드 값에 대한 setting.
-              else if(i==jsonContent.length-1)
-              {
-                // query log에 들어있는 값 업데이트.
-                // 필수 과정
-                console.log(jsonContent);
-                Log.findOneAndUpdate({_id : req.params.id}, { $set : {result_id : resultKeyword}, $push: { analysis : jsonContent}}, (err, result) => {
+          else if(jsonContent[i].probability < 0.4){ // 결과값 부정확 ㅡ 지식견
+            console.log("it is not correct");
+            return res.json({result : "fail", reason : "not_correct"});
+          }
+          //promise 로 수정 예정!
+          Result.find({eng_keyword : jsonContent[0].keyword}, (err,keyword) => {
+            resultID = keyword[0]._id;
+            jsonContent[0].keyword = keyword[0].keyword;
+            Result.find({eng_keyword : jsonContent[1].keyword}, (err, keyword) => {
+              jsonContent[1].keyword = keyword[1].keyword;
+              Result.find({eng_keyword : jsonContent[2].keyword}, (err, keyword) => {
+                jsonContent[2].keyword = keyword[2].keyword;
+                Log.findOneAndUpdate({_id : req.params.id}, { $set : {result_id : resultID}, $push: { analysis : jsonContent}}, (err, result) => {
                   if(!err) {
+                    console.log("resut = " jsonContent);
                     return res.json({result : "success", percentage : jsonContent, path : result.img_paths, state : result.analysis});
                   }
+                });
               });
-            }
-              else {
-                // eng keyword -> korean keyword
-                jsonContent[i].keyword = keyword[0].keyword;
-              }
+            });
           });
-        }
       });
     })
       .catch((err) => {
