@@ -59,6 +59,9 @@ keyword, img[], analysis
 ### (POST) 관리자가 게시판에 달린 키워드들을 확인하고 머신러닝 데이터로 넘겨줌
   : `/api/result/admin/addKeyword` <br/>
 
+### (POST) 관리자가 딥러닝 모델 트레이닝 시작
+  : `/api/result/admin/training` <br/>
+
 ### (Web test) 웹으로 keyword create
   : `/api/result/admin/upload` <br/>
 

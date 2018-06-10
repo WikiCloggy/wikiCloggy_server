@@ -146,6 +146,12 @@ exports.addKeyword = (req, res) => {
   });
 }
 
+exports.training = (req, res) => {
+  PythonShell.run("cloggyNet_trainer.py",{mode :'text', pythonOptions:['-u'],pythonPath: 'python3',scriptPath:'../wikiCloggy_cloggy_state_estimator/'},function (err, results) {
+    console.log("pythonShell training start");
+  });
+}
+
 exports.getEngKeyword = (req, res) => {
   Result.find({},{"eng_keyword":true}, function (err, result) {
     return res.json(result);
