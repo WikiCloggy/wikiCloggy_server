@@ -133,7 +133,8 @@ exports.getAll = (req, res) => {
 };
 
 exports.getKeywords = (req, res) => {
-  Board.find({$and : [{comments : {$size : {$gt : 5}}}, {adminChecked : false}]}, function (err, result) {
+  Board.find({$and : [{comments : {$size : {$gt : 5}}}, {adminChecked : false}]},
+     function (err, result) {
       if(err) return res.json({result : "fail"});
       else return res.json(result);
   });
@@ -155,7 +156,7 @@ exports.createComment = (req, res) => {
 // 댓글 수정하기
 exports.updateComment = (req, res) => {
   Board.findOneAndUpdate({_id: req.params.id, "comments._id" : req.params.comment},
-  { $set : req.body},{multi:true},(err, result) => {
+  { $set : {"comments.$.adopted" : req.body.adopted}},(err, result) => {
     if(!err) {
       return res.json({result : "ok"});
     }
