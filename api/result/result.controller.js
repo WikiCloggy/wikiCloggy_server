@@ -85,5 +85,7 @@ exports.addKeyword = (req, res) => {
 }
 
 exports.getEngKeyword = (req, res) => {
-
+  Result.find({},{"eng_keyword":true}, function (err, result) {
+    return res.json(result);
+  });
 }
