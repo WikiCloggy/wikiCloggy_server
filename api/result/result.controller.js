@@ -80,10 +80,12 @@ exports.editKeyword = (req, res) => {
 
 exports.addKeyword = (req, res) => {
   Result.find({}, function (err, result) {
-    //merging test
+
   });
 }
 
 exports.getEngKeyword = (req, res) => {
-
+  Result.find({},{"eng_keyword":true}, function (err, result) {
+    return res.json(result);
+  });
 }
