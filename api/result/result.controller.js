@@ -5,7 +5,6 @@ const upload = require('../../middlewares/uploadKeyword');
 const config = require('../../config/server.config');
 
 
-
 exports.create = (req, res) => {
   Result.find({keyword : req.body.keyword}, function (err, keyword) {
     if(err) return res. json({result : "wrong query"});
@@ -77,4 +76,14 @@ exports.editKeyword = (req, res) => {
       else return res.json({result : "fail"});
     }
   )
+}
+
+exports.addKeyword = (req, res) => {
+  Result.find({}, function (err, result) {
+
+  });
+}
+
+exports.getEngKeyword = (req, res) => {
+
 }

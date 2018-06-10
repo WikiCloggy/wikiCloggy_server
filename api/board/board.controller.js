@@ -132,11 +132,20 @@ exports.getAll = (req, res) => {
   });
 };
 
+// 게시판 댓글에 등록된 키워드 목록을 보여줌
+exports.getBoardForAdmin = (req, res) => {
+  Board.find({$and : [{ $where : "this.comments.length>=5"}, {adminChecked : false}]},
+     function (err, result) {
+      if(err) return res.json({result : "fail"});
+      else return res.json(result);
+  });
+};
+
 //comment create edit delete
 // 댓글 생성하기
 exports.createComment = (req, res) => {
   Board.findOneAndUpdate({ _id : req.params.id } ,{ $push : {comments :{commenter:req.body.user_code , name : req.body.name, body : req.body.body,
-  adopted : req.body.adopted, keywords: req.body.keyword , createdAt: req.body.createdAt}}},
+  adopted : req.body.adopted, keyword: req.body.keyword , createdAt: req.body.createdAt}}},
   (err, result) => {
     if(!err) {
       return res.json({result : "ok"});
@@ -147,10 +156,21 @@ exports.createComment = (req, res) => {
 
 // 댓글 수정하기
 exports.updateComment = (req, res) => {
-
+  Board.findOneAndUpdate({_id: req.params.id, "comments._id" : req.params.comment},
+  { $set : {"comments.$.adopted" : req.body.adopted}},(err, result) => {
+    if(!err) {
+      return res.json({result : "ok"});
+    }
+    else return res.json({result : "fail"});
+  });
 };
 
 // 댓글 삭제하기
 exports.deleteComment = (req, res) => {
-
+    Board.findOneAndUpdate({_id: req.params.id}, {$pull : {comments : {_id: req.params.comment}}}, {multi:true}, (err, result) => {
+      if(!err) {
+        return res.json({result : "ok"});
+      }
+      else return res.json({result : "fail"});
+    });
 };

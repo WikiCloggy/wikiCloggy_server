@@ -13,8 +13,7 @@ router.get('/log/:user_code/:page', boardCtrl.getLog);
 router.get('/list/:page',boardCtrl.getMore);
 
 // 게시판 검색
-router.get('/search/:type',boardCtrl.searchPost);
-
+router.post('/search/:type',boardCtrl.searchPost);
 
 // post create edit delete
 router.post('/', boardCtrl.create);
@@ -30,4 +29,6 @@ router.delete('/delete/:id/:comment', boardCtrl.deleteComment);
 // for admin
 router.get('/admin/show', boardCtrl.getAll);
 
+// get keyword dataset
+router.get('/admin/keyword',boardCtrl.getBoardForAdmin);
 module.exports = router;

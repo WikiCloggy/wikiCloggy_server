@@ -1,8 +1,5 @@
 # WikiCloggy_server
 
-*기울어진 글* - 추가 예정
-
-
 ## User
 *완료* <br/>
 user_code, avartar_path, name
@@ -56,6 +53,12 @@ keyword, img[], analysis
 ### (GET) Show All Keyword Info
   : `/api/result/admin/show`<br/>
 
+### (GET) Get All of English Keyword
+  : `/api/result/admin/getEngKeyword` <br/>
+
+### (POST) 관리자가 게시판에 달린 키워드들을 확인하고 머신러닝 데이터로 넘겨줌
+  : `/api/result/admin/addKeyword` <br/>
+
 ### (Web test) 웹으로 keyword create
   : `/api/result/admin/upload` <br/>
 
@@ -101,6 +104,11 @@ user_code, img_path, createdAt, result ID
   : `/api/log/details/:id` <br/>
     ex) /api/log/details/0 <br/>
 
+### (GET) 머리를 찾지 못했을 때 client로부터 방향을 가져옴
+  : `/api/log/direction/:id/:type` <br/>
+  type -> left or right <br/>
+  id -> log id <br/>
+
 ## Query admin
 
 ### (GET) 모든 log 정보 받아오기 (test 용도 : 데이터가 들어갔는지 확인할 때 사용)
@@ -111,9 +119,8 @@ user_code, img_path, createdAt, result ID
 
 
 ## Board
-*검색 기능 및 댓글, 게시글 post 연동중* <br/>
 title, content, img_path,author, createdAt </br>
-*댓글 수정 및 삭제 기능 추가하기 - comments* = [commenter , body, adopted, keyword, createdAt]
+*댓글 수정 기능 추가하기 - comments* = [commenter , body, adopted, keyword, createdAt]
 
 ### (GET) 선택된 게시글 보기 (id = db id)
   : `/api/board/details/:id` <br/>
@@ -128,7 +135,7 @@ title, content, img_path,author, createdAt </br>
 
 
 ### (GET) 게시판 검색하기
-  : `/api/board/serach/:type` <br/>
+  : `/api/board/search/:type` <br/>
   type = 0 (전체 검색) , type = 1 (author_name 검색), type = 2 (제목 검색) <br/>
   json {query : 질문내용}  <br/>
 
@@ -155,6 +162,11 @@ title, content, img_path,author, createdAt </br>
   : `/api/board/delete/:id/:comment` <br/>
     ex)  <br/>
 
-추가 되어야 하는 코드 <br/>
-1.  댓글 기능 구현 및 게시글 Detail 가져올 때 populate하기.<br/>
-2.  댓글 수정 및 삭제 기능 추가하기.<br/>
+
+## Borad admin
+
+### (GET) 게시판 모든 게시글 불러오기
+  : `/api/board/admin/show` <br/>
+
+### (GET) 게시판에 달린 댓글이 5개가 넘으며 adminChecked가 false인 게시글 불러오기
+  : `/api/board/admin/keyword` <br/>
