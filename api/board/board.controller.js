@@ -154,7 +154,8 @@ exports.createComment = (req, res) => {
 
 // 댓글 수정하기
 exports.updateComment = (req, res) => {
-  Board.findOneAndUpdate({_id: req.params.id, "comments._id" : req.params.comment}, { $set : {"comments.$.adopted" : req.body.adopted}},(err, result) => {
+  Board.findOneAndUpdate({_id: req.params.id, "comments._id" : req.params.comment},
+  { $set : req.body},{multi:true},(err, result) => {
     if(!err) {
       return res.json({result : "ok"});
     }
