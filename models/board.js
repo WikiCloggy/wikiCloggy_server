@@ -20,7 +20,7 @@ const BoardSchema = new Schema({
     commenter: {type: String}, // commenter_user_code
     name:{type: String},
     body: {type: String},
-    adopted: {type: Boolean},
+    adopted: {type: Boolean, default : false},
     keyword: {type: String},
     createdAt : {type: String}
   }]
