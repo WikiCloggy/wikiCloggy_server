@@ -133,7 +133,7 @@ exports.getAll = (req, res) => {
 };
 
 exports.getKeywords = (req, res) => {
-  Board.find({$and : [{ $where "this.comments.length>=5"}, {adminChecked : false}]},
+  Board.find({$and : [{ $where : "this.comments.length>=5"}, {adminChecked : false}]},
      function (err, result) {
       if(err) return res.json({result : "fail"});
       else return res.json(result);
