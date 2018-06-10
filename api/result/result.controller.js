@@ -77,3 +77,13 @@ exports.editKeyword = (req, res) => {
     }
   )
 }
+
+exports.addKeyword = (req, res) => {
+  Result.find({}, function (err, result) {
+
+  });
+}
+
+exports.getEngKeyword = (req, res) => {
+
+}
