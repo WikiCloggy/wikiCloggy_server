@@ -53,6 +53,12 @@ keyword, img[], analysis
 ### (GET) Show All Keyword Info
   : `/api/result/admin/show`<br/>
 
+### (GET) Get All of English Keyword
+  : `/api/result/admin/getEngKeyword` <br/>
+
+### (POST) 관리자가 게시판에 달린 키워드들을 확인하고 머신러닝 데이터로 넘겨줌
+  : `/api/result/admin/addKeyword` <br/>
+
 ### (Web test) 웹으로 keyword create
   : `/api/result/admin/upload` <br/>
 
@@ -155,3 +161,12 @@ title, content, img_path,author, createdAt </br>
 ### (DELETE) 덧글 삭제하기
   : `/api/board/delete/:id/:comment` <br/>
     ex)  <br/>
+
+
+## Borad admin
+
+### (GET) 게시판 모든 게시글 불러오기
+  : `/api/board/admin/show` <br/>
+
+### (GET) 게시판에 달린 댓글이 5개가 넘으며 adminChecked가 false인 게시글 불러오기
+  : `/api/board/admin/keyword` <br/>

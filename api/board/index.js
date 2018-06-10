@@ -28,7 +28,7 @@ router.delete('/delete/:id/:comment', boardCtrl.deleteComment);
 
 // for admin
 router.get('/admin/show', boardCtrl.getAll);
-// get keyword dataset
-router.get('/admin/keyword',boardCtrl.getKeywords);
 
+// get keyword dataset
+router.get('/admin/keyword',boardCtrl.getBoardForAdmin);
 module.exports = router;

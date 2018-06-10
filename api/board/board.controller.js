@@ -132,7 +132,8 @@ exports.getAll = (req, res) => {
   });
 };
 
-exports.getKeywords = (req, res) => {
+// 게시판 댓글에 등록된 키워드 목록을 보여줌
+exports.getBoardForAdmin = (req, res) => {
   Board.find({$and : [{ $where : "this.comments.length>=5"}, {adminChecked : false}]},
      function (err, result) {
       if(err) return res.json({result : "fail"});

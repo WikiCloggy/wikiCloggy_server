@@ -15,6 +15,10 @@ router.get('/details', resultCtrl.getDetail);
 router.get('/admin/show', resultCtrl.showAll);
 router.post('/admin/edit/:id', resultCtrl.editKeyword);
 router.delete('/admin/delete/:id', resultCtrl.delete);
+
+router.get(`/admin/getEngKeyword`, resultCtrl.getEngKeyword);
+router.post(`/admin/addKeyword`, resultCtrl.addKeyword);
+
 //add keyword & information
 router.get('/admin/upload', function(req, res) {
   res.writeHead(200, {'Content-Type': 'text/html'});
