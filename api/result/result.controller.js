@@ -80,7 +80,7 @@ exports.editKeyword = (req, res) => {
 
 exports.addKeyword = (req, res) => {
   Result.find({}, function (err, result) {
-
+    //merging test
   });
 }
 
