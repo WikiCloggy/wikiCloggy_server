@@ -167,6 +167,7 @@ $(".hover").mouseleave(
         $(this).removeClass("hover");
     }
 );
+//
 
 //event when you clicked Img modify button
 $(document).on('click', '.snip1535', function () {

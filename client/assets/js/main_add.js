@@ -17,7 +17,7 @@ function uploadFile(id) {
         credentials: 'same-origin',
     };
 
-    fetch(`/api/result/files/${id}`, config)
+    return fetch(`/api/result/files/${id}`, config)
         .then((res) => {
             if (res.status >= 200 && res.status < 300) {
 
@@ -40,7 +40,7 @@ function createKeyword() {
         body: JSON.stringify(json),
         credentials: 'same-origin',
     };
-    fetch('/api/result/', config)
+    return fetch('/api/result/', config)
         .then((res) => {
             if (res.status >= 200 && res.status < 300) {
                 return res.json();
@@ -56,8 +56,8 @@ function createKeyword() {
             if (json) {
                 console.log(json);
                 if (file.files[0]) {
-                    console.log(json._id);
-                    uploadFile(json._id);
+                    console.log(json[0]._id);
+                    return uploadFile(json[0]._id);
                 }
                 // uploadFile(keyword.value);
 
@@ -80,7 +80,7 @@ $(document).on('click', '.addkeyword-form-btn', function () {
             alert('Select img file!');
         }
     }
-    createKeyword();
+    Promise.all([createKeyword()]);
     alert('Create Keyword Done! check on modify Keyword!');
-    // window.location.reload();
+    window.location.reload();
 });

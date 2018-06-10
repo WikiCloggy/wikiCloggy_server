@@ -21,7 +21,7 @@ function getDataFromServer() {
         mode: 'cors',
         cache: 'default'
     };
-    fetch('../api/board/admin/show', config).then(function (response) {
+    fetch('../api/board/admin/keyword', config).then(function (response) {
         return response.json();
     }).then(function (json) {
         console.log(json);
@@ -29,9 +29,11 @@ function getDataFromServer() {
         var aJsonArray = new Array();
         // new Json obejct to get data which admin want
         var aJson = new Object();
+        var site = document.getElementById("two");
         var makeUpTemplate = document.createElement('div');
         makeUpTemplate.setAttribute('class', 'inner');
         makeUpTemplate.setAttribute('id', 'inner');
+        site.appendChild(makeUpTemplate);
         //add json data which admin want and make Template with those datas
         for (var i = 0; i < json.length; i++) {
             aJson.adminChecked = json[i].adminChecked;
@@ -45,15 +47,41 @@ function getDataFromServer() {
     })
 };
 
+function getEngKeyword(){
+    var myHeaders = new Headers();
+    var config = {
+        method: 'GET',
+        headers: myHeaders,
+        mode: 'cors',
+        cache: 'default'
+    };
+    fetch('../api/result/admin/getEngKeyword',config)
+    .then(function (res){
+        return engKeyList;
+    })
+    .then(function(engKeyList){
+        return engKeys
+    })
+}
+
+function makeEngKeySelect(){
+    var html = ``;
+    var engKeyList = getEngKeyword();
+    for(var i =0;i<engKeyList.length;i++){
+        html += `<option value ="`+engKeyList[i]+`">`+engKeyList[i]+`</option>\n`
+    }
+    return html;
+}
 // make checkdataset.html according to img and comments from the server board
 function makeTemplate(json, i) {
     console.log("makeTemplate");
+    var engKeyListHtml= makeEngKeySelect();
     var site = document.getElementById("inner");
     var makeTemplate = document.createElement('div');
     var comments = "";
     //make comments template
     for(var j=0; j< json.comments.length; j++){
-        comments += "<p id= \"comment"+json._id+"_"+j+"\">"+json.comments[j]+"</p><input type=\"checkbox\" id=\"c" + (json._id) + "_" + j + "\" name=\"cc\"/>\n";
+        comments += "<p id= \"comment"+json._id+"_"+j+"\">"+json.comments[j].keyword+"</p><input type=\"checkbox\" id=\"c" + (json._id) + "_" + j + "\" name=\"cc\"/>\n";
     };
     makeTemplate.setAttribute('class', 'spotlight');
     makeTemplate.innerHTML =
@@ -63,11 +91,13 @@ function makeTemplate(json, i) {
             <div class="content">
                 <h3>Keywords List</h3>`
                 +comments+`
-                <ul class="actions">
+                <ul class=" actions">
                 <li><a href="#" class="button alt" id= button`+json._id+`>Register</a></li>
                 </ul>
             </div>
-            `;
+            <div class = "eng_content">
+                <h3> English Keywords </h3>
+                <select name="eng_key">영어키워드선택\n`+engKeyListHtml+`</select></div>`;
 
     site.appendChild(makeTemplate);
 };
