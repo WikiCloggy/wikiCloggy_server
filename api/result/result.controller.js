@@ -5,6 +5,7 @@ const Board = require('../../models/board');
 const upload = require('../../middlewares/uploadKeyword');
 const config = require('../../config/server.config');
 const exec = require('child_process').exec;
+const PythonShell = require('python-shell');
 
 exports.create = (req, res) => {
   Result.find({keyword : req.body.keyword}, function (err, keyword) {
@@ -84,7 +85,7 @@ function copyImage(img_path, callback) {
   var nArLength = splitPath.length;
   var filename = splitPath[nArLength-1];
   var relativePath = splitPath[nArLength-3] +'/'+splitPath[nArLength-2] +'/'+splitPath[nArLength-1];
-  exec(`cp /${relativePath} /files/result/${filename}`, function(err, stdout, stderr) {
+  exec(`cp ./${relativePath} ./files/result/${filename}`, function(err, stdout, stderr) {
     console.log('stdout: ' + stdout);
     console.log('stderr: ' + stderr);
     if (!err) {
