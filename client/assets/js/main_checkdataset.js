@@ -182,7 +182,7 @@ $(document).on('click', '.button', function () {
         if (checkbox.checked) {
             var selected_keyword_eng = document.getElementById("select_engkey" + $id_num).value;
             if (selected_keyword_eng == "etc") {
-                selected_keyword_eng = (document.getElementById("ta_eng_key"+$id_num)[0].value);
+                selected_keyword_eng = (document.getElementById("ta_eng_key"+$id_num).value);
                 if (selected_keyword_eng == "") {
                     alert("There is no word to be keyword");
                     return;
