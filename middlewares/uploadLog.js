@@ -12,7 +12,7 @@ function uploadLog(req, res) {
         name: file.originalname.split('.')[0],
         ext: file.originalname.split('.').pop(),
       };
-      cb(null, `${uploadedFile.name}-${Date.now()}.${uploadedFile.ext}`);
+      cb(null, `${Date.now()}.${uploadedFile.ext}`);
     },
   });
   const upload = multer({ storage : storage }).fields([{ name: 'logFile' }]);
