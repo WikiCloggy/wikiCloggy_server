@@ -103,7 +103,7 @@ exports.addKeyword = (req, res) => {
                 // python run label
                 console.log('create no error');
                 console.log('create' + create);
-                Result.findOneAndUpdate({_id : create._id},{ $push : {img_paths :{img_path: `${config.serverUrl()}/${new_image_path}`}}},function(err, update) {
+                Result.findOneAndUpdate({_id : create._id},{ $push : {img_paths :{img_path: `${config.serverUrl()}${new_image_path}`}}},function(err, update) {
                   if(!err) {
                     // python run label
                     console.log('update' + update);
@@ -124,7 +124,7 @@ exports.addKeyword = (req, res) => {
             }); // 존재하지 않는 keyword 생성.
           }
           else { // 키워드가 존재함. 복사된 이미지 경로로 path push해주기
-            Result.findOneAndUpdate({_id : result[0]._id},{ $push : {img_paths :{img_path: `${config.serverUrl()}/${new_image_path}`}}},function(err, update) {
+            Result.findOneAndUpdate({_id : result[0]._id},{ $push : {img_paths :{img_path: `${config.serverUrl()}${new_image_path}`}}},function(err, update) {
               if(!err) {
                 // python run label
                 PythonShell.run("label_maker.py",{mode :'text', pythonOptions:['-u'],pythonPath: 'python3',scriptPath:'../wikiCloggy_cloggy_state_estimator/',
