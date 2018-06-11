@@ -89,7 +89,7 @@ function makeTemplate(json, i, html) {
     makeTemplate.setAttribute('class', 'spotlight');
     makeTemplate.innerHTML =
         `<div class="image" id= "img` + json._id + `float: left; width: 33%;">
-            <img src="`+ json.img_path + `" alt="../images/pic01" height="100" width="100" />
+            <img src="`+ json.img_path + `" onerror="this.src='./images/pic01.jpg'" height="90%" width="90%" margin-top :10%, margin-bottom :10%, margin-left:10% />
             <div class ="L" id= "L`+ json._id + `"><input type="checkbox" class="left" id="left` + json._id + `" name="left">
             <lable>LEFT</label></div><div class ="R" id= "R`+ json._id + `"><input type="checkbox" class="right" id="right`+ json._id + `"name="right"><lable>RIGHT</lable>
                   </div></div></div>
