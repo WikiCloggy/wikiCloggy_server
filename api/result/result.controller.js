@@ -106,6 +106,7 @@ exports.addKeyword = (req, res) => {
             Result.create({keyword: req.body.keyword, eng_keyword : req.body.eng_keyword}, (err, create) => {
               if(!err) {
                 // python run label
+                console.log('create no error');
                 var new_image_path = `files/result/${filename}`;
                 console.log('create' + create);
                 Result.findOneAndUpdate({_id : create[0]._id},{ $push : {img_paths :{img_path: `${config.serverUrl()}/${new_image_path}`}}},function(err, update) {
