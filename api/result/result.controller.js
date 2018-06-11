@@ -95,54 +95,57 @@ function copyImage(img_path, callback) {
 }
 
 exports.addKeyword = (req, res) => {
-  Result.find({eng_keyword : req.body.eng_keyword}, function (err, result) {
-    if(err) res.json({result : "fail"});
-    else {
-      copyImage(req.body.img_path,function (new_image_path){
-        req.body.img_path=new_image_path;
-        if(req.body.flip == "left") req.body.flip = "False";
-        else "True";
-        if( result == "") { // 키워드가 존재하지 않을 때 생성함
-          Result.create(req.body, (err, create) => {
-            if(!err) {
-              // python run label
-              Result.findOneAndUpdate({_id : result[0]._id},{ $push : {img_paths :{img_path: `${config.serverUrl()}/${req.body.img_path}`}}},function(err, update) {
-                if(!err) {
-                  // python run label
-                  PythonShell.run("label_maker.py",{mode :'text', pythonOptions:['-u'],pythonPath: 'python3',scriptPath:'../wikiCloggy_cloggy_state_estimator/',
-                  args:["-add",req.body.eng_keyword]},function (err, results) {
-                    console.log("pythonShell labeling start");
-                    PythonShell.run("add_data.py",{mode :'text', pythonOptions:['-u'],pythonPath: 'python3',scriptPath:'../wikiCloggy_cloggy_state_estimator/',
-                    args:[new_image_path ,"-flip", req.body.flip, "-keyword", req.body.eng_keyword]},function (err, results) {
-                      console.log("pythonShell make training dataset");
-                      return res.json(create);
+  Board.find({_id : req.body._id}, (err, board) => {
+    board[0].adminChecked = true;
+    var img_path = board[0].img_path;
+    Result.find({eng_keyword : req.body.eng_keyword}, function (err, result) {
+      if(err) res.json({result : "fail"});
+      else {
+        copyImage(img_path,function (new_image_path){
+          if(req.body.flip == "left") req.body.flip = "False";
+          else "True";
+          if( result == "") { // 키워드가 존재하지 않을 때 생성함
+            Result.create(req.body, (err, create) => {
+              if(!err) {
+                // python run label
+                Result.findOneAndUpdate({_id : result[0]._id},{ $push : {img_paths :{img_path: `${config.serverUrl()}/${new_image_path}`}}},function(err, update) {
+                  if(!err) {
+                    // python run label
+                    PythonShell.run("label_maker.py",{mode :'text', pythonOptions:['-u'],pythonPath: 'python3',scriptPath:'../wikiCloggy_cloggy_state_estimator/',
+                    args:["-add",req.body.eng_keyword]},function (err, results) {
+                      console.log("pythonShell labeling start");
+                      PythonShell.run("add_data.py",{mode :'text', pythonOptions:['-u'],pythonPath: 'python3',scriptPath:'../wikiCloggy_cloggy_state_estimator/',
+                      args:[new_image_path ,"-flip", req.body.flip, "-keyword", req.body.eng_keyword]},function (err, results) {
+                        console.log("pythonShell make training dataset");
+                        return res.json(create);
+                      });
                     });
-                  });
-                }
-                else return res.json({result : "fail"});
-              });
-            }
-          }); // 존재하지 않는 keyword 생성.
-        }
-        else { // 키워드가 존재함. 복사된 이미지 경로로 path push해주기
-          Result.findOneAndUpdate({_id : result[0]._id},{ $push : {img_paths :{img_path: `${config.serverUrl()}/${req.body.img_path}`}}},function(err, update) {
-            if(!err) {
-              // python run label
-              PythonShell.run("label_maker.py",{mode :'text', pythonOptions:['-u'],pythonPath: 'python3',scriptPath:'../wikiCloggy_cloggy_state_estimator/',
-              args:["-add",req.body.eng_keyword]},function (err, results) {
-                console.log("pythonShell labeling start");
-                PythonShell.run("add_data.py",{mode :'text', pythonOptions:['-u'],pythonPath: 'python3',scriptPath:'../wikiCloggy_cloggy_state_estimator/',
-                args:[new_image_path ,"-flip", req.body.flip, "-keyword", req.body.eng_keyword]},function (err, results) {
-                  console.log("pythonShell make training dataset");
-                  return res.json(update);
+                  }
+                  else return res.json({result : "fail"});
                 });
-              });
-            }
-            else return res.json({result : "fail"});
-          });
-        }
-      });
-    }
+              }
+            }); // 존재하지 않는 keyword 생성.
+          }
+          else { // 키워드가 존재함. 복사된 이미지 경로로 path push해주기
+            Result.findOneAndUpdate({_id : result[0]._id},{ $push : {img_paths :{img_path: `${config.serverUrl()}/${new_image_path}`}}},function(err, update) {
+              if(!err) {
+                // python run label
+                PythonShell.run("label_maker.py",{mode :'text', pythonOptions:['-u'],pythonPath: 'python3',scriptPath:'../wikiCloggy_cloggy_state_estimator/',
+                args:["-add",req.body.eng_keyword]},function (err, results) {
+                  console.log("pythonShell labeling start");
+                  PythonShell.run("add_data.py",{mode :'text', pythonOptions:['-u'],pythonPath: 'python3',scriptPath:'../wikiCloggy_cloggy_state_estimator/',
+                  args:[new_image_path ,"-flip", req.body.flip, "-keyword", req.body.eng_keyword]},function (err, results) {
+                    console.log("pythonShell make training dataset");
+                    return res.json(update);
+                  });
+                });
+              }
+              else return res.json({result : "fail"});
+            });
+          }
+        });
+      }
+    });
   });
 }
 
