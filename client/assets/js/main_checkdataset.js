@@ -174,7 +174,7 @@ $(document).on('click', '.button', function () {
             break;
         }
         if(i==checkboxArray.length-1){
-            alter("Need to choose one of the keyword");
+            alert("Need to choose one of the keyword");
             return;
         }
     }
@@ -186,7 +186,7 @@ $(document).on('click', '.button', function () {
     else if(document.getElementById("right" + $id_num).checked)
         selected_LR="right";
     else{
-        alter('Need to choose direction of the head');
+        alert("Need to choose direction of the head");
         return;
     }
 
