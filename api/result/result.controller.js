@@ -101,13 +101,14 @@ exports.addKeyword = (req, res) => {
             req.body.flip = "False";
           else req.body.flip ="True";
           console.log("cp ok");
+          var new_image_path = 'files/result/' + filename;
           if( result == '') { // 키워드가 존재하지 않을 때 생성함
             console.log('result not exist');
             Result.create({keyword : req.body.keyword, eng_keyword : req.body.eng_keyword}, (err, create) => {
               if(!err) {
                 // python run label
                 console.log('create no error');
-                var new_image_path = 'files/result/' + filename;
+
                 console.log('create' + create);
                 Result.findOneAndUpdate({_id : create._id},{ $push : {img_paths :{img_path: `${config.serverUrl()}/${new_image_path}`}}},function(err, update) {
                   if(!err) {
