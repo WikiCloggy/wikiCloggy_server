@@ -88,19 +88,20 @@ function copyImage(img_path, callback) {
 }
 
 exports.addKeyword = (req, res) => {
-  var splitPath = req.body.img_path.split("/");
-  var nArLength = splitPath.length;
-  var filename = splitPath[nArLength-1];
-  var relativePath = splitPath[nArLength-3] +'/'+splitPath[nArLength-2] +'/'+splitPath[nArLength-1];
-
   Board.findOneAndUpdate({_id : req.body._id}, {adminChecked : true}, (err, board) => {
     Result.find({eng_keyword : req.body.eng_keyword}, function (err, result) {
       if(err) res.json({result : "fail"});
       else {
+        var splitPath = req.body.img_path.split("/");
+        var nArLength = splitPath.length;
+        var filename = splitPath[nArLength-1];
+        var relativePath = splitPath[nArLength-3] +'/'+splitPath[nArLength-2] +'/'+splitPath[nArLength-1];
         exec(`cp ./${relativePath} ./files/result/${filename}`, function(err, stdout, stderr) {
-          if(req.body.flip == "left") req.body.flip = "False";
-          else "True";
-          if( result == "") { // 키워드가 존재하지 않을 때 생성함
+          if(req.body.flip == "left")
+            req.body.flip = "False";
+          else req.body.flip ="True";
+          console.log("cp ok");
+          if( result == '') { // 키워드가 존재하지 않을 때 생성함
             Result.create({keyword: req.body.keyword, eng_keyword : req.body.eng_keyword}, (err, create) => {
               if(!err) {
                 // python run label
