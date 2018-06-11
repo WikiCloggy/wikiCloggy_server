@@ -100,7 +100,7 @@ exports.addKeyword = (req, res) => {
     Result.find({eng_keyword : req.body.eng_keyword}, function (err, result) {
       if(err) res.json({result : "fail"});
       else {
-        copyImage(board[0].img_path,function (new_image_path){
+        copyImage(req.params.img_path,function (new_image_path){
           if(req.body.flip == "left") req.body.flip = "False";
           else "True";
           if( result == "") { // 키워드가 존재하지 않을 때 생성함
