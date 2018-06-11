@@ -105,7 +105,7 @@ exports.addKeyword = (req, res) => {
           if(req.body.flip == "left") req.body.flip = "False";
           else "True";
           if( result == "") { // 키워드가 존재하지 않을 때 생성함
-            Result.create(req.body, (err, create) => {
+            Result.create({keyword: req.body.keyword, eng_keyword : req.body.eng_keyword}, (err, create) => {
               if(!err) {
                 // python run label
                 Result.findOneAndUpdate({_id : result[0]._id},{ $push : {img_paths :{img_path: `${config.serverUrl()}/${new_image_path}`}}},function(err, update) {
