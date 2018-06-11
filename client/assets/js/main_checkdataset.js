@@ -106,7 +106,7 @@ function makeTemplate(json, i, html) {
                 <div>
                 <select name="eng_key" id =select_engkey`+ json._id + `>영어키워드선택` + engKeyListHtml + `</select>
                 </div>
-                <input class="ta_eng_key" type="text" placeholder="Write down New English Keyword" />
+                <input id="ta_eng_key`+json._id`" type="text" placeholder="Write down New English Keyword" />
             </div>`;
 
     site.appendChild(makeTemplate);
@@ -182,7 +182,7 @@ $(document).on('click', '.button', function () {
         if (checkbox.checked) {
             var selected_keyword_eng = document.getElementById("select_engkey" + $id_num).value;
             if (selected_keyword_eng == "etc") {
-                selected_keyword_eng = (document.getElementsByClassName("ta_eng_key")[0].value);
+                selected_keyword_eng = (document.getElementById("ta_eng_key"+$id_num)[0].value);
                 if (selected_keyword_eng == "") {
                     alert("There is no word to be keyword");
                     return;
