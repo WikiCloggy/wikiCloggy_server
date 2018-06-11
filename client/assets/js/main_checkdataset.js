@@ -24,7 +24,32 @@ function getDataFromServer() {
     fetch('../api/board/admin/keyword', config).then(function (response) {
         return response.json();
     }).then(function (json) {
+        makeEngKeySelect(json);
+    })
+};
+
+function makeEngKeySelect(Boardjson){
+    var myHeaders = new Headers();
+    var config = {
+        method: 'GET',
+        headers: myHeaders,
+        mode: 'cors',
+        cache: 'default'
+    };
+    return fetch('../api/result/admin/getEngKeyword',config)
+    .then((res)=>{
+        return res.json();
+        
+    }).then((json)=>{
         console.log(json);
+        var html=``;
+        for(var i =0;i<json.length;i++){
+            html += `<option value ="`+json[i].eng_keyword+`">`+json[i].eng_keyword+`</option>\n`
+        }
+            
+        return html;
+    }).then((html)=>{
+        console.log(html);
         //new Json Array to put json Object in
         var aJsonArray = new Array();
         // new Json obejct to get data which admin want
@@ -35,74 +60,50 @@ function getDataFromServer() {
         makeUpTemplate.setAttribute('id', 'inner');
         site.appendChild(makeUpTemplate);
         //add json data which admin want and make Template with those datas
-        for (var i = 0; i < json.length; i++) {
-            aJson.adminChecked = json[i].adminChecked;
-            aJson._id = json[i]._id;
-            aJson.comments = json[i].comments;
-            aJson.img_path = json[i].img_path;
+        for (var i = 0; i < Boardjson.length; i++) {
+            aJson.adminChecked = Boardjson[i].adminChecked;
+            aJson._id = Boardjson[i]._id;
+            aJson.comments = Boardjson[i].comments;
+            aJson.img_path = Boardjson[i].img_path;
             aJsonArray.push(aJson);
-            makeTemplate(aJson, i);
+            makeTemplate(aJson, i,html);
         }
-        return;
-    })
-};
-
-function getEngKeyword(){
-    var myHeaders = new Headers();
-    var config = {
-        method: 'GET',
-        headers: myHeaders,
-        mode: 'cors',
-        cache: 'default'
-    };
-    fetch('../api/result/admin/getEngKeyword',config)
-    .then(function (res){
-        return engKeyList;
-    })
-    .then(function(engKeyList){
-        return engKeys
-    })
+    });
+  
 }
 
-function makeEngKeySelect(){
-    var html = ``;
-    var engKeyList = getEngKeyword();
-    for(var i =0;i<engKeyList.length;i++){
-        html += `<option value ="`+engKeyList[i]+`">`+engKeyList[i]+`</option>\n`
-    }
-    return html;
-}
+
 // make checkdataset.html according to img and comments from the server board
-function makeTemplate(json, i) {
+function makeTemplate(json, i,html) {
     console.log("makeTemplate");
-    var engKeyListHtml= makeEngKeySelect();
+    var engKeyListHtml=html;
     var site = document.getElementById("inner");
     var makeTemplate = document.createElement('div');
     var comments = "";
     //make comments template
     for(var j=0; j< json.comments.length; j++){
-        comments += "<p id= \"comment"+json._id+"_"+j+"\">"+json.comments[j].keyword+"</p><input type=\"checkbox\" id=\"c" + (json._id) + "_" + j + "\" name=\"cc\"/>\n";
+        comments += "<div><input type=\"checkbox\" id=\"c" + (json._id) + "_" + j + "\" name=\"cc\"><lable>"+json.comments[j].keyword+"</label></div>\n";
     };
     makeTemplate.setAttribute('class', 'spotlight');
     makeTemplate.innerHTML =
         `<div class="image" id= img`+json._id+`>
             <img src="`+ json.img_path + `" alt="" />
             </div>
-            <div class="content">
+            <div class="content" float: left; width: 33%;>
                 <h3>Keywords List</h3>`
                 +comments+`
                 <ul class=" actions">
                 <li><a href="#" class="button alt" id= button`+json._id+`>Register</a></li>
                 </ul>
             </div>
-            <div class = "eng_content">
+            <div class = "eng_content"  float: left; width: 33%;>
                 <h3> English Keywords </h3>
-                <select name="eng_key">영어키워드선택\n`+engKeyListHtml+`</select></div>`;
+                <div><select name="eng_key" id =select_engkey`+json._id+`>영어키워드선택`+engKeyListHtml+`</select></div></div>`;
 
     site.appendChild(makeTemplate);
 };
 
-function POST_RegisterData(keyword,json_id){
+function POST_RegisterData(keyword,board_id){
     var myHeaders = new Headers();
     var config_get = {
         method: 'GET',
@@ -111,7 +112,7 @@ function POST_RegisterData(keyword,json_id){
         cache: 'default'
     };
     //PATH = BOARD
-    fetch('../api/board/admin/show', config_get).then(function (response) {
+    fetch('../api/result/admin/addKeyword', config_get).then(function (response) {
         return response.json();
     }).then(function (json) {
         //find one json obejct from json array with json id
@@ -168,6 +169,6 @@ $(document).on('click', '.button alt', function () {
 });
 (function ($) {
     //make html when your html first pop-up 
-    getDataFromServer();
+   getDataFromServer();
 
 })(jQuery);

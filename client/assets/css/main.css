@@ -1918,7 +1918,101 @@
 		padding: 0.75em 1em;
 	}
 
-	input[type="checkbox"],
+	.wrapper {
+		padding: 5em 0 3em 0;
+		position: relative;
+	}
+	
+		.wrapper > .inner {
+			margin-left: auto;
+			margin-right: auto;
+			display:inline;
+			width: 70em;
+			max-width: 100%;
+		}
+		
+		.wrapper.alt {
+			border-top: solid 2px;
+			border-top-color: rgba(144, 144, 144, 0.25);
+		}
+	
+		.wrapper.style2 {
+			background-color: #fafafa;
+			color: #777;
+		}
+
+		.wrapper.style2 select{
+            width: 200px;
+            height: 30px;
+            padding-left: 10px;
+            font-size: 18px;
+            color: #006fff;
+            border: 1px solid #006fff;
+            border-radius: 3px;
+		}
+		
+.header-section {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	z-index: 999;
+	padding: 0 50px;
+	background: khaki;
+	-webkit-transition: all 0.4s ease 0s;
+	-o-transition: all 0.4s ease 0s;
+	transition: all 0.4s ease 0s;
+}
+
+.header-section p {
+    color : black;
+    font-size : 120%;
+    font-weight :bold;
+    text-align: center;
+}
+
+
+        .wrapper.style2 input, .wrapper.style2 textarea {
+            color: #666;
+        }
+		.wrapper.style2 .spotlight {
+            background-color: white;
+            border-bottom-color: rgba(144, 144, 144, 0.25);
+        }
+
+        .wrapper.style2.alt {
+            border-top-color: rgba(144, 144, 144, 0.25);
+        }
+        .wrapper.style2 a {
+            color: #00BC8A;
+        }
+		.wrapper.style2 .select-wrapper:before {
+            color: rgba(144, 144, 144, 0.25);
+        }
+        .wrapper.style2 .inner .content{
+            margin-left:200px;
+            margin-right:0px ;
+        }
+        .wrapper.style2 .inner .eng_content{
+            margin-left:100px;
+            margin-right:150px ;
+        }
+        .wrapper.style2 strong, .wrapper.style2 b {
+            color: #666;
+        }
+
+        .wrapper.style2 h1, .wrapper.style2 h2, .wrapper.style2 h3, .wrapper.style2 h4, .wrapper.style2 h5, .wrapper.style2 h6 {
+            color: #666;
+        }
+
+        .wrapper.style2 blockquote {
+            border-left-color: rgba(144, 144, 144, 0.25);
+        }
+
+        .wrapper.style2 code {
+            background: rgba(144, 144, 144, 0.075);
+            border-color: rgba(144, 144, 144, 0.25);
+        }
 	input[type="radio"] {
 		-moz-appearance: none;
 		-webkit-appearance: none;
@@ -1932,7 +2026,7 @@
 		z-index: -1;
 	}
 
-		input[type="checkbox"] + label,
+		
 		input[type="radio"] + label {
 			text-decoration: none;
 			cursor: pointer;
