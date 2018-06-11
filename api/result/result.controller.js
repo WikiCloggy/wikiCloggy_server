@@ -107,7 +107,7 @@ exports.addKeyword = (req, res) => {
             Result.create({keyword: req.body.keyword, eng_keyword : req.body.eng_keyword}, (err, create) => {
               if(!err) {
                 // python run label
-                Result.findOneAndUpdate({_id : result[0]._id},{ $push : {img_paths :{img_path: `${config.serverUrl()}/${new_image_path}`}}},function(err, update) {
+                Result.findOneAndUpdate({_id : create[0]._id},{ $push : {img_paths :{img_path: `${config.serverUrl()}/${new_image_path}`}}},function(err, update) {
                   if(!err) {
                     // python run label
                     PythonShell.run("label_maker.py",{mode :'text', pythonOptions:['-u'],pythonPath: 'python3',scriptPath:'../wikiCloggy_cloggy_state_estimator/',
@@ -116,7 +116,7 @@ exports.addKeyword = (req, res) => {
                       PythonShell.run("add_data.py",{mode :'text', pythonOptions:['-u'],pythonPath: 'python3',scriptPath:'../wikiCloggy_cloggy_state_estimator/',
                       args:[new_image_path ,"-flip", req.body.flip, "-keyword", req.body.eng_keyword]},function (err, results) {
                         console.log("pythonShell make training dataset");
-                        return res.json(create);
+                        return res.json(update);
                       });
                     });
                   }
