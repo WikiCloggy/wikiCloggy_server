@@ -88,7 +88,7 @@ function copyImage(img_path, callback) {
   exec(`cp ./${relativePath} ./files/result/${filename}`, function(err, stdout, stderr) {
     console.log('stdout: ' + stdout);
     console.log('stderr: ' + stderr);
-    if (!err) {
+    if (err !==null) {
       console.log('error: ' + err);
     }
   });
@@ -96,8 +96,7 @@ function copyImage(img_path, callback) {
 }
 
 exports.addKeyword = (req, res) => {
-  Board.find({_id : req.body._id}, (err, board) => {
-    board[0].adminChecked = true;
+  Board.findOneAndUpdate({_id : req.body._id}, {adminChecked : true}, (err, board) => {
     var img_path = board[0].img_path;
     Result.find({eng_keyword : req.body.eng_keyword}, function (err, result) {
       if(err) res.json({result : "fail"});
