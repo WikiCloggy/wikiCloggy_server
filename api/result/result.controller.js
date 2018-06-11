@@ -103,7 +103,7 @@ exports.addKeyword = (req, res) => {
           console.log("cp ok");
           if( result == '') { // 키워드가 존재하지 않을 때 생성함
             console.log('result not exist');
-            Result.create({keyword: req.body.keyword, eng_keyword : req.body.eng_keyword}, (err, create) => {
+            Result.create(req.body, (err, create) => {
               if(!err) {
                 // python run label
                 console.log('create no error');
