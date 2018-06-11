@@ -92,7 +92,8 @@ function copyImage(img_path, callback) {
       console.log('error: ' + err);
     }
   });
-  callback(`/files/result/${filename}`);
+  var new_img_path = `/files/result/${filename}`
+  callback(new_img_path);
 }
 
 exports.addKeyword = (req, res) => {
