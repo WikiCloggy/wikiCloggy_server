@@ -127,6 +127,7 @@ exports.addKeyword = (req, res) => {
             Result.findOneAndUpdate({_id : result[0]._id},{ $push : {img_paths :{img_path: `${config.serverUrl()}${new_image_path}`}}},function(err, update) {
               if(!err) {
                 // python run label
+                console.log("result exist"+update);
                 PythonShell.run("label_maker.py",{mode :'text', pythonOptions:['-u'],pythonPath: 'python3',scriptPath:'../wikiCloggy_cloggy_state_estimator/',
                 args:["-add",req.body.eng_keyword]},function (err, results) {
                   console.log("pythonShell labeling start");
