@@ -160,8 +160,7 @@ exports.getEngKeyword = (req, res) => {
 
 exports.getTrainedDate = (req,res) => {
   var filename = `trainedDate.json`
-  // var content = fs.readFileSync('../data/result/'+filename);
-  var content = fs.readFileSync(filename);
+  var content = fs.readFileSync('../data/result/'+filename);
   console.log("content = " +content);
   var jsonContent = JSON.parse(content);
 
