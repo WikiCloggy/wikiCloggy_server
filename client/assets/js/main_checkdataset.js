@@ -106,7 +106,7 @@ function makeTemplate(json, i, html) {
                 <div>
                 <select name="eng_key" id =select_engkey`+ json._id + `>영어키워드선택` + engKeyListHtml + `</select>
                 </div>
-                <input id="ta_eng_key`+json._id`" type="text" placeholder="Write down New English Keyword" />
+                <input id="ta_eng_key`+json._id+`" type="text" placeholder="Write down New English Keyword" />
             </div>`;
 
     site.appendChild(makeTemplate);
