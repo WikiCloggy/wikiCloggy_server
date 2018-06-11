@@ -1990,12 +1990,13 @@
             color: rgba(144, 144, 144, 0.25);
         }
         .wrapper.style2 .inner .content{
-            margin-left:200px;
-            margin-right:0px ;
+            margin-left:0px;
+			margin-right:0px ;
+			margin-top:50px;
         }
         .wrapper.style2 .inner .eng_content{
-            margin-left:100px;
-            margin-right:150px ;
+            margin-left:0px;
+            margin-right:0px ;
         }
         .wrapper.style2 strong, .wrapper.style2 b {
             color: #666;
