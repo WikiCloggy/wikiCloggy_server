@@ -164,6 +164,17 @@ $(document).on('click', '.button', function () {
 
     var checkboxArray  = document.getElementsByClassName("cb" + $id_num);
     var checkbox;
+    var checknum=0;
+    for (var j=0;j<checkboxArray.length;j++){
+        checkbox= document.getElementById("c" + $id_num+"_"+j);
+        if (checkbox.checked){
+            checknum++;
+        }
+        if(checknum>1){
+            alert("Need to check only one keyword");
+            return;          
+        }
+    }
     for (var i = 0; i < checkboxArray.length; i++) {
         checkbox= document.getElementById("c" + $id_num+"_"+i);
         if (checkbox.checked) {
@@ -181,7 +192,11 @@ $(document).on('click', '.button', function () {
     //getLeftorRight
     var selected_LR=""; 
     console.log(document.getElementById("left" + $id_num));
-    if(document.getElementById("left" + $id_num).checked)
+    if((document.getElementById("left" + $id_num).checked)&&(document.getElementById("right" + $id_num).checked)){
+        alert("Need to check only one direction");
+        return;
+    }
+    else if(document.getElementById("left" + $id_num).checked)
         selected_LR="left";
     else if(document.getElementById("right" + $id_num).checked)
         selected_LR="right";
