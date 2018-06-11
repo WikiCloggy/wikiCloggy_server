@@ -42,10 +42,11 @@ function makeEngKeySelect(Boardjson) {
 
         }).then((json) => {
             console.log(json);
-            var html = ``;
+            var html = `<option value"">select english keyword</option><optgroup label="existing eng_keyword">`;
             for (var i = 0; i < json.length; i++) {
                 html += `<option value ="` + json[i].eng_keyword + `">` + json[i].eng_keyword + `</option>\n`
             }
+            html += `</optgroup><option value ="etc">etc.</option>\n`
 
             return html;
         }).then((html) => {
@@ -82,16 +83,16 @@ function makeTemplate(json, i, html) {
     var comments = "";
     //make comments template
     for (var j = 0; j < json.comments.length; j++) {
-        comments += "<div><input type=\"checkbox\" class=\"cb" + json._id + 
-        "\" id=\"c" + (json._id) + "_" + j + "\" name=\"cc\" value=\""+json.comments[j].keyword+"\"><lable>" 
-        + json.comments[j].keyword + "</label></div>\n";
+        comments += "<div><input type=\"checkbox\" class=\"cb" + json._id +
+            "\" id=\"c" + (json._id) + "_" + j + "\" name=\"cc\" value=\"" + json.comments[j].keyword + "\"><lable>"
+            + json.comments[j].keyword + "</label></div>\n";
     };
     makeTemplate.setAttribute('class', 'spotlight');
     makeTemplate.innerHTML =
         `<div class="image" id= "img` + json._id + `float: left; width: 33%;">
-            <img src="`+ json.img_path + `" onerror="this.src='./images/pic01.jpg'" height="90%" width="90%" margin-top :10%, margin-bottom :10%, margin-left:10% />
+            <img src="`+ json.img_path + `" onerror="this.src='./images/pic01.jpg'" />
             <div class ="L" id= "L`+ json._id + `"><input type="checkbox" class="left" id="left` + json._id + `" name="left">
-            <lable>LEFT</label></div><div class ="R" id= "R`+ json._id + `"><input type="checkbox" class="right" id="right`+ json._id + `"name="right"><lable>RIGHT</lable>
+            <lable>LEFT</label></div><div class ="R" id= "R`+ json._id + `"><input type="checkbox" class="right" id="right` + json._id + `"name="right"><lable>RIGHT</lable>
                   </div></div></div>
             <div class="content" float: left; width: 33%;>
                 <h3>Keywords List</h3>`
@@ -102,49 +103,51 @@ function makeTemplate(json, i, html) {
             </div>
             <div class = "eng_content"  float: left; width: 33%;>
                 <h3> English Keywords </h3>
-                <div><select name="eng_key" id =select_engkey`+ json._id + `>영어키워드선택` + engKeyListHtml + `</select></div></div>`;
+                <div>
+                <select name="eng_key" id =select_engkey`+ json._id + `>영어키워드선택` + engKeyListHtml + `</select>
+                </div>
+                <input class="ta_eng_key" type="text" placeholder="Write down New English Keyword" />
+            </div>`;
 
     site.appendChild(makeTemplate);
 };
 
-function POST_RegisterData(board_id,selected_keyword_eng,selected_keyword_kor,selected_LR) {
+function POST_RegisterData(board_id, selected_keyword_eng, selected_keyword_kor, selected_LR) {
     var myHeaders = new Headers();
-    var config_get = {  
+    var config_get = {
         method: 'GET',
         headers: myHeaders,
         mode: 'cors',
         cache: 'default'
     };
     //PATH = BOARD
-    fetch(`../api/board/details/${board_id}`, config_get).then(function (response) {
-        return response.json();
-    }).then(function (json) {
-        //find one json obejct from json array with json id
-        var jsonobject = findJSONBoard(json,board_id);
-        // make variable with new keyword and new img_path 
-        const jsonModified = { '_id':board_id,'eng_keyword': selected_keyword_eng, 'keyword':selected_keyword_kor,
-         'flip':selected_LR,'img_path': jsonobject.img_path };
-        console.log(jsonModified);
-        const config_post = {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            //change body to jsonModified to make new dataset
-            body: JSON.stringify(jsonModified),
-            credentials: 'same-origin',
-        };
-        return fetch("../api/result/admin/addKeyword",config_post)
-        //NEED TO CHANGE THE PATH 
-        /*
-        fetch('../api/' + json_id, config_post).then(function (response) {
+    fetch(`../api/board/details/${board_id}`, config_get)
+        .then(function (response) {
+            return response.json();
+        }).then(function (json) {
+            //find one json obejct from json array with json id
+            var jsonobject = findJSONBoard(json, board_id);
+            // make variable with new keyword and new img_path 
+            const jsonModified = {
+                '_id': board_id, 'eng_keyword': selected_keyword_eng, 'keyword': selected_keyword_kor,
+                'flip': selected_LR, 'img_path': jsonobject.img_path
+            };
+            console.log(jsonModified);
+            const config_post = {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                //change body to jsonModified to make new dataset
+                body: JSON.stringify(jsonModified),
+                credentials: 'same-origin',
+            };
+            return fetch("../api/result/admin/addKeyword", config_post);
 
-        }).then(function () {
-            //after modifying reload the modify.html 
-            window.location.reload();
-        });*/
-    }).then((res)=>{
-    });
+            
+        });
+        alert("Data added");
+        window.location.reload();
 }
 
 //event when you clicked Register button
@@ -160,56 +163,67 @@ $(document).on('click', '.button', function () {
     console.log($id_num);
     //img to to register keyword
     // var img = document.getElementsById("img" + $id_num);
-    var selected_keyword = "";
 
-    var checkboxArray  = document.getElementsByClassName("cb" + $id_num);
+    var checkboxArray = document.getElementsByClassName("cb" + $id_num);
     var checkbox;
-    var checknum=0;
-    for (var j=0;j<checkboxArray.length;j++){
-        checkbox= document.getElementById("c" + $id_num+"_"+j);
-        if (checkbox.checked){
+    var checknum = 0;
+    for (var j = 0; j < checkboxArray.length; j++) {
+        checkbox = document.getElementById("c" + $id_num + "_" + j);
+        if (checkbox.checked) {
             checknum++;
         }
-        if(checknum>1){
+        if (checknum > 1) {
             alert("Need to check only one keyword");
-            return;          
+            return;
         }
     }
     for (var i = 0; i < checkboxArray.length; i++) {
-        checkbox= document.getElementById("c" + $id_num+"_"+i);
+        checkbox = document.getElementById("c" + $id_num + "_" + i);
         if (checkbox.checked) {
-            var selected_keyword_eng = document.getElementById("select_engkey"+$id_num).value;
+            var selected_keyword_eng = document.getElementById("select_engkey" + $id_num).value;
+            if (selected_keyword_eng == "etc") {
+                selected_keyword_eng = (document.getElementsByClassName("ta_eng_key")[0].value);
+                if (selected_keyword_eng == "") {
+                    alert("There is no word to be keyword");
+                    return;
+                }
+            }
+            else if (selected_keyword_eng == "select english keyword") {
+                alert("You need to choose english keyword from the list");
+                return;
+            }
+            console.log(selected_keyword_eng);
             var selected_keyword_kor = checkbox.value;
-            
-            console.log(selected_keyword);
+
+            console.log(selected_keyword_kor);
             break;
         }
-        if(i==checkboxArray.length-1){
+        if (i == checkboxArray.length - 1) {
             alert("Need to choose one of the keyword");
             return;
         }
     }
     //getLeftorRight
-    var selected_LR=""; 
+    var selected_LR = "";
     console.log(document.getElementById("left" + $id_num));
-    if((document.getElementById("left" + $id_num).checked)&&(document.getElementById("right" + $id_num).checked)){
+    if ((document.getElementById("left" + $id_num).checked) && (document.getElementById("right" + $id_num).checked)) {
         alert("Need to check only one direction");
         return;
     }
-    else if(document.getElementById("left" + $id_num).checked)
-        selected_LR="left";
-    else if(document.getElementById("right" + $id_num).checked)
-        selected_LR="right";
-    else{
+    else if (document.getElementById("left" + $id_num).checked)
+        selected_LR = "left";
+    else if (document.getElementById("right" + $id_num).checked)
+        selected_LR = "right";
+    else {
         alert("Need to choose direction of the head");
         return;
     }
 
     console.log(selected_LR);
     //send selected keyword
-    POST_RegisterData($id_num,selected_keyword_eng,selected_keyword_kor,selected_LR);
+    POST_RegisterData($id_num, selected_keyword_eng, selected_keyword_kor, selected_LR);
     //notice that your data added
-    alert('Data added');
+
 });
 (function ($) {
     //make html when your html first pop-up 

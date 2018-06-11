@@ -1850,7 +1850,7 @@
 	input[type="text"],
 	input[type="password"],
 	input[type="email"],
-	select,
+	
 	textarea {
 		-moz-appearance: none;
 		-webkit-appearance: none;
@@ -1864,7 +1864,10 @@
 		outline: 0;
 		padding: 0 1em;
 		text-decoration: none;
-		width: 100%;
+		width: 120%;
+		height:70%;
+		margin-top: 10px;
+		font-size : 10pt;
 	}
 
 		input[type="text"]:invalid,
@@ -1942,10 +1945,10 @@
 		}
 
 		.wrapper.style2 select{
-            width: 200px;
+            width: 100%;
             height: 30px;
             padding-left: 10px;
-            font-size: 18px;
+            font-size: 12pt;
             color: #006fff;
             border: 1px solid #006fff;
             border-radius: 3px;
@@ -1996,7 +1999,7 @@
         }
         .wrapper.style2 .inner .eng_content{
             margin-left:0px;
-            margin-right:0px ;
+            margin-right:0px;
         }
         .wrapper.style2 strong, .wrapper.style2 b {
             color: #666;
@@ -2793,8 +2796,9 @@
 			color: #777;
 		}
 
-			.wrapper.style2 input, .wrapper.style2 select, .wrapper.style2 textarea {
+			 .wrapper.style2 select{
 				color: #666;
+				font-size:13pt;
 			}
 
 			.wrapper.style2 a {
