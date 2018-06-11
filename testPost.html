@@ -1,0 +1,49 @@
+<html>
+<head>
+</head>
+<body>
+  <div class="js-form">
+    <input type="text" id="post" placeholder="게시글 id"class="js-post"><br><br>
+    <input type="file" id="file" class="js-input-file"><br><br>
+    <input type="submit" class="js-submit" value="submit">
+  </div>
+  <script type="text/javascript">
+    const file = document.querySelector('.js-input-file');
+    const submit = document.querySelector('.js-submit');
+    const post = document.querySelector('.js-post');
+
+    function uploadFile(id) {
+      const data = new FormData();
+
+      data.append('postFile', file.files[0]);
+
+      const config = {
+        method : 'POST',
+        body: data,
+        credentials: 'same-origin',
+      };
+
+      return fetch(`/api/board/files/${id}`, config)
+        .then((res) => {
+          if (res.status >= 200 && res.status < 300) {
+            return res.json();
+          }
+        })
+        .catch((ex) => {
+          console.log('request failed', ex);
+        });
+    }
+
+    const handleSubmit = (event) => {
+      event.preventDefault();
+      const check = file.files[0].name.split('.').pop().toLowerCase();
+      if (check !== 'bmp' && check !== 'jpg' && check !== 'png') {
+        file.value = '';
+        alert('Select img file!');
+      }
+      Promise.all([uploadFile(post.value)]);
+    };
+    submit.addEventListener('click', handleSubmit);
+  </script>
+</body>
+</html>

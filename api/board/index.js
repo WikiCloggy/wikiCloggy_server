@@ -1,5 +1,5 @@
 const express = require('express');
-
+const fs = require('fs');
 const router = express.Router();
 const boardCtrl = require('./board.controller');
 
@@ -28,6 +28,19 @@ router.delete('/delete/:id/:comment', boardCtrl.deleteComment);
 
 // for admin
 router.get('/admin/show', boardCtrl.getAll);
+
+router.get('/admin/upload', function(req, res) {
+  res.writeHead(200, {'Content-Type': 'text/html'});
+  fs.readFile('testPost.html', null, function(error, data) {
+    if(error) {
+      res.writeHead(404);
+      res.write('File not found!');
+    } else {
+      res.write(data);
+    }
+    res.end();
+  });
+});
 
 // get keyword dataset
 router.get('/admin/keyword',boardCtrl.getBoardForAdmin);
