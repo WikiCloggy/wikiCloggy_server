@@ -97,11 +97,10 @@ function copyImage(img_path, callback) {
 
 exports.addKeyword = (req, res) => {
   Board.findOneAndUpdate({_id : req.body._id}, {adminChecked : true}, (err, board) => {
-    var img_path = board[0].img_path;
     Result.find({eng_keyword : req.body.eng_keyword}, function (err, result) {
       if(err) res.json({result : "fail"});
       else {
-        copyImage(img_path,function (new_image_path){
+        copyImage(board[0].img_path,function (new_image_path){
           if(req.body.flip == "left") req.body.flip = "False";
           else "True";
           if( result == "") { // 키워드가 존재하지 않을 때 생성함
