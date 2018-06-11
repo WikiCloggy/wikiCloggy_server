@@ -84,14 +84,14 @@ function copyImage(img_path, callback) {
   var nArLength = splitPath.length;
   var filename = splitPath[nArLength-1];
   var relativePath = splitPath[nArLength-3] +'/'+splitPath[nArLength-2] +'/'+splitPath[nArLength-1];
-  exec(`cp ../../${relativePath} ../../files/result/${filename}`, function(err, stdout, stderr) {
+  exec(`cp /${relativePath} /files/result/${filename}`, function(err, stdout, stderr) {
     console.log('stdout: ' + stdout);
     console.log('stderr: ' + stderr);
-    if (error !== null) {
+    if (!err) {
       console.log('error: ' + err);
     }
   });
-  callback(`../../files/result/${filename}`);
+  callback(`/files/result/${filename}`);
 }
 
 exports.addKeyword = (req, res) => {
