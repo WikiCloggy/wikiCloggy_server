@@ -125,6 +125,7 @@ exports.addKeyword = (req, res) => {
                   else return res.json({result : "fail"});
                 });
               }
+              else return res.status(500).send(err);
             }); // 존재하지 않는 keyword 생성.
           }
           else { // 키워드가 존재함. 복사된 이미지 경로로 path push해주기
