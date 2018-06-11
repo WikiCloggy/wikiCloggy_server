@@ -19,6 +19,7 @@ router.delete('/admin/delete/:id', resultCtrl.delete);
 router.get(`/admin/getEngKeyword`, resultCtrl.getEngKeyword);
 router.post(`/admin/addKeyword`, resultCtrl.addKeyword);
 router.post(`/admin/training`, resultCtrl.training);
+router.get(`/admin/getTrainedDate`, resultCtrl.getTrainedDate);
 
 //add keyword & information
 router.get('/admin/upload', function(req, res) {

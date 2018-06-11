@@ -80,13 +80,6 @@ exports.editKeyword = (req, res) => {
   )
 }
 
-function copyImage(img_path, callback) {
-
-
-  var new_img_path = `/files/result/${filename}`
-  callback(new_img_path);
-}
-
 exports.addKeyword = (req, res) => {
   Board.findOneAndUpdate({_id : req.body._id}, {adminChecked : true}, (err, board) => {
     Result.find({eng_keyword : req.body.eng_keyword}, function (err, result) {
@@ -163,4 +156,14 @@ exports.getEngKeyword = (req, res) => {
   Result.find({},{"eng_keyword":true}, function (err, result) {
     return res.json(result);
   });
+}
+
+exports.getTrainedDate = (req,res) => {
+  var filename = `trainedDate.json`
+  // var content = fs.readFileSync('../data/result/'+filename);
+  var content = fs.readFileSync(filename);
+  console.log("content = " +content);
+  var jsonContent = JSON.parse(content);
+
+  return res.json(jsonContent);
 }
