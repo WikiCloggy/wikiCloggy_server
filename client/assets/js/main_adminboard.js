@@ -53,10 +53,17 @@ function makeTemplate(json) {
         `<div class="image" id= "img` + json._id + `float: left; width: 33%;">
             <img src="`+ img_path + `" onerror="this.src='./images/pic01.jpg'" />
             </div>
+          
+              
+        
             <div class="content" float: left; width: 33%;>
+            <h3> Title </h3>
+            <div type="textarea">`
+            + title + `<p></p></div>
                 <h3>Content</h3>
                 <div type="textarea">`
-                 + content + `</div><div>
+                 + content + `<p></p></div>
+                 <div>
                 <ul class="actions">
                 <li><a href="#" class="button alt" id="button`+ json._id + `">Delete</a></li>
                 </ul>
@@ -85,7 +92,7 @@ function DELETE(board_id) {
 //event when you clicked Register button
 $(document).on('click', '.button', function () {
 
-    console.log("Register");
+    console.log("Delete");
     var $this = $(this);
     //find json_id
     var $this_id = $this[0].id;
